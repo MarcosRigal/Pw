@@ -1,6 +1,6 @@
 package E1;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 enum categoria{
 	concierto, obra, monologo;
@@ -16,7 +16,7 @@ public class Espectaculo {
 	private String titulo;
 	private categoria categoria;
 	private String descripcion;
-	private Date fecha;
+	private LocalDate fecha;
 	private int aforo;
 	private int entradasVendidas;
 
@@ -46,7 +46,7 @@ public class Espectaculo {
 		return descripcion;
 	}
 	
-	public Date getFecha(){
+	public LocalDate getFecha(){
 		return fecha;
 	}
 	
@@ -72,8 +72,8 @@ public class Espectaculo {
 		this.descripcion=descripcion;
 	}
 	
-	public void setFecha(Date fecha){
-		this.fecha=fecha;
+	public void setFecha(LocalDate localDate){
+		this.fecha=localDate;
 	}
 	
 	public void setAforo(int aforo){

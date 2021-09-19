@@ -1,6 +1,7 @@
 package E4;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import E1.Espectaculo;
 import E1.Espectaculo.categoria;
@@ -31,10 +32,12 @@ public class mainProgram {
 		E3.setEntradasVendidas(50);
 		E4.setEntradasVendidas(25);
 		
-		E1.setFecha(new Date(System.currentTimeMillis()*2));
-		E2.setFecha(new Date(System.currentTimeMillis()*5));;
-		E3.setFecha(new Date(System.currentTimeMillis()*4));
-		E4.setFecha(new Date(System.currentTimeMillis()*3));
+		E1.setFecha(LocalDate.of(2022, 02, 20));
+		E2.setFecha(LocalDate.of(2023, 02, 20));
+		E3.setFecha(LocalDate.of(2025, 02, 20));
+		E4.setFecha(LocalDate.of(2024, 02, 2));
+		
+		
 		
 		programacion.programarEspectaculo(E1);
 		programacion.programarEspectaculo(E2);
@@ -45,8 +48,8 @@ public class mainProgram {
 	    for (int i=0;i<programacion.verEspectaculos().size();i++) { 
 	    	System.out.println(programacion.verEspectaculos().get(i).getFecha());	    	
 	      }
-		System.out.println(programacion.verProximosEspectaculos(new Date(System.currentTimeMillis()*6)));
-		System.out.println(programacion.verProximosEspectaculos(new Date(System.currentTimeMillis()/2)));
+		System.out.println(programacion.verProximosEspectaculos(LocalDate.of(2015, 02, 20)));
+		System.out.println(programacion.verProximosEspectaculos(LocalDate.of(2024, 02, 20)));
 	}
 	
 }

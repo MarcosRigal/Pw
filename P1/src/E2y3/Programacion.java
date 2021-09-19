@@ -1,5 +1,7 @@
 package E2y3;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,12 +33,12 @@ public class Programacion {
 	    return titulos;
 	}
 	
-	public ArrayList<Espectaculo> verProximosEspectaculos(Date fecha){
-		Date now = new Date(System.currentTimeMillis());
-		if(fecha.after(now)){
+	public ArrayList<Espectaculo> verProximosEspectaculos(LocalDate fecha){
+		LocalDate now = LocalDate.now();
+		if(fecha.isAfter(now)){
 			ArrayList<Espectaculo> programacionFiltrada = new ArrayList<Espectaculo>();
 		    for (int i=0;i<programacion.size();i++) { 
-		        if(programacion.get(i).getFecha().before(fecha)){
+		        if(programacion.get(i).getFecha().isBefore(fecha)){
 		        	programacionFiltrada.add(programacion.get(i));
 		        }
 		      }
