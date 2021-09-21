@@ -1,3 +1,0 @@
-INDEX VERSION 1.127+/home/marcos/Repositories/Pw/.metadata/.plugins/org.eclipse.jdt.core
-1345500471.index
-657819041.index
