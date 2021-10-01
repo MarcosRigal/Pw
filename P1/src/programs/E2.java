@@ -1,5 +1,7 @@
 package programs;
 
+//Programa principal del Ejercicio 2
+
 import storage.FileStorage;
 import storage.IRepository;
 
