@@ -1,21 +1,100 @@
 package users;
 
-//Clase de la que heredan el resto de usuarios
+/**
+ * Clase abstracta de la que heredan las clases User y Admin
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
 
 public abstract class User {
-	
-	public abstract int getUserId(); //Devuelve el identificador del usuario 
-	public abstract String getName(); //Devuelve el nombre del usuario
-	public abstract String getSurname(); //Devuelve los apellidos del usuario
-	public abstract String getNick(); //Devuelve el nick del usuario
-	public abstract String getEmail(); //Devuelve el email del usuario
 
-	public abstract String getType(); //Devuelve el tipo de entidad
-	
-	public abstract void setUserId(int userId); //Modifica el identificador del usuario
-	public abstract void setName(String name); //Modifica el nombre del usuario
-	public abstract void setSurname(String surname); //Modifica los apellidos del usuario
-	public abstract void setNick(String nick); //Modifica el nick del usuario
-	public abstract void setEmail(String email); //Modifica el email del usuario
+  /**
+   * Devuelve el identificador del usuario
+   * @param none
+   * @return int Identificador del usuario
+   */
 
+  public abstract int getUserId();
+
+  /**
+   * Devuelve el Nombre del usuario
+   * @param none
+   * @return String Nombre del usuario
+   */
+
+  public abstract String getName();
+
+  /**
+   * Devuelve los apellidos del usuario
+   * @param none
+   * @return String Apellidos del usuario
+   */
+
+  public abstract String getSurname();
+
+  /**
+   * Devuelve el nick del usuario
+   * @param none
+   * @return String Nick del usuario
+   */
+
+  public abstract String getNick();
+
+  /**
+   * Devuelve el email del usuario
+   * @param none
+   * @return String Email del usuario
+   */
+
+  public abstract String getEmail();
+
+  /**
+   * Devuelve el tipo de usuario
+   * @param none
+   * @return String Tipo del usuario
+   */
+
+  public abstract String getType();
+
+  /**
+   * Cambia el identificador del usuario
+   * @param int Identificador del usuario
+   * @return none
+   */
+
+  public abstract void setUserId(int userId);
+
+  /**
+   * Cambia el nombre del usuario
+   * @param String Nombre del usuario
+   * @return none
+   */
+
+  public abstract void setName(String name);
+
+  /**
+   * Cambia los apellidos del usuario
+   * @param String Apellidos del usuario
+   * @return none
+   */
+
+  public abstract void setSurname(String surname);
+
+  /**
+   * Cambia el nick del usuario
+   * @param String Nick del usuario
+   * @return none
+   */
+
+  public abstract void setNick(String nick);
+
+  /**
+   * Cambia el email del usuario
+   * @param String Email del usuario
+   * @return none
+   */
+
+  public abstract void setEmail(String email);
 }
