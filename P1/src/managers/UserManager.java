@@ -17,6 +17,8 @@ public class UserManager {
   private static UserManager instance = null;
 
   private ArrayList<User> users = new ArrayList<User>();
+  
+  private int userId = 0;
 
   /**
    * Constructor de la clase privado
@@ -66,6 +68,7 @@ public class UserManager {
    */
 
   public boolean registerUser(User user) {
+    users.add(user);
     return true;
   }
 
@@ -97,5 +100,25 @@ public class UserManager {
 
   public User searchUser(int userId) {
     return null;
+  }
+  
+  /**
+   * Devuelve un identificador para los nuevos usuarios creados
+   * @param none
+   * @return int Identificador del próximo usuario
+   */
+  
+  public int getUserId() {
+	return userId;
+  }
+
+  /**
+   * Se usa en la carga del sistema para recuperar el indice
+   * @param int Identificador del usuario que se desea asignar
+   * @return none
+   */
+  
+  public void setReviewId(int userId) {
+	this.userId = userId;
   }
 }

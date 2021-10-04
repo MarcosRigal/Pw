@@ -113,7 +113,7 @@ public class Spectator extends User {
 
   @Override
   public void setSurname(String surname) {
-    this.surname = name;
+    this.surname = surname;
   }
 
   /**

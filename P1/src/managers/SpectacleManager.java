@@ -2,6 +2,8 @@ package managers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import reviews.Review;
 import spectacles.Spectacle;
 import spectacles.Spectacle.category;
 
@@ -19,6 +21,8 @@ public class SpectacleManager {
   private static SpectacleManager instance = null;
 
   private ArrayList<Spectacle> spectacles = new ArrayList<Spectacle>();
+  
+  private int spectacleId = 0;
 
   /**
    * Busca y devuelve una review en concreto
@@ -193,5 +197,25 @@ public class SpectacleManager {
 
   public boolean reviewReview() {
     return true;
+  }
+  
+  /**
+   * Devuelve un identificador para los nuevos espectaculos creados
+   * @param none
+   * @return int Identificador del próximo espectáculo
+   */
+  
+  public int getSpectacleId() {
+	return spectacleId;
+  }
+
+  /**
+   * Se usa en la carga del sistema para recuperar el indice
+   * @param int Identificador del espectáculo que se desea asignar
+   * @return none
+   */
+  
+  public void setSpectacleId(int spectacleId) {
+	this.spectacleId = spectacleId;
   }
 }

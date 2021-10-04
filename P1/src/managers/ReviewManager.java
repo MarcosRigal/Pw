@@ -18,6 +18,7 @@ public class ReviewManager {
 
   private ArrayList<Review> reviews = new ArrayList<Review>();
 
+  private int reviewId = 0;
   /**
    * Busca y devuelve una review en concreto
    * @param int Identificador de la review que se desea buscar
@@ -97,5 +98,25 @@ public class ReviewManager {
 
   public Review searchReview(int review) {
     return null;
+  }
+  
+  /**
+   * Devuelve un identificador para las nuevas reviews creadas
+   * @param none
+   * @return int Identificador de la próxima review que se cree
+   */
+  
+  public int getReviewId() {
+	return reviewId;
+  }
+
+  /**
+   * Se usa en la carga del sistema para recuperar el indice
+   * @param int Identificador de la review que se desea asignar
+   * @return none
+   */
+  
+  public void setReviewId(int reviewId) {
+	this.reviewId = reviewId;
   }
 }
