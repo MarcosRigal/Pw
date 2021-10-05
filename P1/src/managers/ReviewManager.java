@@ -2,6 +2,7 @@ package managers;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import reviews.Review;
 
 /**
@@ -105,8 +106,22 @@ public class ReviewManager {
    * @return Boolean True si se ha podido borrar false si no
    */
 
-  public boolean deleteReview(int reviewId) {
-    return true;
+  public Boolean deleteReview() {
+	ReviewManager reviewManager = ReviewManager.getInstance();
+
+    scanner = new Scanner(System.in);
+    
+    reviewManager.listReviews();
+    System.out.print("Introduzca el identificador de la crítica que desea borrar: ");
+    int deleteReviewId = scanner.nextInt();
+    
+    for (int i = 0; i < reviews.size(); i++) {
+        if (reviews.get(i).getReviewId() == deleteReviewId) {
+        	reviews.remove(i);
+          return true;
+        }
+    }
+    return false;
   }
 
   /**
