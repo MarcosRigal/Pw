@@ -18,14 +18,16 @@ public class ReviewManager {
 
   private ArrayList<Review> reviews = new ArrayList<Review>();
 
-  private int reviewId = 0;
+  private int reviewId;
   /**
    * Busca y devuelve una review en concreto
    * @param int Identificador de la review que se desea buscar
    * @return Review review buscada o null si no la encuentra
    */
 
-  private ReviewManager() {}
+  private ReviewManager() {
+	  reviewId = 0;
+  }
 
   /**
    * Método público encargado de devolver

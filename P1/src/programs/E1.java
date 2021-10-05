@@ -1,5 +1,6 @@
 package programs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,37 +21,44 @@ import utilities.SystemFunctions;
 
 
 public class E1 {
-	public static void main(String[] args){
+	private static Scanner scanner;
+
+	public static void main(String[] args) throws IOException{
 		
 		IRepository entityRepository = new FileStorage();
-		Scanner scanner = new Scanner(System.in);
+		scanner = new Scanner(System.in);
 		UserManager userManager = UserManager.getInstance();
 		
-		int choice;
-		String input;
-
-		SystemFunctions.printE1WelcomeScreen();
+		entityRepository.loadSystem();
 		
-		input = scanner.nextLine();  
+		int choice;
 		
 		SystemFunctions.printE1LoginScreen();
 		
 		choice = scanner.nextInt();
 		
-		if (choice == 1) {
-			userManager.registerUser(SystemFunctions.registerUser("Spectator"));
-			ArrayList<User> users = userManager.getUsers();
-			System.out.println(users.get(0).getUserId());
-			System.out.println(users.get(0).getName());
-			System.out.println(users.get(0).getSurname());
-			System.out.println(users.get(0).getNick());
-			System.out.println(users.get(0).getEmail());
+		while (choice != 0) {
+			if (choice == 1) {
+				userManager.registerUser(SystemFunctions.registerUser("Spectator"));
+			}
+			
+			if (choice == 2){
+				String type = SystemFunctions.loginUser();
+				if (type.equals("Spectator")) {
+					System.out.println("Bienvenido Usuario");
+				}
+				if (type.equals("Admin")) {
+					System.out.println("Bienvenido Administrador");
+				}
+				if (type.equals("none")) {
+					System.out.println("Error de autentificación");
+				}
+			}
+			SystemFunctions.printE1LoginScreen();
+			choice = scanner.nextInt();
 		}
-		
-		if (choice == 2){
-			SystemFunctions.printE1WelcomeScreen();
-		}
-		
+		ArrayList<User> users = userManager.getUsers();
+		entityRepository.saveSystem();
 		SystemFunctions.printE1ExitScreen();
 	
 	}

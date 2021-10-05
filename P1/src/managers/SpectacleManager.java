@@ -22,7 +22,7 @@ public class SpectacleManager {
 
   private ArrayList<Spectacle> spectacles = new ArrayList<Spectacle>();
   
-  private int spectacleId = 0;
+  private int spectacleId;
 
   /**
    * Busca y devuelve una review en concreto
@@ -30,7 +30,9 @@ public class SpectacleManager {
    * @return Review review buscada o null si no la encuentra
    */
 
-  private SpectacleManager() {}
+  private SpectacleManager() {
+	  spectacleId = 0;
+  }
 
   /**
    * Método público encargado de devolver

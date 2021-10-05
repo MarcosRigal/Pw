@@ -17,6 +17,7 @@ public class Admin extends User {
   private String surname;
   private String nick;
   private String email;
+  private String password;
 
   /**
    * Constructor de la clase administrador
@@ -88,7 +89,7 @@ public class Admin extends User {
 
   @Override
   public String getType() {
-    return "Spectator";
+    return "Admin";
   }
 
   /**
@@ -121,7 +122,7 @@ public class Admin extends User {
 
   @Override
   public void setSurname(String surname) {
-    this.surname = name;
+    this.surname = surname;
   }
 
   /**
@@ -145,4 +146,26 @@ public class Admin extends User {
   public void setEmail(String email) {
     this.email = email;
   }
+	/**
+	 * Devuelve la contraseña del usuario
+	 * @param none
+	 * @return string contraseña del usuario
+	 */
+
+@Override
+public String getUserPassword() {
+	return password;
+}
+
+/**
+* Permite asignar una contraseña al usuario
+* @param String Contraseña del usuario
+* @return none
+*/
+
+@Override
+public void setPassword(String password) {
+	this.password = password;
+	
+}
 }

@@ -18,7 +18,7 @@ public class UserManager {
 
   private ArrayList<User> users = new ArrayList<User>();
   
-  private int userId = 0;
+  private int userId;
 
   /**
    * Constructor de la clase privado
@@ -26,7 +26,9 @@ public class UserManager {
    * @param none
    */
 
-  private UserManager() {}
+  private UserManager() {
+	  userId = 0;
+  }
 
   /**
    * Método público encargado de devolver
@@ -118,7 +120,7 @@ public class UserManager {
    * @return none
    */
   
-  public void setReviewId(int userId) {
+  public void setUserId(int userId) {
 	this.userId = userId;
   }
 }

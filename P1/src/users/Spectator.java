@@ -1,14 +1,23 @@
 package users;
 
-//Este usuario solo puede crear y valorar críticas además puede borrar sus propias criticas y ver la información de los espectaculos
+/**
+ * Clase que representa al usuario del sistema.
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
 
 public class Spectator extends User {
 
-  private int userId; //Identificador del usuario debe ser único
-  private String name; //Nombre del usuario
-  private String surname; //Apellidos del usuario
-  private String nick; //Nick del usuario
-  private String email; //Email del usuario
+  private int userId;
+  private String name; 
+  private String surname;
+  private String nick; 
+  private String email;
+  private String password;
+  
+  
 
   /**
    * Constructor de la clase usuario
@@ -137,4 +146,27 @@ public class Spectator extends User {
   public void setEmail(String email) {
     this.email = email;
   }
+
+	/**
+	 * Devuelve la contraseña del usuario
+	 * @param none
+	 * @return string contraseña del usuario
+	 */
+  
+ @Override
+public String getUserPassword() {
+	return password;
+}
+
+ /**
+  * Permite asignar una contraseña al usuario
+  * @param String Contraseña del usuario
+  * @return none
+  */
+
+@Override
+public void setPassword(String password) {
+	this.password = password;
+	
+}
 }

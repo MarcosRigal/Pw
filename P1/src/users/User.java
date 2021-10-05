@@ -10,7 +10,15 @@ package users;
 
 public abstract class User {
 
-  /**
+	/**
+	 * Devuelve la contraseña del usuario
+	 * @param none
+	 * @return string contraseña del usuario
+	 */
+	
+	public abstract String getUserPassword();
+	
+	/**
    * Devuelve el identificador del usuario
    * @param none
    * @return int Identificador del usuario
@@ -97,4 +105,11 @@ public abstract class User {
    */
 
   public abstract void setEmail(String email);
+  
+  /**
+   * Permite asignar una contraseña al usuario
+   * @param String Contraseña del usuario
+   * @return none
+   */
+  public abstract void setPassword(String password);
 }
