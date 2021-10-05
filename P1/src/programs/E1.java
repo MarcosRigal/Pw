@@ -1,13 +1,10 @@
 package programs;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+import managers.ReviewManager;
 import managers.UserManager;
 import storage.FileStorage;
 import storage.IRepository;
-import users.User;
 import utilities.SystemFunctions;
 
 /**
@@ -19,47 +16,46 @@ import utilities.SystemFunctions;
  * @version 1.0
  */
 
-
 public class E1 {
-	private static Scanner scanner;
 
-	public static void main(String[] args) throws IOException{
-		
-		IRepository entityRepository = new FileStorage();
-		scanner = new Scanner(System.in);
-		UserManager userManager = UserManager.getInstance();
-		
-		entityRepository.loadSystem();
-		
-		int choice;
-		
-		SystemFunctions.printE1LoginScreen();
-		
-		choice = scanner.nextInt();
-		
-		while (choice != 0) {
-			if (choice == 1) {
-				userManager.registerUser(SystemFunctions.registerUser("Spectator"));
-			}
-			
-			if (choice == 2){
-				String type = SystemFunctions.loginUser();
-				if (type.equals("Spectator")) {
-					System.out.println("Bienvenido Usuario");
-				}
-				if (type.equals("Admin")) {
-					System.out.println("Bienvenido Administrador");
-				}
-				if (type.equals("none")) {
-					System.out.println("Error de autentificación");
-				}
-			}
-			SystemFunctions.printE1LoginScreen();
-			choice = scanner.nextInt();
-		}
-		ArrayList<User> users = userManager.getUsers();
-		entityRepository.saveSystem();
-		SystemFunctions.printE1ExitScreen();
-	
-	}
+  public static void main(String[] args) throws IOException {
+    IRepository entityRepository = new FileStorage();
+    UserManager userManager = UserManager.getInstance();
+    ReviewManager reviewManager = ReviewManager.getInstance();
+
+    entityRepository.loadSystem();
+
+    int choice;
+
+    choice = SystemFunctions.printE1LoginScreen();
+
+    while (choice != 0) {
+      if (choice == 1) {
+        userManager.registerUser("Spectator");
+      }
+
+      if (choice == 2) {
+        if (userManager.loginUser()) {
+          choice = SystemFunctions.printE1MenuScreen();
+          while (choice != 0) {
+            if (choice == 1) {
+              reviewManager.registerReviewE1();
+            }
+            if (choice == 2) {
+              reviewManager.listReviews();
+            }
+            if (choice == 3) {}
+            if (choice == 4) {}
+            if (choice == 5) {}
+            choice = SystemFunctions.printE1MenuScreen();
+          }
+        } else {
+          System.out.println("Error de autentificación");
+        }
+      }
+      choice = SystemFunctions.printE1LoginScreen();
+    }
+    entityRepository.saveSystem();
+    SystemFunctions.printE1ExitScreen();
+  }
 }

@@ -1,7 +1,5 @@
 package reviews;
 
-import java.util.ArrayList;
-
 /**
  * Clase que representa a una reseña
  * generada por un usuario del sitema.
@@ -19,14 +17,18 @@ public class Review {
   private String title;
   private int score;
   private String review;
-  private ArrayList<Boolean> usersOpinions;
+  private int like;
+  private int dislike;
 
   /**
    * Constructor de la clase review
    * @param none
    */
 
-  public Review() {}
+  public Review() {
+    setLike(0);
+    setDislike(0);
+  }
 
   /**
    * Devuelve el identificador de la crítica
@@ -94,10 +96,6 @@ public class Review {
    * @return ArrayList<Boolean> Vector con las valoraciones realizadas por otros usuarios a esa crítica
    */
 
-  public ArrayList<Boolean> getUsersOpinions() {
-    return usersOpinions;
-  }
-
   /**
    * Cambia el identificador de la review
    * @param int Nuevo identificador de la review
@@ -164,7 +162,19 @@ public class Review {
    * @return none
    */
 
-  public void setUsersOpinions(ArrayList<Boolean> usersOpinions) {
-    this.usersOpinions = usersOpinions;
+  public int getLike() {
+    return like;
+  }
+
+  public void setLike(int like) {
+    this.like = like;
+  }
+
+  public int getDislike() {
+    return dislike;
+  }
+
+  public void setDislike(int dislike) {
+    this.dislike = dislike;
   }
 }

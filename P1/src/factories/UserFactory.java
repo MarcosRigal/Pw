@@ -5,8 +5,8 @@ import users.Spectator;
 import users.User;
 
 /**
- * Clase que implementa el patrón de diseño 
- * factoría para crear los usuarios. 
+ * Clase que implementa el patrón de diseño
+ * factoría para crear los usuarios.
  * @author Antonio Moruno Gracia
  * @author David Pérez Dueñas
  * @author Marcos Rivera Gavilán
@@ -15,19 +15,19 @@ import users.User;
 
 public class UserFactory {
 
-	/**
-	  * Descripción
-	  * @param string El tipo de usuario que se desea crear.
-	  * @return User Una instancia del tipo de usuario.
-	 */
-	
-	public static User getUser(String type){
-		if("Spectator".equalsIgnoreCase(type)){
-			return new Spectator();
-		}
-		if("Admin".equalsIgnoreCase(type)){
-			return new Admin();
-		}
-		return null;
-	}
+  /**
+   * Descripción
+   * @param string El tipo de usuario que se desea crear.
+   * @return User Una instancia del tipo de usuario.
+   */
+
+  public static User getUser(String type) {
+    if ("Spectator".equalsIgnoreCase(type)) {
+      return new Spectator();
+    }
+    if ("Admin".equalsIgnoreCase(type)) {
+      return new Admin();
+    }
+    return null;
+  }
 }

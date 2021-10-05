@@ -146,26 +146,26 @@ public class Admin extends User {
   public void setEmail(String email) {
     this.email = email;
   }
-	/**
-	 * Devuelve la contraseña del usuario
-	 * @param none
-	 * @return string contraseña del usuario
-	 */
 
-@Override
-public String getUserPassword() {
-	return password;
-}
+  /**
+   * Devuelve la contraseña del usuario
+   * @param none
+   * @return string contraseña del usuario
+   */
 
-/**
-* Permite asignar una contraseña al usuario
-* @param String Contraseña del usuario
-* @return none
-*/
+  @Override
+  public String getUserPassword() {
+    return password;
+  }
 
-@Override
-public void setPassword(String password) {
-	this.password = password;
-	
-}
+  /**
+   * Permite asignar una contraseña al usuario
+   * @param String Contraseña del usuario
+   * @return none
+   */
+
+  @Override
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

@@ -16,7 +16,7 @@ public interface IRepository {
    * Función encargada de guardar el estado del sistema en el alamacenamiento
    * @param none
    * @return none
- * @throws IOException 
+   * @throws IOException
    */
   public abstract boolean saveSystem() throws IOException; //Interfaz para guardar el estado del sistema
 
@@ -24,7 +24,7 @@ public interface IRepository {
    * Función encargada de cargar el sistema
    * @param none
    * @return none
- * @throws FileNotFoundException 
+   * @throws FileNotFoundException
    */
   public abstract boolean loadSystem() throws FileNotFoundException; //Interfaz para cargar el sistema
 }

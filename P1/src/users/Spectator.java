@@ -11,13 +11,11 @@ package users;
 public class Spectator extends User {
 
   private int userId;
-  private String name; 
+  private String name;
   private String surname;
-  private String nick; 
+  private String nick;
   private String email;
   private String password;
-  
-  
 
   /**
    * Constructor de la clase usuario
@@ -147,26 +145,25 @@ public class Spectator extends User {
     this.email = email;
   }
 
-	/**
-	 * Devuelve la contraseña del usuario
-	 * @param none
-	 * @return string contraseña del usuario
-	 */
-  
- @Override
-public String getUserPassword() {
-	return password;
-}
+  /**
+   * Devuelve la contraseña del usuario
+   * @param none
+   * @return string contraseña del usuario
+   */
 
- /**
-  * Permite asignar una contraseña al usuario
-  * @param String Contraseña del usuario
-  * @return none
-  */
+  @Override
+  public String getUserPassword() {
+    return password;
+  }
 
-@Override
-public void setPassword(String password) {
-	this.password = password;
-	
-}
+  /**
+   * Permite asignar una contraseña al usuario
+   * @param String Contraseña del usuario
+   * @return none
+   */
+
+  @Override
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

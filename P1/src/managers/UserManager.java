@@ -1,6 +1,8 @@
 package managers;
 
+import factories.UserFactory;
 import java.util.ArrayList;
+import java.util.Scanner;
 import users.User;
 
 /**
@@ -17,8 +19,12 @@ public class UserManager {
   private static UserManager instance = null;
 
   private ArrayList<User> users = new ArrayList<User>();
-  
+
+  private User activeUser;
+
   private int userId;
+
+  private static Scanner scanner;
 
   /**
    * Constructor de la clase privado
@@ -27,7 +33,7 @@ public class UserManager {
    */
 
   private UserManager() {
-	  userId = 0;
+    userId = 0;
   }
 
   /**
@@ -69,7 +75,7 @@ public class UserManager {
    * @return Boolean True si se ha podido añadir false si no
    */
 
-  public boolean registerUser(User user) {
+  public boolean addUser(User user) {
     users.add(user);
     return true;
   }
@@ -103,15 +109,15 @@ public class UserManager {
   public User searchUser(int userId) {
     return null;
   }
-  
+
   /**
    * Devuelve un identificador para los nuevos usuarios creados
    * @param none
    * @return int Identificador del próximo usuario
    */
-  
+
   public int getUserId() {
-	return userId;
+    return userId;
   }
 
   /**
@@ -119,8 +125,62 @@ public class UserManager {
    * @param int Identificador del usuario que se desea asignar
    * @return none
    */
-  
+
   public void setUserId(int userId) {
-	this.userId = userId;
+    this.userId = userId;
+  }
+
+  public User getActiveUser() {
+    return activeUser;
+  }
+
+  public void setActiveUser(User activeUser) {
+    this.activeUser = activeUser;
+  }
+
+  public Boolean loginUser() {
+    UserManager userManager = UserManager.getInstance();
+    ArrayList<User> users = userManager.getUsers();
+    scanner = new Scanner(System.in);
+
+    System.out.print(" - Email: ");
+    String email = scanner.nextLine();
+
+    System.out.print(" - Contraseña: ");
+    String password = scanner.nextLine();
+
+    for (int i = 0; i < users.size(); i++) {
+      if (
+        (users.get(i).getEmail().equals(email)) &&
+        (users.get(i).getUserPassword().equals(password))
+      ) {
+        userManager.setActiveUser(users.get(i));
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Boolean registerUser(String type) {
+    User user = UserFactory.getUser(type);
+    scanner = new Scanner(System.in);
+    UserManager userManager = UserManager.getInstance();
+
+    user.setUserId(userManager.getUserId());
+    userManager.setUserId(userManager.getUserId() + 1);
+    System.out.println("Introduzca los siguientes datos: ");
+    System.out.print(" - Nombre: ");
+    user.setName(scanner.nextLine());
+    System.out.print(" - Apellidos: ");
+    user.setSurname(scanner.nextLine());
+    System.out.print(" - Nick: ");
+    user.setNick(scanner.nextLine());
+    System.out.print(" - Email: ");
+    user.setEmail(scanner.nextLine());
+    System.out.print(" - Contraseña: ");
+    user.setPassword(scanner.nextLine());
+
+    userManager.addUser(user);
+    return true;
   }
 }
