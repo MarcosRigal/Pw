@@ -108,6 +108,7 @@ public class ReviewManager {
 
   public Boolean deleteReview() {
 	ReviewManager reviewManager = ReviewManager.getInstance();
+	UserManager userManager = UserManager.getInstance();
 
     scanner = new Scanner(System.in);
     
@@ -115,13 +116,7 @@ public class ReviewManager {
     System.out.print("Introduzca el identificador de la crítica que desea borrar: ");
     int deleteReviewId = scanner.nextInt();
     
-    for (int i = 0; i < reviews.size(); i++) {
-        if (reviews.get(i).getReviewId() == deleteReviewId) {
-        	reviews.remove(i);
-          return true;
-        }
-    }
-    return false;
+    return reviews.removeIf(n -> ((n.getReviewId() == deleteReviewId) && (n.getUserId() == userManager.getActiveUser().getUserId())));
   }
 
   /**
@@ -131,8 +126,40 @@ public class ReviewManager {
    * @return Boolean True si se ha podido asignar false si no
    */
 
-  public boolean voteReview(int userId, Boolean vote) {
-    return true;
+  public boolean voteReview() {
+		ReviewManager reviewManager = ReviewManager.getInstance();
+		UserManager userManager = UserManager.getInstance();
+
+	    reviewManager.listReviews();
+	    System.out.print("Introduzca el identificador de la crítica que desea valorar: ");
+	    int voteReviewId = scanner.nextInt();
+	    
+	    System.out.println("¿Qué desea hacer?");
+	    System.out.println(" - Pulse 1 para dar un Like");
+	    System.out.println(" - Pulse 2 para dar un Dislike");
+	    System.out.println(" - Pulse 0 para cancelar");
+	    System.out.print("Escoja una opción y pulse enter: ");
+	    int choice = scanner.nextInt();
+	    while (choice < 0 || choice > 2) {
+	        System.out.print(" - Error escoja una opción valida: ");
+	        choice = scanner.nextInt();
+	      }
+	    
+	    if (choice != 0) {
+		    for (int i = 0; i < reviews.size(); i++) {
+		        if ((reviews.get(i).getReviewId() == voteReviewId) && (reviews.get(i).getUserId() != userManager.getActiveUser().getUserId())) {
+		        	if (choice == 1) {
+			        	reviews.get(i).like();
+			        	return true;
+					}
+		        	if (choice == 2){
+		        		reviews.get(i).dislike();
+				        return true;
+		        	}
+		        }
+		    }
+		}
+	    return false;
   }
 
   /**
@@ -141,8 +168,35 @@ public class ReviewManager {
    * @return Review review buscada o null si no la encuentra
    */
 
-  public Review searchReview(int review) {
-    return null;
+  public void searchUsersReview() {
+		ReviewManager reviewManager = ReviewManager.getInstance();
+
+	    reviewManager.listReviews();
+	    System.out.print("Introduzca el identificador del usuario para el que desea buscar críticas: ");
+	    int userReviewId = scanner.nextInt();
+	    
+	    ArrayList<Review> userReviews = new ArrayList<Review>();
+	    
+		for (int i = 0; i < reviews.size(); i++) {
+			if (reviews.get(i).getUserId() == userReviewId) {
+					userReviews.add(reviews.get(i));
+		        }
+		    }
+	    for (int i = 0; i < userReviews.size(); i++) {
+	        System.out.println("Review nº: " + i);
+	        System.out.println("------------------");
+	        System.out.println(" - ReviewId: " + userReviews.get(i).getReviewId());
+	        System.out.println(" - AuthorId: " + userReviews.get(i).getUserId());
+	        System.out.println(" - Título: " + userReviews.get(i).getTitle());
+	        System.out.println(
+	          " - Puntuación del (0-5): " + userReviews.get(i).getScore()
+	        );
+	        System.out.println(" - Review: " + userReviews.get(i).getReview());
+	        System.out.println(" - Likes: " + userReviews.get(i).getLike());
+	        System.out.println(" - Dislikes: " + userReviews.get(i).getDislike());
+	        System.out.println("------------------");
+	      }
+	    
   }
 
   /**

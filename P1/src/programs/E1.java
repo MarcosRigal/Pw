@@ -45,11 +45,25 @@ public class E1 {
               reviewManager.listReviews();
             }
             if (choice == 3) {
-            	reviewManager.deleteReview();
+            	if(reviewManager.deleteReview()){
+                    System.out.println("Borrado correcto");
+            	}
+            	else {
+                    System.out.println("Error en el borrado");
+				}
             	
             }
-            if (choice == 4) {}
-            if (choice == 5) {}
+            if (choice == 4) {
+            	if(reviewManager.voteReview()){
+                    System.out.println("Valoración correcta");
+            	}
+            	else {
+                    System.out.println("Error en la valoración");
+				}
+            }
+            if (choice == 5) {
+            	reviewManager.searchUsersReview();
+            }
             choice = SystemFunctions.printE1MenuScreen();
           }
         } else {
