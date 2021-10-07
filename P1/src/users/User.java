@@ -16,7 +16,7 @@ public abstract class User {
    * @return string contraseña del usuario
    */
 
-  public abstract String getUserPassword();
+  public abstract String getPassword();
 
   /**
    * Devuelve el identificador del usuario

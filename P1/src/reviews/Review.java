@@ -177,12 +177,12 @@ public class Review {
   public void setDislike(int dislike) {
     this.dislike = dislike;
   }
-  
-  public void like(){
-	  this.like = this.like+1;
+
+  public void like() {
+    this.like = this.like + 1;
   }
-  
-  public void dislike(){
-	  this.dislike = this.dislike+1;
+
+  public void dislike() {
+    this.dislike = this.dislike + 1;
   }
 }

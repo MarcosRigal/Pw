@@ -154,7 +154,7 @@ public class Admin extends User {
    */
 
   @Override
-  public String getUserPassword() {
+  public String getPassword() {
     return password;
   }
 

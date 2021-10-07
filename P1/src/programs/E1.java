@@ -1,7 +1,6 @@
 package programs;
 
 import java.io.IOException;
-import managers.ReviewManager;
 import managers.UserManager;
 import storage.FileStorage;
 import storage.IRepository;
@@ -21,7 +20,6 @@ public class E1 {
   public static void main(String[] args) throws IOException {
     IRepository entityRepository = new FileStorage();
     UserManager userManager = UserManager.getInstance();
-    ReviewManager reviewManager = ReviewManager.getInstance();
 
     entityRepository.loadSystem();
 
@@ -31,40 +29,96 @@ public class E1 {
 
     while (choice != 0) {
       if (choice == 1) {
-        userManager.registerUser("Spectator");
+        SystemFunctions.registerUser("Spectator");
       }
 
       if (choice == 2) {
-        if (userManager.loginUser()) {
-          choice = SystemFunctions.printE1MenuScreen();
-          while (choice != 0) {
-            if (choice == 1) {
-              reviewManager.registerReviewE1();
+        if (SystemFunctions.loginUser()) {
+          if (userManager.getActiveUser().getType().equals("Spectator")) {
+            choice = SystemFunctions.printE1SpectatorMenuScreen();
+            while (choice != 0) {
+              if (choice == 1) {
+                SystemFunctions.registerReviewE1();
+              }
+              if (choice == 2) {
+                SystemFunctions.listReviews();
+              }
+              if (choice == 3) {
+                if (SystemFunctions.deleteReview()) {
+                  System.out.println("Borrado correcto");
+                } else {
+                  System.out.println("Error en el borrado");
+                }
+              }
+              if (choice == 4) {
+                if (SystemFunctions.voteReview()) {
+                  System.out.println("Valoración correcta");
+                } else {
+                  System.out.println("Error en la valoración");
+                }
+              }
+              if (choice == 5) {
+                SystemFunctions.searchUsersReview();
+              }
+              choice = SystemFunctions.printE1SpectatorMenuScreen();
             }
-            if (choice == 2) {
-              reviewManager.listReviews();
+          }
+          if (userManager.getActiveUser().getType().equals("Admin")) {
+            choice = SystemFunctions.printE1AdminMenuScreen();
+            while (choice != 0) {
+              if (choice == 1) {
+                choice = SystemFunctions.printE1SpectatorMenuScreen();
+                while (choice != 0) {
+                  if (choice == 1) {
+                    SystemFunctions.registerReviewE1();
+                  }
+                  if (choice == 2) {
+                    SystemFunctions.listReviews();
+                  }
+                  if (choice == 3) {
+                    if (SystemFunctions.deleteReview()) {
+                      System.out.println("Borrado correcto");
+                    } else {
+                      System.out.println("Error en el borrado");
+                    }
+                  }
+                  if (choice == 4) {
+                    if (SystemFunctions.voteReview()) {
+                      System.out.println("Valoración correcta");
+                    } else {
+                      System.out.println("Error en la valoración");
+                    }
+                  }
+                  if (choice == 5) {
+                    SystemFunctions.searchUsersReview();
+                  }
+                  choice = SystemFunctions.printE1SpectatorMenuScreen();
+                }
+              }
+              if (choice == 2) {
+                choice = SystemFunctions.printE1AdminUsersScreen();
+                while (choice != 0) {
+                  if (choice == 1) {
+                    SystemFunctions.registerAdmin();
+                  }
+                  if (choice == 2) {
+                    if (SystemFunctions.deleteUser()) {
+                      System.out.println("Borrado correcto");
+                    } else {
+                      System.out.println("Error en el borrado");
+                    }
+                  }
+                  if (choice == 3) {
+                    SystemFunctions.searchUser();
+                  }
+                  if (choice == 4) {
+                    SystemFunctions.modifyUser();
+                  }
+                  choice = SystemFunctions.printE1AdminUsersScreen();
+                }
+              }
+              choice = SystemFunctions.printE1AdminMenuScreen();
             }
-            if (choice == 3) {
-            	if(reviewManager.deleteReview()){
-                    System.out.println("Borrado correcto");
-            	}
-            	else {
-                    System.out.println("Error en el borrado");
-				}
-            	
-            }
-            if (choice == 4) {
-            	if(reviewManager.voteReview()){
-                    System.out.println("Valoración correcta");
-            	}
-            	else {
-                    System.out.println("Error en la valoración");
-				}
-            }
-            if (choice == 5) {
-            	reviewManager.searchUsersReview();
-            }
-            choice = SystemFunctions.printE1MenuScreen();
           }
         } else {
           System.out.println("Error de autentificación");

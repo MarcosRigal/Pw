@@ -152,7 +152,7 @@ public class Spectator extends User {
    */
 
   @Override
-  public String getUserPassword() {
+  public String getPassword() {
     return password;
   }
 

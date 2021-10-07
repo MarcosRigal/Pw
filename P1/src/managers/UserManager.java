@@ -1,8 +1,6 @@
 package managers;
 
-import factories.UserFactory;
 import java.util.ArrayList;
-import java.util.Scanner;
 import users.User;
 
 /**
@@ -23,8 +21,6 @@ public class UserManager {
   private User activeUser;
 
   private int userId;
-
-  private static Scanner scanner;
 
   /**
    * Constructor de la clase privado
@@ -86,8 +82,15 @@ public class UserManager {
    * @return Boolean True si se ha podido borrar false si no
    */
 
-  public boolean deleteUser(int userId) {
-    return true;
+  public boolean deleteUser(int deleteUserId) {
+    return users.removeIf(
+      n ->
+        (
+          (n.getUserId() == deleteUserId) &&
+          (n.getUserId() != activeUser.getUserId()) &&
+          (getActiveUser().getType().equals("Admin"))
+        )
+    );
   }
 
   /**
@@ -96,8 +99,21 @@ public class UserManager {
    * @return Boolean True si se ha podido añadir false si no
    */
 
-  public boolean modifyUser(int userId) {
-    return true;
+  public boolean modifyUser(User user) {
+    for (int i = 0; i < users.size(); i++) {
+      if (users.get(i).getUserId() == user.getUserId()) {
+        users.get(i).setName(user.getName());
+        users.get(i).setSurname(user.getSurname());
+        users.get(i).setNick(user.getNick());
+        users.get(i).setEmail(user.getEmail());
+        users.get(i).setPassword(user.getPassword());
+        if (activeUser.getUserId() == user.getUserId()) {
+          activeUser = users.get(i);
+        }
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -106,7 +122,13 @@ public class UserManager {
    * @return User Usuario buscado o null si no la encuentra
    */
 
-  public User searchUser(int userId) {
+  public User findUser(int userId) {
+    for (int i = 0; i < users.size(); i++) {
+      if (users.get(i).getUserId() == userId) {
+        User user = users.get(i);
+        return user;
+      }
+    }
     return null;
   }
 
@@ -136,51 +158,5 @@ public class UserManager {
 
   public void setActiveUser(User activeUser) {
     this.activeUser = activeUser;
-  }
-
-  public Boolean loginUser() {
-    UserManager userManager = UserManager.getInstance();
-    ArrayList<User> users = userManager.getUsers();
-    scanner = new Scanner(System.in);
-
-    System.out.print(" - Email: ");
-    String email = scanner.nextLine();
-
-    System.out.print(" - Contraseña: ");
-    String password = scanner.nextLine();
-
-    for (int i = 0; i < users.size(); i++) {
-      if (
-        (users.get(i).getEmail().equals(email)) &&
-        (users.get(i).getUserPassword().equals(password))
-      ) {
-        userManager.setActiveUser(users.get(i));
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public Boolean registerUser(String type) {
-    User user = UserFactory.getUser(type);
-    scanner = new Scanner(System.in);
-    UserManager userManager = UserManager.getInstance();
-
-    user.setUserId(userManager.getUserId());
-    userManager.setUserId(userManager.getUserId() + 1);
-    System.out.println("Introduzca los siguientes datos: ");
-    System.out.print(" - Nombre: ");
-    user.setName(scanner.nextLine());
-    System.out.print(" - Apellidos: ");
-    user.setSurname(scanner.nextLine());
-    System.out.print(" - Nick: ");
-    user.setNick(scanner.nextLine());
-    System.out.print(" - Email: ");
-    user.setEmail(scanner.nextLine());
-    System.out.print(" - Contraseña: ");
-    user.setPassword(scanner.nextLine());
-
-    userManager.addUser(user);
-    return true;
   }
 }

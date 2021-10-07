@@ -7,10 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+import managers.ReviewManager;
 import managers.UserManager;
+import reviews.Review;
 import users.User;
-import utilities.SystemFunctions;
 
 /**
  * Implementación de la interfaz repository para trabajar con ficheros
@@ -34,17 +34,17 @@ public class FileStorage implements IRepository {
     File reviewStorage = new File("reviews.txt");
     File spectacleStorage = new File("spectacles.txt");
 
-    Scanner myReader = new Scanner(userStorage);
+    Scanner userReader = new Scanner(userStorage);
 
     UserManager userManager = UserManager.getInstance();
 
-    if (myReader.hasNextLine()) {
-      String data = myReader.nextLine();
+    if (userReader.hasNextLine()) {
+      String data = userReader.nextLine();
 
       userManager.setUserId(Integer.parseInt(data));
 
-      while (myReader.hasNextLine()) {
-        data = myReader.nextLine();
+      while (userReader.hasNextLine()) {
+        data = userReader.nextLine();
         String[] parts = data.split(",");
 
         User user = UserFactory.getUser(parts[2]);
@@ -57,7 +57,35 @@ public class FileStorage implements IRepository {
         userManager.addUser(user);
       }
     }
-    myReader.close();
+    userReader.close();
+
+    Scanner reviewReader = new Scanner(reviewStorage);
+
+    ReviewManager reviewManager = ReviewManager.getInstance();
+
+    if (reviewReader.hasNextLine()) {
+      String data = reviewReader.nextLine();
+
+      reviewManager.setReviewId(Integer.parseInt(data));
+
+      while (reviewReader.hasNextLine()) {
+        data = reviewReader.nextLine();
+        String[] parts = data.split(",");
+
+        Review review = new Review();
+        review.setReviewId(Integer.parseInt(parts[0]));
+        review.setUserId(Integer.parseInt(parts[1]));
+        review.setSpectacleId(Integer.parseInt(parts[2]));
+        review.setTitle(parts[3]);
+        review.setScore(Integer.parseInt(parts[4]));
+        review.setReview(parts[5]);
+        review.setLike(Integer.parseInt(parts[6]));
+        review.setDislike(Integer.parseInt(parts[7]));
+        reviewManager.addReview(review);
+      }
+    }
+    reviewReader.close();
+
     return false;
   }
 
@@ -90,12 +118,38 @@ public class FileStorage implements IRepository {
         "," +
         users.get(i).getEmail() +
         "," +
-        users.get(i).getUserPassword() +
+        users.get(i).getPassword() +
         "\n"
       );
     }
     userStorage.close();
 
+    ReviewManager reviewManager = ReviewManager.getInstance();
+    ArrayList<Review> reviews = reviewManager.getReviews();
+
+    reviewStorage.write(reviewManager.getReviewId() + "\n");
+    for (int i = 0; i < reviews.size(); i++) {
+      reviewStorage.write(
+        reviews.get(i).getReviewId() +
+        "," +
+        reviews.get(i).getUserId() +
+        "," +
+        reviews.get(i).getSpectacleId() +
+        "," +
+        reviews.get(i).getTitle() +
+        "," +
+        reviews.get(i).getScore() +
+        "," +
+        reviews.get(i).getReview() +
+        "," +
+        reviews.get(i).getLike() +
+        "," +
+        reviews.get(i).getDislike() +
+        "\n"
+      );
+    }
+    reviewStorage.close();
+    spectacleStorage.close();
     return true;
   }
 }
