@@ -1,11 +1,15 @@
 package utilities;
 
 import factories.UserFactory;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import managers.ReviewManager;
+import managers.SpectacleManager;
 import managers.UserManager;
 import reviews.Review;
+import spectacles.Spectacle;
 import users.User;
 
 public final class SystemFunctions {
@@ -42,6 +46,24 @@ public final class SystemFunctions {
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+  
+  public static int printE2SpectatorMenuScreen() {
+	    scanner = new Scanner(System.in);
+	    UserManager userManager = UserManager.getInstance();
+	    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+	    System.out.println("¿Qué desea hacer?");
+	    System.out.println(" - Pulse 1 para crear una crítica");
+	    System.out.println(
+	      " - Pulse 2 para consultar todas las críticas disponibles"
+	    );
+	    System.out.println(" - Pulse 3 para borrar una crítica");
+	    System.out.println(" - Pulse 4 para valorar una crítica");
+	    System.out.println(" - Pulse 5 para buscar las críticas de un usuario");
+	    System.out.println(" - Pulse 6 para ver los espectáculos");
+	    System.out.println(" - Pulse 0 para salir");
+	    System.out.print("Escoja una opción y pulse enter: ");
+	    return scanner.nextInt();
+	  }
 
   public static int printE1AdminMenuScreen() {
     scanner = new Scanner(System.in);
@@ -50,9 +72,23 @@ public final class SystemFunctions {
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para acceder a la gestión de críticas");
     System.out.println(" - Pulse 2 para acceder a la gestión de usuarios");
+    System.out.println(" - Pulse 0 para salir");
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+  
+  public static int printE2AdminMenuScreen() {
+	    scanner = new Scanner(System.in);
+	    UserManager userManager = UserManager.getInstance();
+	    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+	    System.out.println("¿Qué desea hacer?");
+	    System.out.println(" - Pulse 1 para acceder a la gestión de críticas");
+	    System.out.println(" - Pulse 2 para acceder a la gestión de usuarios");
+	    System.out.println(" - Pulse 3 para acceder a la gestión de espectáculos");
+	    System.out.println(" - Pulse 0 para salir");
+	    System.out.print("Escoja una opción y pulse enter: ");
+	    return scanner.nextInt();
+	  }
 
   public static int printE1AdminUsersScreen() {
     scanner = new Scanner(System.in);
@@ -67,6 +103,23 @@ public final class SystemFunctions {
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+  
+  public static int printE2AdminSpectaclesScreen() {
+	    scanner = new Scanner(System.in);
+	    UserManager userManager = UserManager.getInstance();
+	    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+	    System.out.println("¿Qué desea hacer?");
+	    System.out.println(" - Pulse 1 para dar de alta un espectáculo");
+	    System.out.println(" - Pulse 2 para cancelar un espectáculo");
+	    System.out.println(" - Pulse 3 para actualizar los datos de un espectáculo");
+	    System.out.println(" - Pulse 4 para contabilizar la venta de entradas para una sesión de un espectáculo");
+	    System.out.println(" - Pulse 5 consultar las localidades disponibles para un espectáculo, dada una fecha de representación");
+	    System.out.println(" - Pulse 6 para busquecar espectáculos por título o por categoría");
+	    System.out.println(" - Pulse 7 búsqueda de próximos espectáculos con entradas disponibles, indicando o no una categoría específica");
+	    System.out.println(" - Pulse 0 para salir");
+	    System.out.print("Escoja una opción y pulse enter: ");
+	    return scanner.nextInt();
+	  }
 
   public static void printE1ExitScreen() {
     System.out.println("Apagando el sistema, por favor espere...");
@@ -101,7 +154,6 @@ public final class SystemFunctions {
     UserManager userManager = UserManager.getInstance();
 
     user.setUserId(userManager.getUserId());
-    userManager.setUserId(userManager.getUserId() + 1);
     System.out.println("Introduzca los siguientes datos: ");
     System.out.print(" - Nombre: ");
     user.setName(scanner.nextLine());
@@ -114,7 +166,7 @@ public final class SystemFunctions {
     System.out.print(" - Contraseña: ");
     user.setPassword(scanner.nextLine());
 
-    userManager.addUser(user);
+    userManager.registerUser(user);
     return true;
   }
 
@@ -229,7 +281,6 @@ public final class SystemFunctions {
     UserManager userManager = UserManager.getInstance();
 
     review.setReviewId(reviewManager.getReviewId());
-    reviewManager.setReviewId(reviewManager.getReviewId() + 1);
     review.setUserId(userManager.getActiveUser().getUserId());
     review.setSpectacleId(-1);
     System.out.println("Introduzca los siguientes datos: ");
@@ -245,11 +296,40 @@ public final class SystemFunctions {
     scanner.nextLine();
     System.out.print(" - Review: ");
     review.setReview(scanner.nextLine());
-    reviewManager.addReview(review);
+    reviewManager.registerReview(review);
     return true;
   }
+  public static boolean registerReviewE2() {
+	    Review review = new Review();
+	    scanner = new Scanner(System.in);
 
-  public static void listReviews() {
+	    ReviewManager reviewManager = ReviewManager.getInstance();
+	    UserManager userManager = UserManager.getInstance();
+	    
+	    SystemFunctions.listSpectacles();
+	    review.setReviewId(reviewManager.getReviewId());
+	    review.setUserId(userManager.getActiveUser().getUserId());
+	    review.setSpectacleId(-1);
+	    System.out.println("Introduzca los siguientes datos: ");
+	    System.out.print(" - Identificador del espectáculo: ");
+	    review.setSpectacleId(scanner.nextInt());
+	    System.out.print(" - Título: ");
+	    review.setTitle(scanner.nextLine());
+	    System.out.print(" - Puntuación del (0-5): ");
+	    int score = scanner.nextInt();
+	    while (score < 0 || score > 5) {
+	      System.out.print(" - Error introduzca una puntuación del (0-5): ");
+	      score = scanner.nextInt();
+	    }
+	    review.setScore(score);
+	    scanner.nextLine();
+	    System.out.print(" - Review: ");
+	    review.setReview(scanner.nextLine());
+	    reviewManager.registerReview(review);
+	    return true;
+	  }
+
+  public static void showReviewsE1() {
     ReviewManager reviewManager = ReviewManager.getInstance();
     ArrayList<Review> reviews = reviewManager.getReviews();
     for (int i = 0; i < reviews.size(); i++) {
@@ -267,6 +347,25 @@ public final class SystemFunctions {
       System.out.println("------------------");
     }
   }
+  public static void showReviewsE2() {
+	    ReviewManager reviewManager = ReviewManager.getInstance();
+	    ArrayList<Review> reviews = reviewManager.getReviews();
+	    for (int i = 0; i < reviews.size(); i++) {
+	      System.out.println("Review nº: " + i);
+	      System.out.println("------------------");
+	      System.out.println(" - ReviewId: " + reviews.get(i).getReviewId());
+	      System.out.println(" - AuthorId: " + reviews.get(i).getUserId());
+	      System.out.println(" - SpectacleId: " + reviews.get(i).getSpectacleId());
+	      System.out.println(" - Título: " + reviews.get(i).getTitle());
+	      System.out.println(
+	        " - Puntuación del (0-5): " + reviews.get(i).getScore()
+	      );
+	      System.out.println(" - Review: " + reviews.get(i).getReview());
+	      System.out.println(" - Likes: " + reviews.get(i).getLike());
+	      System.out.println(" - Dislikes: " + reviews.get(i).getDislike());
+	      System.out.println("------------------");
+	    }
+	  }
 
   public static Boolean deleteReview() {
     scanner = new Scanner(System.in);
@@ -309,10 +408,7 @@ public final class SystemFunctions {
   }
 
   public static boolean voteReview() {
-    UserManager userManager = UserManager.getInstance();
     ReviewManager reviewManager = ReviewManager.getInstance();
-
-    ArrayList<Review> reviews = reviewManager.getReviews();
 
     SystemFunctions.listReviews();
     System.out.print(
@@ -332,25 +428,34 @@ public final class SystemFunctions {
     }
 
     if (choice != 0) {
-      for (int i = 0; i < reviews.size(); i++) {
-        if (
-          (reviews.get(i).getReviewId() == voteReviewId) &&
-          (
-            reviews.get(i).getUserId() !=
-            userManager.getActiveUser().getUserId()
-          )
-        ) {
-          if (choice == 1) {
-            reviews.get(i).like();
-            return true;
-          }
-          if (choice == 2) {
-            reviews.get(i).dislike();
-            return true;
-          }
-        }
-      }
+    	return reviewManager.voteReview(choice, voteReviewId);
     }
     return false;
   }
+  
+  public static void listReviews() {
+	    ReviewManager reviewManager = ReviewManager.getInstance();
+
+	    ArrayList<Review> reviews= reviewManager.getReviews();
+	    System.out.println("ReviewId | Título ");
+	    System.out.println("------------------");
+	    for (int i = 0; i < reviews.size(); i++) {
+	      System.out.println(
+	        "   " + reviews.get(i).getReviewId() + "  | " + reviews.get(i).getTitle()
+	      );
+	    }
+	  }
+  
+  public static void listSpectacles() {
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+
+	    ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
+	    System.out.println("SpectacleId | Título ");
+	    System.out.println("------------------");
+	    for (int i = 0; i < spectacles.size(); i++) {
+	      System.out.println(
+	        "   " + spectacles.get(i).getSpectacleId() + "  | " + spectacles.get(i).getTitle()
+	      );
+	    }
+	  }
 }

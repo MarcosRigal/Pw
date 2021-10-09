@@ -81,6 +81,9 @@ public class FileStorage implements IRepository {
         review.setReview(parts[5]);
         review.setLike(Integer.parseInt(parts[6]));
         review.setDislike(Integer.parseInt(parts[7]));
+        for (int i = 8; i < parts.length; i++) {
+          review.addUserIdWhoVoted(Integer.parseInt(parts[i]));
+        }
         reviewManager.addReview(review);
       }
     }
@@ -129,6 +132,7 @@ public class FileStorage implements IRepository {
 
     reviewStorage.write(reviewManager.getReviewId() + "\n");
     for (int i = 0; i < reviews.size(); i++) {
+      ArrayList<Integer> usersIdWhoVoted = reviews.get(i).getUsersIdWhoVoted();
       reviewStorage.write(
         reviews.get(i).getReviewId() +
         "," +
@@ -144,9 +148,12 @@ public class FileStorage implements IRepository {
         "," +
         reviews.get(i).getLike() +
         "," +
-        reviews.get(i).getDislike() +
-        "\n"
+        reviews.get(i).getDislike()
       );
+      for (int j = 0; j < usersIdWhoVoted.size(); j++) {
+        reviewStorage.write("," + usersIdWhoVoted.get(j));
+      }
+      reviewStorage.write("\n");
     }
     reviewStorage.close();
     spectacleStorage.close();

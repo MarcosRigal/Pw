@@ -76,6 +76,12 @@ public class UserManager {
     return true;
   }
 
+  public boolean registerUser(User user) {
+    users.add(user);
+    userId += 1;
+    return true;
+  }
+
   /**
    * Elimina un usuario en concreto
    * @param int Identificador del usuario que se desea eliminar

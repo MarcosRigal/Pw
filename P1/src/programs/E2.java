@@ -35,13 +35,13 @@ public class E2 {
       if (choice == 2) {
         if (SystemFunctions.loginUser()) {
           if (userManager.getActiveUser().getType().equals("Spectator")) {
-            choice = SystemFunctions.printE1SpectatorMenuScreen();
+            choice = SystemFunctions.printE2SpectatorMenuScreen();
             while (choice != 0) {
               if (choice == 1) {
-                SystemFunctions.registerReviewE1();
+                SystemFunctions.registerReviewE2();
               }
               if (choice == 2) {
-                SystemFunctions.listReviews();
+                SystemFunctions.showReviewsE2();
               }
               if (choice == 3) {
                 if (SystemFunctions.deleteReview()) {
@@ -60,20 +60,23 @@ public class E2 {
               if (choice == 5) {
                 SystemFunctions.searchUsersReview();
               }
-              choice = SystemFunctions.printE1SpectatorMenuScreen();
+              if (choice == 5) {
+                SystemFunctions.listSpectacles();
+              }
+              choice = SystemFunctions.printE2SpectatorMenuScreen();
             }
           }
           if (userManager.getActiveUser().getType().equals("Admin")) {
-            choice = SystemFunctions.printE1AdminMenuScreen();
+            choice = SystemFunctions.printE2AdminMenuScreen();
             while (choice != 0) {
               if (choice == 1) {
                 choice = SystemFunctions.printE1SpectatorMenuScreen();
                 while (choice != 0) {
                   if (choice == 1) {
-                    SystemFunctions.registerReviewE1();
+                    SystemFunctions.registerReviewE2();
                   }
                   if (choice == 2) {
-                    SystemFunctions.listReviews();
+                    SystemFunctions.showReviewsE2();
                   }
                   if (choice == 3) {
                     if (SystemFunctions.deleteReview()) {
@@ -117,7 +120,20 @@ public class E2 {
                   choice = SystemFunctions.printE1AdminUsersScreen();
                 }
               }
-              choice = SystemFunctions.printE1AdminMenuScreen();
+              if (choice == 3) {
+                choice = SystemFunctions.printE2AdminSpectaclesScreen();
+                while (choice != 0) {
+                  if (choice == 1) {}
+                  if (choice == 2) {}
+                  if (choice == 3) {}
+                  if (choice == 4) {}
+                  if (choice == 5) {}
+                  if (choice == 6) {}
+                  if (choice == 7) {}
+                  choice = SystemFunctions.printE2AdminSpectaclesScreen();
+                }
+              }
+              choice = SystemFunctions.printE2AdminMenuScreen();
             }
           }
         } else {

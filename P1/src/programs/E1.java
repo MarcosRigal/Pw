@@ -41,7 +41,7 @@ public class E1 {
                 SystemFunctions.registerReviewE1();
               }
               if (choice == 2) {
-                SystemFunctions.listReviews();
+                SystemFunctions.showReviewsE1();
               }
               if (choice == 3) {
                 if (SystemFunctions.deleteReview()) {
@@ -73,7 +73,7 @@ public class E1 {
                     SystemFunctions.registerReviewE1();
                   }
                   if (choice == 2) {
-                    SystemFunctions.listReviews();
+                    SystemFunctions.showReviewsE1();
                   }
                   if (choice == 3) {
                     if (SystemFunctions.deleteReview()) {

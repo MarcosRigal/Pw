@@ -137,4 +137,43 @@ public class ReviewManager {
   public void addReview(Review review) {
     this.reviews.add(review);
   }
+
+  public void registerReview(Review review) {
+    UserManager userManager = UserManager.getInstance();
+    review.addUserIdWhoVoted(userManager.getActiveUser().getUserId());
+    this.reviews.add(review);
+    reviewId += 1;
+  }
+
+  public boolean voteReview(int choice, int voteReviewId) {
+    UserManager userManager = UserManager.getInstance();
+
+    for (int i = 0; i < reviews.size(); i++) {
+      if (
+        (reviews.get(i).getReviewId() == voteReviewId) &&
+        (
+          !reviews
+            .get(i)
+            .getUsersIdWhoVoted()
+            .contains(userManager.getActiveUser().getUserId())
+        )
+      ) {
+        if (choice == 1) {
+          reviews.get(i).like();
+          reviews
+            .get(i)
+            .addUserIdWhoVoted(userManager.getActiveUser().getUserId());
+          return true;
+        }
+        if (choice == 2) {
+          reviews.get(i).dislike();
+          reviews
+            .get(i)
+            .addUserIdWhoVoted(userManager.getActiveUser().getUserId());
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

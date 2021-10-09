@@ -1,5 +1,7 @@
 package reviews;
 
+import java.util.ArrayList;
+
 /**
  * Clase que representa a una reseña
  * generada por un usuario del sitema.
@@ -19,6 +21,7 @@ public class Review {
   private String review;
   private int like;
   private int dislike;
+  private ArrayList<Integer> usersIdWhoVoted = new ArrayList<Integer>();
 
   /**
    * Constructor de la clase review
@@ -184,5 +187,17 @@ public class Review {
 
   public void dislike() {
     this.dislike = this.dislike + 1;
+  }
+
+  public ArrayList<Integer> getUsersIdWhoVoted() {
+    return usersIdWhoVoted;
+  }
+
+  public void setUsersIdWhoVoted(ArrayList<Integer> usersIdWhoVoted) {
+    this.usersIdWhoVoted = usersIdWhoVoted;
+  }
+
+  public void addUserIdWhoVoted(int userIdWhoVoted) {
+    this.usersIdWhoVoted.add(userIdWhoVoted);
   }
 }
