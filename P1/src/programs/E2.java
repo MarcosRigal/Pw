@@ -68,17 +68,17 @@ public class E2 {
                 SystemFunctions.searchReviewBySpectacleTitle();
               }
               if (choice == 8) {
-                  SystemFunctions.sesionPlacesLeft();
-                }
-                if (choice == 9) {
-                  SystemFunctions.sesionPlacesLeftByDate();
-                }
-                if (choice == 10) {
-                  SystemFunctions.searchSpectacles();
-                }
-                if (choice == 11) {
-                  SystemFunctions.spectaclesWithFreePlaces();
-                }
+                SystemFunctions.sesionPlacesLeft();
+              }
+              if (choice == 9) {
+                SystemFunctions.sesionPlacesLeftByDate();
+              }
+              if (choice == 10) {
+                SystemFunctions.searchSpectacles();
+              }
+              if (choice == 11) {
+                SystemFunctions.spectaclesWithFreePlaces();
+              }
               choice = SystemFunctions.printE2SpectatorFullMenuScreen();
             }
           }
