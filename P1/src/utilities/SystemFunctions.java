@@ -21,9 +21,20 @@ public final class SystemFunctions {
 
   private static Scanner scanner;
 
+  /**
+   * Constructor que lanza una excepción ya que esta clase no se puede instanciar
+   * @param none
+   */
+
   public SystemFunctions() {
     throw new UnsupportedOperationException();
   }
+
+  /**
+   * Imprime el menú de incio
+   * @param none
+   * @return int Elección del usuario
+   */
 
   public static int printE1LoginScreen() {
     scanner = new Scanner(System.in);
@@ -34,6 +45,12 @@ public final class SystemFunctions {
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+
+  /**
+   * Imprime el menú del espectador
+   * @param none
+   * @return int Elección del usuario
+   */
 
   public static int printE1SpectatorMenuScreen() {
     scanner = new Scanner(System.in);
@@ -51,6 +68,12 @@ public final class SystemFunctions {
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+
+  /**
+   * Imprime el menú del espectador
+   * @param none
+   * @return int Elección del usuario
+   */
 
   public static int printE2SpectatorMenuScreen() {
     scanner = new Scanner(System.in);
@@ -73,6 +96,12 @@ public final class SystemFunctions {
     return scanner.nextInt();
   }
 
+  /**
+   * Imprime el menú del administrador
+   * @param none
+   * @return int Elección del usuario
+   */
+
   public static int printE1AdminMenuScreen() {
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
@@ -84,6 +113,12 @@ public final class SystemFunctions {
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+
+  /**
+   * Imprime el menú del administrador
+   * @param none
+   * @return int Elección del usuario
+   */
 
   public static int printE2AdminMenuScreen() {
     scanner = new Scanner(System.in);
@@ -98,6 +133,12 @@ public final class SystemFunctions {
     return scanner.nextInt();
   }
 
+  /**
+   * Imprime el menú de gestión de usuarios
+   * @param none
+   * @return int Elección del usuario
+   */
+
   public static int printE1AdminUsersScreen() {
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
@@ -111,6 +152,12 @@ public final class SystemFunctions {
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
   }
+
+  /**
+   * Imprime el menú de gestión de espectáculos
+   * @param none
+   * @return int Elección del usuario
+   */
 
   public static int printE2AdminSpectaclesScreen() {
     scanner = new Scanner(System.in);
@@ -139,9 +186,21 @@ public final class SystemFunctions {
     return scanner.nextInt();
   }
 
+  /**
+   * Imprime la salida del sistema
+   * @param none
+   * @return none
+   */
+
   public static void printE1ExitScreen() {
     System.out.println("Apagando el sistema, por favor espere...");
   }
+
+  /**
+   * Imprime el menú de login
+   * @param none
+   * @return boolean True si se ha podido completar el login
+   */
 
   public static Boolean loginUser() {
     UserManager userManager = UserManager.getInstance();
@@ -166,6 +225,12 @@ public final class SystemFunctions {
     return false;
   }
 
+  /**
+   * Imprime el menú de registro
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
+
   public static Boolean registerUser(String type) {
     User user = UserFactory.getUser(type);
     scanner = new Scanner(System.in);
@@ -187,6 +252,12 @@ public final class SystemFunctions {
     userManager.registerUser(user);
     return true;
   }
+
+  /**
+   * Imprime el menú de registro de nuevos usuarios del adminsitrador
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
 
   public static Boolean registerAdmin() {
     System.out.println("¿Qué tipo de usuario desea crear?");
@@ -211,6 +282,12 @@ public final class SystemFunctions {
     return false;
   }
 
+  /**
+   * Imprime el menú de borrar un usuario
+   * @param none
+   * @return boolean True si se ha podido borrar
+   */
+
   public static Boolean deleteUser() {
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
@@ -222,6 +299,12 @@ public final class SystemFunctions {
     int deleteUserId = scanner.nextInt();
     return userManager.deleteUser(deleteUserId);
   }
+
+  /**
+   * Lista los usuarios del sistema
+   * @param none
+   * @return none
+   */
 
   private static void listUsers() {
     UserManager userManager = UserManager.getInstance();
@@ -235,6 +318,12 @@ public final class SystemFunctions {
       );
     }
   }
+
+  /**
+   * Busca un usuario del sistema
+   * @param none
+   * @return none
+   */
 
   public static void searchUser() {
     SystemFunctions.listUsers();
@@ -255,6 +344,12 @@ public final class SystemFunctions {
     System.out.println(" - Email: " + user.getEmail());
     System.out.println("------------------");
   }
+
+  /**
+   * Modifica los usuarios del sistema
+   * @param none
+   * @return boolean True si se ha podido modificar
+   */
 
   public static Boolean modifyUser() {
     scanner = new Scanner(System.in);
@@ -291,6 +386,12 @@ public final class SystemFunctions {
     return false;
   }
 
+  /**
+   * Registra una review en el sistema
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
+
   public static boolean registerReviewE1() {
     Review review = new Review();
     scanner = new Scanner(System.in);
@@ -317,6 +418,12 @@ public final class SystemFunctions {
     reviewManager.registerReview(review);
     return true;
   }
+
+  /**
+   * Registra una review en el sistema
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
 
   public static boolean registerReviewE2() {
     Review review = new Review();
@@ -348,6 +455,12 @@ public final class SystemFunctions {
     return true;
   }
 
+  /**
+   * Muestra las reviews del sistema
+   * @param none
+   * @return none
+   */
+
   public static void showReviewsE1() {
     ReviewManager reviewManager = ReviewManager.getInstance();
     ArrayList<Review> reviews = reviewManager.getReviews();
@@ -366,6 +479,12 @@ public final class SystemFunctions {
       System.out.println("------------------");
     }
   }
+
+  /**
+   * Muestra las reviews del sistema
+   * @param none
+   * @return none
+   */
 
   public static void showReviewsE2() {
     ReviewManager reviewManager = ReviewManager.getInstance();
@@ -387,6 +506,12 @@ public final class SystemFunctions {
     }
   }
 
+  /**
+   * Imprime el menú de borrar una review
+   * @param none
+   * @return boolean True si se ha podido borrar
+   */
+
   public static Boolean deleteReview() {
     scanner = new Scanner(System.in);
     ReviewManager reviewManager = ReviewManager.getInstance();
@@ -398,6 +523,12 @@ public final class SystemFunctions {
     int deleteReviewId = scanner.nextInt();
     return reviewManager.deleteReview(deleteReviewId);
   }
+
+  /**
+   * Imprime las reviews de un usuario en concreto
+   * @param none
+   * @return none
+   */
 
   public static void searchUsersReview() {
     ReviewManager reviewManager = ReviewManager.getInstance();
@@ -427,6 +558,12 @@ public final class SystemFunctions {
     }
   }
 
+  /**
+   * Permite valorar una review
+   * @param none
+   * @return boolean True si se ha podido votar
+   */
+
   public static boolean voteReview() {
     ReviewManager reviewManager = ReviewManager.getInstance();
 
@@ -453,6 +590,12 @@ public final class SystemFunctions {
     return false;
   }
 
+  /**
+   * Imprime las reviews
+   * @param none
+   * @return none
+   */
+
   public static void listReviews() {
     ReviewManager reviewManager = ReviewManager.getInstance();
 
@@ -469,6 +612,12 @@ public final class SystemFunctions {
     }
   }
 
+  /**
+   * Imprime los espectáculos
+   * @param none
+   * @return none
+   */
+
   public static void listSpectacles() {
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
 
@@ -484,6 +633,12 @@ public final class SystemFunctions {
       );
     }
   }
+
+  /**
+   * Registra un nuevo espectáculo
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
 
   public static Boolean registerSpectacle() throws ParseException {
     System.out.println("¿Qué tipo de espectáculo desea crear?");
@@ -511,6 +666,12 @@ public final class SystemFunctions {
     }
     return false;
   }
+
+  /**
+   * Crea un espectáculo único
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
 
   private static Boolean createSingle() throws ParseException {
     Spectacle spectacle = SpectacleFactory.getSpectacle("Single");
@@ -549,6 +710,12 @@ public final class SystemFunctions {
 
     return true;
   }
+
+  /**
+   * Crea un espectáculo múltiple
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
 
   private static Boolean createMultiple() throws ParseException {
     Spectacle spectacle = SpectacleFactory.getSpectacle("Multiple");
@@ -597,6 +764,12 @@ public final class SystemFunctions {
 
     return true;
   }
+
+  /**
+   * Crea un espectáculo de temporada
+   * @param none
+   * @return boolean True si se ha podido registrar
+   */
 
   private static Boolean createSeason() throws ParseException {
     Spectacle spectacle = SpectacleFactory.getSpectacle("Season");
@@ -652,6 +825,12 @@ public final class SystemFunctions {
     return true;
   }
 
+  /**
+   * Menú para que el usuario escoja una categoría
+   * @param none
+   * @return category Categoría elegida por el usuario
+   */
+
   private static spectacles.Spectacle.category choiceCategory() {
     System.out.println("¿De qué categoría es el espectáculo?");
     System.out.println(" - Pulse 1 si es un concierto");
@@ -678,6 +857,12 @@ public final class SystemFunctions {
     return null;
   }
 
+  /**
+   * Función que convierte una cadena en categoría
+   * @param none
+   * @return category Categoría elegida por el usuario
+   */
+
   public static spectacles.Spectacle.category convertStringToCategory(
     String categoria
   ) {
@@ -692,6 +877,12 @@ public final class SystemFunctions {
     }
     return null;
   }
+
+  /**
+   * Borra un espectáculo del sistema
+   * @param none
+   * @return none
+   */
 
   public static void deleteSpectacle() {
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
@@ -720,6 +911,12 @@ public final class SystemFunctions {
     }
   }
 
+  /**
+   * Función que lista las sesiones de un espectáculo
+   * @param int spectacleId
+   * @return none
+   */
+
   private static void listSpectacleSesions(int spectacleId) {
     SesionManager sesionManager = SesionManager.getInstance();
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -737,6 +934,12 @@ public final class SystemFunctions {
       }
     }
   }
+
+  /**
+   * Función que modifica un espectáculo del sistema
+   * @param none
+   * @return none
+   */
 
   public static void modifySpectacle() {
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
@@ -757,6 +960,12 @@ public final class SystemFunctions {
     spectacleManager.modifySpectacle(spectacle);
   }
 
+  /**
+   * Función que muestra las plazas que faltan para una sesión
+   * @param none
+   * @return none
+   */
+
   public static void sesionPlacesLeft() {
     SesionManager sesionManager = SesionManager.getInstance();
     SystemFunctions.listSpectacles();
@@ -772,6 +981,12 @@ public final class SystemFunctions {
       " plazas libres para esta sesión"
     );
   }
+
+  /**
+   * Función que muestra las plazas que faltan para una sesión según su fecha
+   * @param none
+   * @return none
+   */
 
   public static void sesionPlacesLeftByDate() throws ParseException {
     SesionManager sesionManager = SesionManager.getInstance();
@@ -797,6 +1012,12 @@ public final class SystemFunctions {
     }
   }
 
+  /**
+   * Función que muestra los espectáculos con plazas libres
+   * @param none
+   * @return none
+   */
+
   public static void spectaclesWithFreePlaces() {
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SesionManager sesionManager = SesionManager.getInstance();
@@ -820,6 +1041,12 @@ public final class SystemFunctions {
       }
     }
   }
+
+  /**
+   * Función que busca un espectáculo
+   * @param none
+   * @return none
+   */
 
   public static void searchSpectacles() {
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
@@ -864,6 +1091,12 @@ public final class SystemFunctions {
       }
     }
   }
+
+  /**
+   * Función que busca una review según el titulo del espectáculo
+   * @param none
+   * @return none
+   */
 
   public static void searchReviewBySpectacleTitle() {
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
