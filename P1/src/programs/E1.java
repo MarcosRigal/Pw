@@ -1,6 +1,8 @@
 package programs;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import managers.UserManager;
 import storage.FileStorage;
 import storage.IRepository;
@@ -17,7 +19,7 @@ import utilities.SystemFunctions;
 
 public class E1 {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, ParseException {
     IRepository entityRepository = new FileStorage();
     UserManager userManager = UserManager.getInstance();
 

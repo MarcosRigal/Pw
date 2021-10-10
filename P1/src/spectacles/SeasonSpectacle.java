@@ -1,9 +1,5 @@
 package spectacles;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 /**
  * Clase que representa los espectáculos de temporada
  * @author Antonio Moruno Gracia
@@ -19,11 +15,6 @@ public class SeasonSpectacle extends Spectacle {
   private String description;
   private category category;
   private int places;
-  private int placesLeft;
-  private ArrayList<LocalDate> dates;
-  private LocalDate beginningDate;
-  private DayOfWeek day;
-  private LocalDate endDate;
 
   /**
    * Constructor de la clase season spectacle
@@ -88,28 +79,6 @@ public class SeasonSpectacle extends Spectacle {
   }
 
   /**
-   * Devuelve el número de plazas del espectáculo
-   * @param none
-   * @return int Número de plazas del espectáculo
-   */
-
-  @Override
-  public int getPlacesLeft() {
-    return placesLeft;
-  }
-
-  /**
-   * Devuelve las fechas en las que se realiza el espectáculo
-   * @param none
-   * @return ArrayList<LocalDate> Vector con las fechas del espectáculo
-   */
-
-  @Override
-  public ArrayList<LocalDate> getDates() {
-    return dates;
-  }
-
-  /**
    * Devuelve el tipo de espectáculo
    * @param none
    * @return String Tipo de espectáculo
@@ -118,36 +87,6 @@ public class SeasonSpectacle extends Spectacle {
   @Override
   public String getType() {
     return "Season";
-  }
-
-  /**
-   * Devuelve la fecha de inicio del espectáculo
-   * @param none
-   * @return LocalDate Fecha de inicio del espectáculo
-   */
-
-  public LocalDate getBeginningDate() {
-    return beginningDate;
-  }
-
-  /**
-   * Devuelve el día de la semana en el que se realiza el espectáculo
-   * @param none
-   * @return DayOfWeek Día de la semana en el que se realiza el espectáculo
-   */
-
-  public DayOfWeek getDay() {
-    return day;
-  }
-
-  /**
-   * Devuelve la fecha de fin del espectáculo
-   * @param none
-   * @return LocalDate Fecha de fin del espectáculo
-   */
-
-  public LocalDate getEndDate() {
-    return endDate;
   }
 
   /**
@@ -203,57 +142,5 @@ public class SeasonSpectacle extends Spectacle {
   @Override
   public void setPlaces(int places) {
     this.places = places;
-  }
-
-  /**
-   * Cambia el número de plazas libres del espectáculo
-   * @param int Número de plazas libres del espectáculo
-   * @return none
-   */
-
-  @Override
-  public void setPlacesLeft(int placesLeft) {
-    this.placesLeft = placesLeft;
-  }
-
-  /**
-   * Cambia las fechas del espectáculo
-   * @param ArrayList<LocalDate> Fechas del espectáculo
-   * @return none
-   */
-
-  @Override
-  public void setDates(ArrayList<LocalDate> dates) {
-    this.dates = dates;
-  }
-
-  /**
-   * Cambia la fecha de finalización del espectáculo
-   * @param LocalDate Fecha de finalización del espectáculo
-   * @return none
-   */
-
-  public void setBeginningDate(LocalDate beginningDate) {
-    this.beginningDate = beginningDate;
-  }
-
-  /**
-   * Cambia el dia de la semana en la que se realiza el espectáculo
-   * @param DayOfWeek Dia de la semana en el que se realiza el espectáculo
-   * @return none
-   */
-
-  public void setDay(DayOfWeek day) {
-    this.day = day;
-  }
-
-  /**
-   * Cambia las fecha de fin del espectáculo
-   * @param LocalDate Fecha de finalización del espectáculo
-   * @return none
-   */
-
-  public void setEndDate(LocalDate endDate) {
-    this.endDate = endDate;
   }
 }

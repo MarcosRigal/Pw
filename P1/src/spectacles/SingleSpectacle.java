@@ -1,8 +1,5 @@
 package spectacles;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 /**
  * Clase que representa los espectáculos únicos
  * @author Antonio Moruno Gracia
@@ -18,8 +15,7 @@ public class SingleSpectacle extends Spectacle {
   private String description;
   private category category;
   private int places;
-  private int placesLeft;
-  private ArrayList<LocalDate> dates;
+
 
   /**
    * Constructor de la clase single spectacle
@@ -81,28 +77,6 @@ public class SingleSpectacle extends Spectacle {
   @Override
   public int getPlaces() {
     return places;
-  }
-
-  /**
-   * Devuelve el número de plazas del espectáculo
-   * @param none
-   * @return int Número de plazas del espectáculo
-   */
-
-  @Override
-  public int getPlacesLeft() {
-    return placesLeft;
-  }
-
-  /**
-   * Devuelve las fechas en las que se realiza el espectáculo
-   * @param none
-   * @return ArrayList<LocalDate> Vector con las fechas del espectáculo
-   */
-
-  @Override
-  public ArrayList<LocalDate> getDates() {
-    return dates;
   }
 
   /**
@@ -171,25 +145,4 @@ public class SingleSpectacle extends Spectacle {
     this.places = places;
   }
 
-  /**
-   * Cambia el número de plazas libres del espectáculo
-   * @param int Número de plazas libres del espectáculo
-   * @return none
-   */
-
-  @Override
-  public void setPlacesLeft(int placesLeft) {
-    this.placesLeft = placesLeft;
-  }
-
-  /**
-   * Cambia las fechas del espectáculo
-   * @param ArrayList<LocalDate> Fechas del espectáculo
-   * @return none
-   */
-
-  @Override
-  public void setDates(ArrayList<LocalDate> dates) {
-    this.dates = dates;
-  }
 }

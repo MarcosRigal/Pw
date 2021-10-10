@@ -1,8 +1,5 @@
 package spectacles;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 /**
  * Clase abastracta de la que heredan los distintos tipos de espectáculos
  * @author Antonio Moruno Gracia
@@ -60,22 +57,6 @@ public abstract class Spectacle {
   public abstract int getPlaces();
 
   /**
-   * Devuelve el número de plazas del espectáculo
-   * @param none
-   * @return int Número de plazas del espectáculo
-   */
-
-  public abstract int getPlacesLeft();
-
-  /**
-   * Devuelve las fechas en las que se realiza el espectáculo
-   * @param none
-   * @return ArrayList<LocalDate> Vector con las fechas del espectáculo
-   */
-
-  public abstract ArrayList<LocalDate> getDates();
-
-  /**
    * Devuelve el tipo de espectáculo
    * @param none
    * @return String Tipo de espectáculo
@@ -123,19 +104,4 @@ public abstract class Spectacle {
 
   public abstract void setPlaces(int places);
 
-  /**
-   * Cambia el número de plazas libres del espectáculo
-   * @param int Número de plazas libres del espectáculo
-   * @return none
-   */
-
-  public abstract void setPlacesLeft(int placesLeft);
-
-  /**
-   * Cambia las fechas del espectáculo
-   * @param ArrayList<LocalDate> Fechas del espectáculo
-   * @return none
-   */
-
-  public abstract void setDates(ArrayList<LocalDate> dates);
 }

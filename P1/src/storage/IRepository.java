@@ -2,6 +2,7 @@ package storage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Interfaz para implementar los métodos encargados de leer y escribir
@@ -25,6 +26,8 @@ public interface IRepository {
    * @param none
    * @return none
    * @throws FileNotFoundException
+ * @throws IOException 
+ * @throws ParseException 
    */
-  public abstract boolean loadSystem() throws FileNotFoundException; //Interfaz para cargar el sistema
+  public abstract boolean loadSystem() throws FileNotFoundException, IOException, ParseException; //Interfaz para cargar el sistema
 }

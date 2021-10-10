@@ -1,15 +1,22 @@
 package utilities;
 
+import factories.SpectacleFactory;
 import factories.UserFactory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 import managers.ReviewManager;
+import managers.SesionManager;
 import managers.SpectacleManager;
 import managers.UserManager;
 import reviews.Review;
+import sesions.Sesion;
 import spectacles.Spectacle;
+import spectacles.Spectacle.category;
 import users.User;
 
 public final class SystemFunctions {
@@ -114,7 +121,7 @@ public final class SystemFunctions {
 	    System.out.println(" - Pulse 3 para actualizar los datos de un espectáculo");
 	    System.out.println(" - Pulse 4 para contabilizar la venta de entradas para una sesión de un espectáculo");
 	    System.out.println(" - Pulse 5 consultar las localidades disponibles para un espectáculo, dada una fecha de representación");
-	    System.out.println(" - Pulse 6 para busquecar espectáculos por título o por categoría");
+	    System.out.println(" - Pulse 6 para buscar espectáculos por título o por categoría");
 	    System.out.println(" - Pulse 7 búsqueda de próximos espectáculos con entradas disponibles, indicando o no una categoría específica");
 	    System.out.println(" - Pulse 0 para salir");
 	    System.out.print("Escoja una opción y pulse enter: ");
@@ -309,10 +316,10 @@ public final class SystemFunctions {
 	    SystemFunctions.listSpectacles();
 	    review.setReviewId(reviewManager.getReviewId());
 	    review.setUserId(userManager.getActiveUser().getUserId());
-	    review.setSpectacleId(-1);
 	    System.out.println("Introduzca los siguientes datos: ");
 	    System.out.print(" - Identificador del espectáculo: ");
 	    review.setSpectacleId(scanner.nextInt());
+	    scanner.nextLine();
 	    System.out.print(" - Título: ");
 	    review.setTitle(scanner.nextLine());
 	    System.out.print(" - Puntuación del (0-5): ");
@@ -458,4 +465,324 @@ public final class SystemFunctions {
 	      );
 	    }
 	  }
+  
+  public static Boolean registerSpectacle() throws ParseException {
+	    System.out.println("¿Qué tipo de espectáculo desea crear?");
+	    System.out.println(" - Pulse 1 para crear un espectáculo único");
+	    System.out.println(" - Pulse 2 para crear un espectáculo múltiple");
+	    System.out.println(" - Pulse 3 para crear un espectáculo de temporada");
+	    System.out.println(" - Pulse 0 para cancelar");
+	    System.out.print("Escoja una opción y pulse enter: ");
+	    int choice = scanner.nextInt();
+	    while (choice < 0 || choice > 3) {
+	      System.out.print(" - Error escoja una opción valida: ");
+	      choice = scanner.nextInt();
+	    }
+
+	    if (choice != 0) {
+	      if (choice == 1) {
+	        return SystemFunctions.createSingle();
+	      }
+	      if (choice == 2) {
+	        return SystemFunctions.createMultiple();
+	      }
+	      if (choice == 3) {
+		        return SystemFunctions.createSeason();
+		      }
+	    }
+	    return false;
+	  }
+
+  	private static Boolean createSingle() throws ParseException {
+	    Spectacle spectacle = SpectacleFactory.getSpectacle("Single");
+	    Sesion sesion = new Sesion();
+	    scanner = new Scanner(System.in);
+
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+	    SesionManager sesionManager = SesionManager.getInstance();
+	    
+	    spectacle.setSpectacleId(spectacleManager.getSpectacleId());
+	    System.out.println("Introduzca los siguientes datos: ");
+	    System.out.print(" - Título: ");
+	    spectacle.setTitle(scanner.nextLine());
+	    System.out.print(" - Descripción: ");
+	    spectacle.setDescription(scanner.nextLine());
+	    System.out.print(" - Aforo: ");
+	    int places = scanner.nextInt();
+	    while (places < 0) {
+	      System.out.print(" - Error introduzca un número > 0: ");
+	      places = scanner.nextInt();
+	    }
+	    spectacle.setPlaces(places);
+	    scanner.nextLine();
+	    spectacle.setCategory(SystemFunctions.choiceCategory());
+	    spectacleManager.registerSpectacle(spectacle);
+	    
+	    sesion.setSpectacleId(spectacle.getSpectacleId());
+	    sesion.setSesionId(sesionManager.getSesionId());
+	    sesion.setPlacesLeft(spectacle.getPlaces());
+	    scanner.nextLine();
+	    SimpleDateFormat formatter6= new SimpleDateFormat("dd-MM-yyyy HH:mm");   
+	    System.out.print(" - Fecha de la sesión (dd-MM-yyyy HH:mm): ");
+	    String date = scanner.nextLine();
+	    sesion.setDate(formatter6.parse(date));
+	    sesionManager.registerSesion(sesion);
+	    
+	    return true;
+	}
+  
+  	private static Boolean createMultiple() throws ParseException {
+	    Spectacle spectacle = SpectacleFactory.getSpectacle("Multiple");
+	    scanner = new Scanner(System.in);
+
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+	    SesionManager sesionManager = SesionManager.getInstance();
+	    
+	    spectacle.setSpectacleId(spectacleManager.getSpectacleId());
+	    System.out.println("Introduzca los siguientes datos: ");
+	    System.out.print(" - Título: ");
+	    spectacle.setTitle(scanner.nextLine());
+	    System.out.print(" - Descripción: ");
+	    spectacle.setDescription(scanner.nextLine());
+	    System.out.print(" - Aforo: ");
+	    int places = scanner.nextInt();
+	    while (places < 0) {
+	      System.out.print(" - Error introduzca un número > 0: ");
+	      places = scanner.nextInt();
+	    }
+	    spectacle.setPlaces(places);
+	    scanner.nextLine();
+	    spectacle.setCategory(SystemFunctions.choiceCategory());
+	    spectacleManager.registerSpectacle(spectacle);
+	    
+	    System.out.print(" - Nº de sesiones: ");
+	    int nSesions = scanner.nextInt();
+	    while (nSesions < 0) {
+	      System.out.print(" - Error introduzca un número > 0: ");
+	      places = scanner.nextInt();
+	    }
+	    scanner.nextLine();
+	    for (int i = 0; i < nSesions; i++) {
+		    Sesion sesion = new Sesion();
+		    sesion.setSpectacleId(spectacle.getSpectacleId());
+		    sesion.setSesionId(sesionManager.getSesionId());
+		    sesion.setPlacesLeft(spectacle.getPlaces());
+		    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");   
+		    System.out.print(" - Fecha de la sesión " + (i+1) + " (dd-MM-yyyy HH:mm): ");
+		    String date = scanner.nextLine();
+		    sesion.setDate(formatter6.parse(date));
+		    sesionManager.registerSesion(sesion);
+	    }
+	    
+	    return true;
+	}
+
+  	private static Boolean createSeason() throws ParseException {
+	    Spectacle spectacle = SpectacleFactory.getSpectacle("Season");
+	    scanner = new Scanner(System.in);
+
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+	    SesionManager sesionManager = SesionManager.getInstance();
+	    
+	    spectacle.setSpectacleId(spectacleManager.getSpectacleId());
+	    System.out.println("Introduzca los siguientes datos: ");
+	    System.out.print(" - Título: ");
+	    spectacle.setTitle(scanner.nextLine());
+	    System.out.print(" - Descripción: ");
+	    spectacle.setDescription(scanner.nextLine());
+	    System.out.print(" - Aforo: ");
+	    int places = scanner.nextInt();
+	    while (places < 0) {
+	      System.out.print(" - Error introduzca un número > 0: ");
+	      places = scanner.nextInt();
+	    }
+	    spectacle.setPlaces(places);
+	    scanner.nextLine();
+	    spectacle.setCategory(SystemFunctions.choiceCategory());
+	    spectacleManager.registerSpectacle(spectacle);
+	    
+	    System.out.print(" - Nº de sesiones: ");
+	    int nSesions = scanner.nextInt();
+	    while (nSesions < 0) {
+	      System.out.print(" - Error introduzca un número > 0: ");
+	      places = scanner.nextInt();
+	    }
+	    scanner.nextLine();
+	    Sesion sesion = new Sesion();
+	    sesion.setSpectacleId(spectacle.getSpectacleId());
+	    sesion.setSesionId(sesionManager.getSesionId());
+	    sesion.setPlacesLeft(spectacle.getPlaces());
+	    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");   
+	    System.out.print(" - Fecha de la primera sesión (dd-MM-yyyy HH:mm): ");
+	    String date = scanner.nextLine();
+	    sesion.setDate(formatter6.parse(date));
+	    sesionManager.registerSesion(sesion);
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(formatter6.parse(date));
+	    for (int i = 1; i < nSesions; i++) {
+	    	cal.add(Calendar.DATE, 7);
+		    Sesion cloneSesion = new Sesion();
+		    cloneSesion.setSpectacleId(sesion.getSpectacleId());
+		    cloneSesion.setSesionId(sesionManager.getSesionId());
+		    cloneSesion.setPlacesLeft(sesion.getPlacesLeft());
+		    cloneSesion.setDate(cal.getTime());
+		    sesionManager.registerSesion(cloneSesion);
+		}
+	    return true;
+  	}
+  	
+  	private static spectacles.Spectacle.category choiceCategory(){
+  	    System.out.println("¿De qué categoría es el espectáculo?");
+  	    System.out.println(" - Pulse 1 si es un concierto");
+  	    System.out.println(" - Pulse 2 si es un monólogo");
+  	    System.out.println(" - Pulse 3 si es una obra");
+  	    System.out.print("Escoja una opción y pulse enter: ");
+  	    int choice = scanner.nextInt();
+  	    while (choice < 1 || choice > 3) {
+  	      System.out.print(" - Error escoja una opción valida: ");
+  	      choice = scanner.nextInt();
+  	    }
+
+  	    if (choice == 1) {
+  	    	return category.concierto;
+  	    }
+
+  	    if (choice == 2) {
+  	    	return category.monologo;
+  	    }
+
+  	    if (choice == 3) {
+  	    	return category.obra;
+  	    }
+  	    return null;
+  	  }
+  	
+  	public static spectacles.Spectacle.category convertStringToCategory(String categoria){
+  		if (categoria.equals("obra")) {
+  	    	return category.obra;
+		}
+  		if (categoria.equals("concierto")) {
+  	    	return category.concierto;
+		}
+  		if (categoria.equals("monologo")) {
+  	    	return category.monologo;
+		}
+  		return null;
+  	}
+  	
+  	public static void deleteSpectacle()
+  	{
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+	    SesionManager sesionManager = SesionManager.getInstance();
+  		SystemFunctions.listSpectacles();
+	    System.out.print(" - Identificador del espectáculo: ");
+	    int spectacleId= scanner.nextInt();
+  	    
+	    System.out.println("¿Qué desea hacer?");
+  	    System.out.println(" - Pulse 1 para borrar todas las sesiones");
+  	    System.out.println(" - Pulse 2 para borrar una sesión en concreto");
+  	    System.out.print("Escoja una opción y pulse enter: ");
+  	    int choice = scanner.nextInt();
+  	    while (choice < 1 || choice > 2) {
+  	      System.out.print(" - Error escoja una opción valida: ");
+  	      choice = scanner.nextInt();
+  	    }
+  	    if (choice == 1) {
+  	    	spectacleManager.deleteSpectacle(spectacleId);
+  	    }
+  	    if (choice == 2) {
+  	    	SystemFunctions.listSpectacleSesions(spectacleId);
+  		    System.out.print(" - Identificador de la sesión: ");
+  		    int sesionId= scanner.nextInt();
+  	    	sesionManager.deleteSesion(sesionId);
+  	    }
+  	}
+
+	private static void listSpectacleSesions(int spectacleId) {
+			    SesionManager sesionManager = SesionManager.getInstance();
+			    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			    ArrayList<Sesion> sesions = sesionManager.getSesions();
+			    System.out.println("sesionId | Hora");
+			    System.out.println("------------------");
+			    for (int i = 0; i < sesions.size(); i++) {
+			    	if (sesions.get(i).getSpectacleId() == spectacleId) {						
+			    		System.out.println(
+			    				"   " + sesions.get(i).getSesionId() + "  | " + formatter6.format(sesions.get(i).getDate()) 
+			    				);
+					}
+			    }
+			  }
+
+	public static void modifySpectacle() {
+		
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+  		SystemFunctions.listSpectacles();
+	    
+  		System.out.print(" - Identificador del espectáculo: ");
+	    
+  		int spectacleId= scanner.nextInt();
+	    scanner.nextLine();	    
+  		Spectacle spectacle = spectacleManager.findSpectacle(spectacleId);
+  		
+	    System.out.println("Introduzca los siguientes datos: ");
+	    System.out.print(" - Título: ");
+	    spectacle.setTitle(scanner.nextLine());
+	    System.out.print(" - Descripción: ");
+	    spectacle.setDescription(scanner.nextLine());
+	    spectacle.setCategory(SystemFunctions.choiceCategory());
+	    spectacleManager.modifySpectacle(spectacle);
+	}
+	
+	public static void sesionPlacesLeft(){
+	    SesionManager sesionManager = SesionManager.getInstance();
+  		SystemFunctions.listSpectacles();
+	    System.out.print(" - Identificador del espectáculo: ");
+	    int spectacleId= scanner.nextInt();
+  	    
+	    SystemFunctions.listSpectacleSesions(spectacleId);
+  		System.out.print(" - Identificador de la sesión: ");
+  		int sesionId= scanner.nextInt();
+  		System.out.println(" - Quedan : " + sesionManager.findSesion(sesionId).getPlacesLeft() + " plazas libres para esta sesión");
+	}
+	
+	public static void sesionPlacesLeftByDate() throws ParseException{
+	    SesionManager sesionManager = SesionManager.getInstance();
+  		SystemFunctions.listSpectacles();
+	    System.out.print(" - Identificador del espectáculo: ");
+	    int spectacleId= scanner.nextInt();
+	    
+	    SystemFunctions.listSpectacleSesions(spectacleId);
+	    scanner.nextLine();
+	    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");   
+	    System.out.print(" - Fecha de la sesión (dd-MM-yyyy HH:mm): ");
+	    String date = scanner.nextLine();
+
+  		int placesLeft = sesionManager.numberOfPlacesOfSpectacleByDay(spectacleId, formatter6.parse(date));
+  		
+  		if (placesLeft > 0) {
+  	  		System.out.println(" - Quedan : " + placesLeft + " plazas libres");
+		}
+  		else{
+  	  		System.out.println(" - No quedan plazas libres para esa fecha");
+  		}
+	}
+
+	public static void spectaclesWithFreePlaces() {
+	    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+	    SesionManager sesionManager = SesionManager.getInstance();
+	    ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
+	    System.out.println("Título | Fecha");
+	    System.out.println("------------------");
+	    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+	    for (int i = 0; i < spectacles.size(); i++) {
+		    ArrayList<Sesion> sesions = sesionManager.searchSpectacleSesions(spectacles.get(i).getSpectacleId());	    
+	    	for (int j = 0; j < sesions.size(); j++) {
+				if(sesions.get(j).getPlacesLeft() > 0){
+				      System.out.println(
+					  	        " "  + spectacles.get(i).getTitle()+ "  | " + formatter6.format(sesions.get(j).getDate())
+					  	      );		
+				}
+			}
+	    }
+	}
 }

@@ -1,6 +1,8 @@
 package programs;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import managers.UserManager;
 import storage.FileStorage;
 import storage.IRepository;
@@ -17,7 +19,7 @@ import utilities.SystemFunctions;
 
 public class E2 {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, ParseException {
     IRepository entityRepository = new FileStorage();
     UserManager userManager = UserManager.getInstance();
 
@@ -60,7 +62,7 @@ public class E2 {
               if (choice == 5) {
                 SystemFunctions.searchUsersReview();
               }
-              if (choice == 5) {
+              if (choice == 6) {
                 SystemFunctions.listSpectacles();
               }
               choice = SystemFunctions.printE2SpectatorMenuScreen();
@@ -123,13 +125,25 @@ public class E2 {
               if (choice == 3) {
                 choice = SystemFunctions.printE2AdminSpectaclesScreen();
                 while (choice != 0) {
-                  if (choice == 1) {}
-                  if (choice == 2) {}
-                  if (choice == 3) {}
-                  if (choice == 4) {}
-                  if (choice == 5) {}
+                  if (choice == 1) {
+                	  SystemFunctions.registerSpectacle();
+                  }
+                  if (choice == 2) {
+                	  SystemFunctions.deleteSpectacle();
+                  }
+                  if (choice == 3) {
+                	  SystemFunctions.modifySpectacle();
+                  }
+                  if (choice == 4) {
+                	  SystemFunctions.sesionPlacesLeft();
+                  }
+                  if (choice == 5) {
+                	  SystemFunctions.sesionPlacesLeftByDate();
+                  }
                   if (choice == 6) {}
-                  if (choice == 7) {}
+                  if (choice == 7) {
+                	  SystemFunctions.spectaclesWithFreePlaces();
+                  }
                   choice = SystemFunctions.printE2AdminSpectaclesScreen();
                 }
               }
