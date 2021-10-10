@@ -91,6 +91,17 @@ public class Spectator extends User {
   }
 
   /**
+   * Devuelve la contraseña del usuario
+   * @param none
+   * @return string contraseña del usuario
+   */
+
+  @Override
+  public String getPassword() {
+    return password;
+  }
+
+  /**
    * Cambia el identificador del usuario
    * @param int Identificador del usuario
    * @return none
@@ -143,17 +154,6 @@ public class Spectator extends User {
   @Override
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  /**
-   * Devuelve la contraseña del usuario
-   * @param none
-   * @return string contraseña del usuario
-   */
-
-  @Override
-  public String getPassword() {
-    return password;
   }
 
   /**

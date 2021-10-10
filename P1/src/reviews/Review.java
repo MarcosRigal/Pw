@@ -94,10 +94,34 @@ public class Review {
   }
 
   /**
-   * Devuelve las valoraciones realizadas por otros usuarios a esa crítica
+   * Devuelve el número de likes de la crítica
    * @param none
-   * @return ArrayList<Boolean> Vector con las valoraciones realizadas por otros usuarios a esa crítica
+   * @return int Número de likes
    */
+
+  public int getLike() {
+    return like;
+  }
+
+  /**
+   * Devuelve el número de dislikes de la crítica
+   * @param none
+   * @return int Número de dislikes
+   */
+
+  public int getDislike() {
+    return dislike;
+  }
+
+  /**
+   * Devuelve el id de los usuarios que han votado
+   * @param none
+   * @return ArrayList<Integer> Id de los usarios que han votado
+   */
+
+  public ArrayList<Integer> getUsersIdWhoVoted() {
+    return usersIdWhoVoted;
+  }
 
   /**
    * Cambia el identificador de la review
@@ -160,42 +184,60 @@ public class Review {
   }
 
   /**
-   * Cambia el vector con las valoraciones de los usuarios de la review
-   * @param ArrayList<Boolean> Nuevo vector con las valoraciones de los usuarios de la review
+   * Cambia el número de likes
+   * @param int Nueva numero de likes
    * @return none
    */
-
-  public int getLike() {
-    return like;
-  }
 
   public void setLike(int like) {
     this.like = like;
   }
 
-  public int getDislike() {
-    return dislike;
-  }
+  /**
+   * Cambia el número de dislikes
+   * @param int Nueva numero de dislikes
+   * @return none
+   */
 
   public void setDislike(int dislike) {
     this.dislike = dislike;
   }
 
+  /**
+   * Modifica el listado de usuarios que han votado
+   * @param ArrayList<Integer> Listado de los usuarios que han votado
+   * @return none
+   */
+
+  public void setUsersIdWhoVoted(ArrayList<Integer> usersIdWhoVoted) {
+    this.usersIdWhoVoted = usersIdWhoVoted;
+  }
+
+  /**
+   * Da un like a la review
+   * @param none
+   * @return none
+   */
+
   public void like() {
     this.like = this.like + 1;
   }
+
+  /**
+   * Da un dislike a la review
+   * @param none
+   * @return none
+   */
 
   public void dislike() {
     this.dislike = this.dislike + 1;
   }
 
-  public ArrayList<Integer> getUsersIdWhoVoted() {
-    return usersIdWhoVoted;
-  }
-
-  public void setUsersIdWhoVoted(ArrayList<Integer> usersIdWhoVoted) {
-    this.usersIdWhoVoted = usersIdWhoVoted;
-  }
+  /**
+   * Añade el id de un usuario que acaba de votar
+   * @param int Id del usuario que acaba de votar
+   * @return none
+   */
 
   public void addUserIdWhoVoted(int userIdWhoVoted) {
     this.usersIdWhoVoted.add(userIdWhoVoted);

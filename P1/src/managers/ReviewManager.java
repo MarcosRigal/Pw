@@ -21,9 +21,8 @@ public class ReviewManager {
   private int reviewId;
 
   /**
-   * Busca y devuelve una review en concreto
-   * @param int Identificador de la review que se desea buscar
-   * @return Review review buscada o null si no la encuentra
+   * Constructor del review manager
+   * @param none
    */
 
   private ReviewManager() {
@@ -46,6 +45,7 @@ public class ReviewManager {
 
   /**
    * Devuelve todas las críticas disponibles
+   * @param none
    * @return ArrayList<Review> Vector con las criticas
    */
 
@@ -58,6 +58,7 @@ public class ReviewManager {
    * @param ArrayList<Review> La nueva lista de reviews
    * @return none
    */
+
   public void setReviews(ArrayList<Review> reviews) {
     this.reviews = reviews;
   }
@@ -65,8 +66,12 @@ public class ReviewManager {
   /**
    * Añade una review al listado de reviews
    * @param Review Review que se desea añadir
-   * @return Boolean True si se ha podido añadir false si no
+   * @return none
    */
+
+  public void addReview(Review review) {
+    this.reviews.add(review);
+  }
 
   /**
    * Elimina una review en concreto
@@ -91,59 +96,10 @@ public class ReviewManager {
 
   /**
    * Asigna una valoración a una review
+   * @param int elección del usuario
    * @param int reviewId Identificador de la review
-   * @param Boolean Valoración del usuario true positiva false negativa
    * @return Boolean True si se ha podido asignar false si no
    */
-
-  /**
-   * Busca y devuelve una review en concreto
-   * @param int Identificador de la review que se desea buscar
-   * @return
-   * @return Review review buscada o null si no la encuentra
-   */
-
-  public ArrayList<Review> searchUsersReview(int userReviewId) {
-    ArrayList<Review> userReviews = new ArrayList<Review>();
-
-    for (int i = 0; i < reviews.size(); i++) {
-      if (reviews.get(i).getUserId() == userReviewId) {
-        userReviews.add(reviews.get(i));
-      }
-    }
-    return userReviews;
-  }
-
-  /**
-   * Devuelve un identificador para las nuevas reviews creadas
-   * @param none
-   * @return int Identificador de la próxima review que se cree
-   */
-
-  public int getReviewId() {
-    return reviewId;
-  }
-
-  /**
-   * Se usa en la carga del sistema para recuperar el indice
-   * @param int Identificador de la review que se desea asignar
-   * @return none
-   */
-
-  public void setReviewId(int reviewId) {
-    this.reviewId = reviewId;
-  }
-
-  public void addReview(Review review) {
-    this.reviews.add(review);
-  }
-
-  public void registerReview(Review review) {
-    UserManager userManager = UserManager.getInstance();
-    review.addUserIdWhoVoted(userManager.getActiveUser().getUserId());
-    this.reviews.add(review);
-    reviewId += 1;
-  }
 
   public boolean voteReview(int choice, int voteReviewId) {
     UserManager userManager = UserManager.getInstance();
@@ -176,6 +132,62 @@ public class ReviewManager {
     }
     return false;
   }
+
+  /**
+   * Busca y las reviews creadas por un usuario
+   * @param int Identificador del usuario que creo las reviews que se desean buscar
+   * @return Review review buscada o null si no la encuentra
+   */
+
+  public ArrayList<Review> searchUsersReview(int userReviewId) {
+    ArrayList<Review> userReviews = new ArrayList<Review>();
+
+    for (int i = 0; i < reviews.size(); i++) {
+      if (reviews.get(i).getUserId() == userReviewId) {
+        userReviews.add(reviews.get(i));
+      }
+    }
+    return userReviews;
+  }
+
+  /**
+   * Devuelve un identificador para las nuevas reviews creadas
+   * @param none
+   * @return int Identificador de la próxima review que se cree
+   */
+
+  public int getReviewId() {
+    return reviewId;
+  }
+
+  /**
+   * Se usa en la carga del sistema para recuperar el indice
+   * @param int Identificador de la próxima review que se va a crear
+   * @return none
+   */
+
+  public void setReviewId(int reviewId) {
+    this.reviewId = reviewId;
+  }
+
+  /**
+   * Registra en el sistema una nueva review
+   * @param Review review que se acaba de crear
+   * @return none
+   */
+
+  public void registerReview(Review review) {
+    UserManager userManager = UserManager.getInstance();
+    review.addUserIdWhoVoted(userManager.getActiveUser().getUserId());
+    this.reviews.add(review);
+    reviewId += 1;
+  }
+
+  /**
+   * Devuelve las reviews asociadas a un spectacleId
+   * @param int Identificador del espectáculo del que se desean obtener las reviews
+   * @return ArrayList<Review> Array con todas las reviews que pertenecen a ese espectáculo
+   */
 
   public ArrayList<Review> searchSpectaclesReview(int spectacleId) {
     ArrayList<Review> spectaclesReviews = new ArrayList<Review>();

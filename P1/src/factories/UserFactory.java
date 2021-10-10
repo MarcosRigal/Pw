@@ -16,7 +16,7 @@ import users.User;
 public class UserFactory {
 
   /**
-   * Descripción
+   * Método de la factoria para crear los usuarios
    * @param string El tipo de usuario que se desea crear.
    * @return User Una instancia del tipo de usuario.
    */

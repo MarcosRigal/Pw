@@ -17,7 +17,7 @@ import spectacles.Spectacle;
 public class SpectacleFactory {
 
   /**
-   * Descripción
+   * Método de la factoria para crear los espectáculos
    * @param string El tipo de espectáculo que se desea crear.
    * @return Spectacle Una instancia del tipo de espectáculo.
    */

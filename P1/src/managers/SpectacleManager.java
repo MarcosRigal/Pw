@@ -24,9 +24,8 @@ public class SpectacleManager {
   private int spectacleId;
 
   /**
-   * Busca y devuelve una review en concreto
-   * @param int Identificador de la review que se desea buscar
-   * @return Review review buscada o null si no la encuentra
+   * Constructor del spectacle manager
+   * @param none
    */
 
   private SpectacleManager() {
@@ -49,6 +48,7 @@ public class SpectacleManager {
 
   /**
    * Devuelve todos los espectáculos disponibles
+   * @param none
    * @return ArrayList<Spectacle> Vector con los espectáculos
    */
 
@@ -67,9 +67,9 @@ public class SpectacleManager {
   }
 
   /**
-   * Añade un espectáculo al listado de espectáculos
+   * Registra un espectáculo nuevo
    * @param Spectacle Espectáculo que se desea añadir
-   * @return Boolean True si se ha podido añadir false si no
+   * @return none
    */
 
   public void registerSpectacle(Spectacle spectacle) {
@@ -77,17 +77,14 @@ public class SpectacleManager {
     spectacleId += 1;
   }
 
+  /**
+   * Añade un espectáculo al sistema
+   * @param Spectacle Espectáculo que se desea añadir
+   * @return none
+   */
+
   public void addSpectacle(Spectacle spectacle) {
     this.spectacles.add(spectacle);
-  }
-
-  /**
-   * Modifica un espectáculo
-   * @param int Identificador del espectáculo que se desea modificar
-   * @return Boolean True si se ha podido modificar false si no
-   */
-  public boolean modifySpectacle(int spectacleId) {
-    return true;
   }
 
   /**
@@ -100,111 +97,6 @@ public class SpectacleManager {
     SesionManager sesionManager = SesionManager.getInstance();
     sesionManager.deleteAllSesions(spectacleId);
     return spectacles.removeIf(n -> ((n.getSpectacleId() == spectacleId)));
-  }
-
-  /**
-   * Devuelve el numéro de entradas vendidas para un espectáculo
-   * @param int Identificador del espectáculo que se desea consultar
-   * @return int Número de plazas vendidas -1 si no se ha podido encontrar
-   */
-
-  public int getPlacesSold(int spectacleId) {
-    return 0;
-  }
-
-  /**
-   * Devuelve las plazas disponibles para una fecha en concreto
-   * @param int Identificador del espectáculo que se desea consultar
-   * @param LocalDate Fecha en la que se desea consultar
-   * @return int Número de plazas restante -1 si no se ha podido encontrar
-   */
-
-  public int getPlacesLeft(int spectacleId, LocalDate date) {
-    return 0;
-  }
-
-  /**
-   * Busca espectáculos en el sistema por su titulo
-   * @param String Titulo del espectáculo
-   * @return ArrayList<Spectacle> Listado con los espectáculos
-   */
-
-  public ArrayList<Spectacle> findSpectacles(String title) {
-    return spectacles;
-  }
-
-  /**
-   * Busca espectáculos en el sistema por su categoria
-   * @param category Categoría del espectáculo
-   * @return ArrayList<Spectacle> Listado con los espectáculos
-   */
-
-  public ArrayList<Spectacle> findSpectacles(category category) {
-    return spectacles;
-  }
-
-  /**
-   * Busca en el sistema espectaculos con plaza libres
-   * @param category none
-   * @return ArrayList<Spectacle> Listado con los espectáculos
-   */
-
-  public ArrayList<Spectacle> nextSpectaclesWithPlaces() {
-    return spectacles;
-  }
-
-  /**
-   * Busca en el sistema espectaculos con plaza libres
-   * que pertenezcan a una categoría
-   * @param category Categoría del espectáculo
-   * @return ArrayList<Spectacle> Listado con los espectáculos
-   */
-
-  public ArrayList<Spectacle> nextSpectaclesWithPlaces(category category) {
-    return spectacles;
-  }
-
-  /**
-   * Añade una review a un espectáculo
-   * @param int Identificador del espectáculo
-   * @param Review Que se desea añadir
-   * @return Boolean True si se ha podiado False si no
-   */
-
-  public boolean registerReview(int spectacleId, Review review) {
-    return true;
-  }
-
-  /**
-   * Muestra las reviews de un espectáculo
-   * @param int Identificador del espectáculo
-   * @return Boolean True si se ha podiado False si no
-   */
-
-  public boolean viewReviews(int spectacleId) {
-    return true;
-  }
-
-  /**
-   * Borra la review de un espectáculo
-   * @param int Identificador del espectáculo
-   * @param int Identificador de la review
-   * @return Boolean True si se ha podiado False si no
-   */
-
-  public boolean deleteReview() {
-    return true;
-  }
-
-  /**
-   * Asigna una valoración a una review
-   * @param int reviewId Identificador de la review
-   * @param Boolean Valoración del usuario true positiva false negativa
-   * @return Boolean True si se ha podido asignar false si no
-   */
-
-  public boolean reviewReview() {
-    return true;
   }
 
   /**
@@ -227,6 +119,12 @@ public class SpectacleManager {
     this.spectacleId = spectacleId;
   }
 
+  /**
+   * Modifica un espectáculo
+   * @param int Identificador del espectáculo que se desea modificar
+   * @return Boolean True si se ha modificado False si no
+   */
+
   public boolean modifySpectacle(Spectacle spectacle) {
     for (int i = 0; i < spectacles.size(); i++) {
       if (spectacles.get(i).getSpectacleId() == spectacle.getSpectacleId()) {
@@ -239,6 +137,12 @@ public class SpectacleManager {
     return false;
   }
 
+  /**
+   * Busca un espectáculo dado su identificador
+   * @param int Identificador del espectáculo que se desea buscar
+   * @return none
+   */
+
   public Spectacle findSpectacle(int spectacleId) {
     for (int i = 0; i < spectacles.size(); i++) {
       if (spectacles.get(i).getSpectacleId() == spectacleId) {
@@ -247,6 +151,12 @@ public class SpectacleManager {
     }
     return null;
   }
+
+  /**
+   * Devuelve los espectáculos de una categoría en concreto
+   * @param category Categoría de los espectáculos que buscamos
+   * @return ArrayList<Spectacle> Lista con los espectáculos de dicha categoría
+   */
 
   public ArrayList<Spectacle> searchByCategory(category choiceCategory) {
     ArrayList<Spectacle> searchedSpectacles = new ArrayList<Spectacle>();
@@ -258,6 +168,12 @@ public class SpectacleManager {
     }
     return searchedSpectacles;
   }
+
+  /**
+   * Devuelve los espectáculos con un título en concreto
+   * @param String Título de los espectáculos que buscamos
+   * @return ArrayList<Spectacle> Lista con los espectáculos con dicho titulo
+   */
 
   public ArrayList<Spectacle> searchByTitle(String title) {
     ArrayList<Spectacle> searchedSpectacles = new ArrayList<Spectacle>();

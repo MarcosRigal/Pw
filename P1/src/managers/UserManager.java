@@ -48,6 +48,7 @@ public class UserManager {
 
   /**
    * Devuelve todos los usuarios disponibles
+   * @param none
    * @return ArrayList<User> Vector con los usuarios
    */
 
@@ -75,6 +76,12 @@ public class UserManager {
     users.add(user);
     return true;
   }
+
+  /**
+   * Registra un nuevo usuario en el sistema
+   * @param User Usuario que se desea añadir
+   * @return Boolean True si se ha podido añadir false si no
+   */
 
   public boolean registerUser(User user) {
     users.add(user);
@@ -158,9 +165,21 @@ public class UserManager {
     this.userId = userId;
   }
 
+  /**
+   * Devuelve el usuario que ha iniciado sesión
+   * @param none
+   * @return User usuario logeado
+   */
+
   public User getActiveUser() {
     return activeUser;
   }
+
+  /**
+   * Permite indicar que usuario ha iniciado sesión
+   * @param User usuario logeado
+   * @return none
+   */
 
   public void setActiveUser(User activeUser) {
     this.activeUser = activeUser;
