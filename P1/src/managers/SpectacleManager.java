@@ -1,8 +1,6 @@
 package managers;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import reviews.Review;
 import spectacles.Spectacle;
 import spectacles.Spectacle.category;
 
