@@ -2,7 +2,6 @@ package programs;
 
 import java.io.IOException;
 import java.text.ParseException;
-
 import managers.UserManager;
 import storage.FileStorage;
 import storage.IRepository;
@@ -65,6 +64,9 @@ public class E2 {
               if (choice == 6) {
                 SystemFunctions.listSpectacles();
               }
+              if (choice == 7) {
+                SystemFunctions.searchReviewBySpectacleTitle();
+              }
               choice = SystemFunctions.printE2SpectatorMenuScreen();
             }
           }
@@ -72,7 +74,7 @@ public class E2 {
             choice = SystemFunctions.printE2AdminMenuScreen();
             while (choice != 0) {
               if (choice == 1) {
-                choice = SystemFunctions.printE1SpectatorMenuScreen();
+                choice = SystemFunctions.printE2SpectatorMenuScreen();
                 while (choice != 0) {
                   if (choice == 1) {
                     SystemFunctions.registerReviewE2();
@@ -97,7 +99,13 @@ public class E2 {
                   if (choice == 5) {
                     SystemFunctions.searchUsersReview();
                   }
-                  choice = SystemFunctions.printE1SpectatorMenuScreen();
+                  if (choice == 6) {
+                    SystemFunctions.listSpectacles();
+                  }
+                  if (choice == 7) {
+                    SystemFunctions.searchReviewBySpectacleTitle();
+                  }
+                  choice = SystemFunctions.printE2SpectatorMenuScreen();
                 }
               }
               if (choice == 2) {
@@ -126,23 +134,25 @@ public class E2 {
                 choice = SystemFunctions.printE2AdminSpectaclesScreen();
                 while (choice != 0) {
                   if (choice == 1) {
-                	  SystemFunctions.registerSpectacle();
+                    SystemFunctions.registerSpectacle();
                   }
                   if (choice == 2) {
-                	  SystemFunctions.deleteSpectacle();
+                    SystemFunctions.deleteSpectacle();
                   }
                   if (choice == 3) {
-                	  SystemFunctions.modifySpectacle();
+                    SystemFunctions.modifySpectacle();
                   }
                   if (choice == 4) {
-                	  SystemFunctions.sesionPlacesLeft();
+                    SystemFunctions.sesionPlacesLeft();
                   }
                   if (choice == 5) {
-                	  SystemFunctions.sesionPlacesLeftByDate();
+                    SystemFunctions.sesionPlacesLeftByDate();
                   }
-                  if (choice == 6) {}
+                  if (choice == 6) {
+                    SystemFunctions.searchSpectacles();
+                  }
                   if (choice == 7) {
-                	  SystemFunctions.spectaclesWithFreePlaces();
+                    SystemFunctions.spectaclesWithFreePlaces();
                   }
                   choice = SystemFunctions.printE2AdminSpectaclesScreen();
                 }

@@ -16,7 +16,6 @@ public class SingleSpectacle extends Spectacle {
   private category category;
   private int places;
 
-
   /**
    * Constructor de la clase single spectacle
    * @param none
@@ -144,5 +143,4 @@ public class SingleSpectacle extends Spectacle {
   public void setPlaces(int places) {
     this.places = places;
   }
-
 }

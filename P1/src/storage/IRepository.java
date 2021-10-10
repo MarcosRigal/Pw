@@ -26,8 +26,9 @@ public interface IRepository {
    * @param none
    * @return none
    * @throws FileNotFoundException
- * @throws IOException 
- * @throws ParseException 
+   * @throws IOException
+   * @throws ParseException
    */
-  public abstract boolean loadSystem() throws FileNotFoundException, IOException, ParseException; //Interfaz para cargar el sistema
+  public abstract boolean loadSystem()
+    throws FileNotFoundException, IOException, ParseException; //Interfaz para cargar el sistema
 }

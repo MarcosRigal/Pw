@@ -176,4 +176,15 @@ public class ReviewManager {
     }
     return false;
   }
+
+  public ArrayList<Review> searchSpectaclesReview(int spectacleId) {
+    ArrayList<Review> spectaclesReviews = new ArrayList<Review>();
+
+    for (int i = 0; i < reviews.size(); i++) {
+      if (reviews.get(i).getSpectacleId() == spectacleId) {
+        spectaclesReviews.add(reviews.get(i));
+      }
+    }
+    return spectaclesReviews;
+  }
 }

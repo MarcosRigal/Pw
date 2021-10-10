@@ -103,5 +103,4 @@ public abstract class Spectacle {
    */
 
   public abstract void setPlaces(int places);
-
 }

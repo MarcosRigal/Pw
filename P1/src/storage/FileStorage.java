@@ -2,7 +2,6 @@ package storage;
 
 import factories.SpectacleFactory;
 import factories.UserFactory;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -35,8 +33,8 @@ public class FileStorage implements IRepository {
    * Función encargada de cargar el sistema
    * @param none
    * @return none
- * @throws IOException 
- * @throws ParseException 
+   * @throws IOException
+   * @throws ParseException
    */
   @Override
   public boolean loadSystem() throws IOException, ParseException {
@@ -44,12 +42,12 @@ public class FileStorage implements IRepository {
     File reviewStorage = new File("reviews.txt");
     File spectacleStorage = new File("spectacles.txt");
     File sesionStorage = new File("sesions.txt");
-    
-    if(!userStorage.exists()) { 
-        FileWriter newUserStorage = new FileWriter("users.txt");
-        newUserStorage.close();
+
+    if (!userStorage.exists()) {
+      FileWriter newUserStorage = new FileWriter("users.txt");
+      newUserStorage.close();
     }
-    
+
     Scanner userReader = new Scanner(userStorage);
 
     UserManager userManager = UserManager.getInstance();
@@ -75,11 +73,11 @@ public class FileStorage implements IRepository {
     }
     userReader.close();
 
-    if(!reviewStorage.exists()) { 
-        FileWriter newReviewsStorage = new FileWriter("reviews.txt");
-        newReviewsStorage.close();
+    if (!reviewStorage.exists()) {
+      FileWriter newReviewsStorage = new FileWriter("reviews.txt");
+      newReviewsStorage.close();
     }
-    
+
     Scanner reviewReader = new Scanner(reviewStorage);
 
     ReviewManager reviewManager = ReviewManager.getInstance();
@@ -109,12 +107,12 @@ public class FileStorage implements IRepository {
       }
     }
     reviewReader.close();
-    
-    if(!spectacleStorage.exists()) { 
-        FileWriter newSpectacleStorage = new FileWriter("spectacles.txt");
-        newSpectacleStorage.close();
+
+    if (!spectacleStorage.exists()) {
+      FileWriter newSpectacleStorage = new FileWriter("spectacles.txt");
+      newSpectacleStorage.close();
     }
-    
+
     Scanner spectacleReader = new Scanner(spectacleStorage);
 
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
@@ -132,42 +130,42 @@ public class FileStorage implements IRepository {
         spectacle.setSpectacleId(Integer.parseInt(parts[0]));
         spectacle.setTitle(parts[1]);
         spectacle.setDescription(parts[3]);
-        spectacle.setCategory(SystemFunctions.convertStringToCategory(parts[4]));
+        spectacle.setCategory(
+          SystemFunctions.convertStringToCategory(parts[4])
+        );
         spectacle.setPlaces(Integer.parseInt(parts[5]));
         spectacleManager.addSpectacle(spectacle);
       }
     }
     spectacleReader.close();
-    
-    if(!sesionStorage.exists()) { 
-        FileWriter newSesionStorage = new FileWriter("sesions.txt");
-        newSesionStorage.close();
+
+    if (!sesionStorage.exists()) {
+      FileWriter newSesionStorage = new FileWriter("sesions.txt");
+      newSesionStorage.close();
     }
     Scanner sesionReader = new Scanner(sesionStorage);
-    
+
     if (sesionReader.hasNextInt()) {
-        String data = sesionReader.nextLine();
+      String data = sesionReader.nextLine();
 
-        SesionManager sesionManager = SesionManager.getInstance();
-    sesionManager.setSesionId(Integer.parseInt(data));
+      SesionManager sesionManager = SesionManager.getInstance();
+      sesionManager.setSesionId(Integer.parseInt(data));
 
-    
-
-    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+      SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
       while (sesionReader.hasNextLine()) {
         data = sesionReader.nextLine();
         String[] parts = data.split(",");
 
         Sesion sesion = new Sesion();
         sesion.setSpectacleId(Integer.parseInt(parts[0]));
-	    sesion.setSesionId(Integer.parseInt(parts[1]));
+        sesion.setSesionId(Integer.parseInt(parts[1]));
         sesion.setPlacesLeft(Integer.parseInt(parts[2]));
         sesion.setDate(formatter6.parse(parts[3]));
         sesionManager.addSesion(sesion);
       }
     }
     sesionReader.close();
-    
+
     return true;
   }
 
@@ -236,7 +234,7 @@ public class FileStorage implements IRepository {
       reviewStorage.write("\n");
     }
     reviewStorage.close();
-    
+
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
 
@@ -256,12 +254,12 @@ public class FileStorage implements IRepository {
         spectacles.get(i).getPlaces() +
         "\n"
       );
-    }  
+    }
     spectacleStorage.close();
-    
+
     SesionManager sesionManager = SesionManager.getInstance();
     ArrayList<Sesion> sesions = sesionManager.getSesions();
-    SimpleDateFormat formatter6=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
     sesionStorage.write(sesionManager.getSesionId() + "\n");
     for (int i = 0; i < sesions.size(); i++) {
@@ -275,9 +273,9 @@ public class FileStorage implements IRepository {
         formatter6.format(sesions.get(i).getDate()) +
         "\n"
       );
-    }    
+    }
     sesionStorage.close();
-    
+
     return true;
   }
 }

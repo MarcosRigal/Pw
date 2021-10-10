@@ -2,7 +2,6 @@ package managers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import reviews.Review;
 import spectacles.Spectacle;
 import spectacles.Spectacle.category;
@@ -73,13 +72,14 @@ public class SpectacleManager {
    * @return Boolean True si se ha podido añadir false si no
    */
 
-  public void registerSpectacle(Spectacle spectacle) {   
-	    this.spectacles.add(spectacle);
-	    spectacleId += 1;
+  public void registerSpectacle(Spectacle spectacle) {
+    this.spectacles.add(spectacle);
+    spectacleId += 1;
   }
-  public void addSpectacle(Spectacle spectacle) {   
-	    this.spectacles.add(spectacle);
-	    }
+
+  public void addSpectacle(Spectacle spectacle) {
+    this.spectacles.add(spectacle);
+  }
 
   /**
    * Modifica un espectáculo
@@ -97,14 +97,9 @@ public class SpectacleManager {
    */
 
   public boolean deleteSpectacle(int spectacleId) {
-	  SesionManager sesionManager = SesionManager.getInstance();  
-	  sesionManager.deleteAllSesions(spectacleId);
-	  return spectacles.removeIf(
-	    	      n ->
-	    	        (
-	    	          (n.getSpectacleId() == spectacleId)
-	    	        )
-	    	    );
+    SesionManager sesionManager = SesionManager.getInstance();
+    sesionManager.deleteAllSesions(spectacleId);
+    return spectacles.removeIf(n -> ((n.getSpectacleId() == spectacleId)));
   }
 
   /**
@@ -231,26 +226,47 @@ public class SpectacleManager {
   public void setSpectacleId(int spectacleId) {
     this.spectacleId = spectacleId;
   }
-  
-  public boolean modifySpectacle(Spectacle spectacle) {
-	    for (int i = 0; i < spectacles.size(); i++) {
-	      if (spectacles.get(i).getSpectacleId() == spectacle.getSpectacleId()) {
-	    	spectacles.get(i).setTitle(spectacle.getTitle());
-	    	spectacles.get(i).setDescription(spectacle.getDescription());
-	    	spectacles.get(i).setCategory(spectacle.getCategory());
-	        return true;
-	      }
-	    }
-	    return false;
-	  }
- public Spectacle findSpectacle(int spectacleId){
-	    for (int i = 0; i < spectacles.size(); i++) {
-		      if (spectacles.get(i).getSpectacleId() == spectacleId) {
-		        return spectacles.get(i);
-		      }
 
-	    }
- return null;
- }
-  
+  public boolean modifySpectacle(Spectacle spectacle) {
+    for (int i = 0; i < spectacles.size(); i++) {
+      if (spectacles.get(i).getSpectacleId() == spectacle.getSpectacleId()) {
+        spectacles.get(i).setTitle(spectacle.getTitle());
+        spectacles.get(i).setDescription(spectacle.getDescription());
+        spectacles.get(i).setCategory(spectacle.getCategory());
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Spectacle findSpectacle(int spectacleId) {
+    for (int i = 0; i < spectacles.size(); i++) {
+      if (spectacles.get(i).getSpectacleId() == spectacleId) {
+        return spectacles.get(i);
+      }
+    }
+    return null;
+  }
+
+  public ArrayList<Spectacle> searchByCategory(category choiceCategory) {
+    ArrayList<Spectacle> searchedSpectacles = new ArrayList<Spectacle>();
+
+    for (int i = 0; i < spectacles.size(); i++) {
+      if (spectacles.get(i).getCategory().equals(choiceCategory)) {
+        searchedSpectacles.add(spectacles.get(i));
+      }
+    }
+    return searchedSpectacles;
+  }
+
+  public ArrayList<Spectacle> searchByTitle(String title) {
+    ArrayList<Spectacle> searchedSpectacles = new ArrayList<Spectacle>();
+
+    for (int i = 0; i < spectacles.size(); i++) {
+      if (spectacles.get(i).getTitle().equals(title)) {
+        searchedSpectacles.add(spectacles.get(i));
+      }
+    }
+    return searchedSpectacles;
+  }
 }
