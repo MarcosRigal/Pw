@@ -36,7 +36,7 @@ public class E2 {
       if (choice == 2) {
         if (SystemFunctions.loginUser()) {
           if (userManager.getActiveUser().getType().equals("Spectator")) {
-            choice = SystemFunctions.printE2SpectatorMenuScreen();
+            choice = SystemFunctions.printE2SpectatorFullMenuScreen();
             while (choice != 0) {
               if (choice == 1) {
                 SystemFunctions.registerReviewE2();
@@ -67,7 +67,19 @@ public class E2 {
               if (choice == 7) {
                 SystemFunctions.searchReviewBySpectacleTitle();
               }
-              choice = SystemFunctions.printE2SpectatorMenuScreen();
+              if (choice == 8) {
+                  SystemFunctions.sesionPlacesLeft();
+                }
+                if (choice == 9) {
+                  SystemFunctions.sesionPlacesLeftByDate();
+                }
+                if (choice == 10) {
+                  SystemFunctions.searchSpectacles();
+                }
+                if (choice == 11) {
+                  SystemFunctions.spectaclesWithFreePlaces();
+                }
+              choice = SystemFunctions.printE2SpectatorFullMenuScreen();
             }
           }
           if (userManager.getActiveUser().getType().equals("Admin")) {

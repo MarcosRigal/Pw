@@ -37,6 +37,7 @@ public final class SystemFunctions {
    */
 
   public static int printE1LoginScreen() {
+	SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     System.out.println("Bienvenido, al Gestor de Críticas");
     System.out.println(" - Pulse 1 para registrarse");
@@ -53,6 +54,7 @@ public final class SystemFunctions {
    */
 
   public static int printE1SpectatorMenuScreen() {
+	SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
     System.out.println("Bienvenido " + userManager.getActiveUser().getName());
@@ -76,6 +78,7 @@ public final class SystemFunctions {
    */
 
   public static int printE2SpectatorMenuScreen() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
     System.out.println("Bienvenido " + userManager.getActiveUser().getName());
@@ -94,6 +97,44 @@ public final class SystemFunctions {
     System.out.println(" - Pulse 0 para salir");
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
+  }  /**
+   * Imprime el menú del espectador
+   * @param none
+   * @return int Elección del usuario
+   */
+
+  public static int printE2SpectatorFullMenuScreen() {
+		SystemFunctions.clearConsole();
+    scanner = new Scanner(System.in);
+    UserManager userManager = UserManager.getInstance();
+    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+    System.out.println("¿Qué desea hacer?");
+    System.out.println(" - Pulse 1 para crear una crítica");
+    System.out.println(
+      " - Pulse 2 para consultar todas las críticas disponibles"
+    );
+    System.out.println(" - Pulse 3 para borrar una crítica");
+    System.out.println(" - Pulse 4 para valorar una crítica");
+    System.out.println(" - Pulse 5 para buscar las críticas de un usuario");
+    System.out.println(" - Pulse 6 para ver los espectáculos");
+    System.out.println(
+      " - Pulse 7 para consultar las críticas de un espectáculo, dado su título"
+    );
+    System.out.println(
+    	      " - Pulse 8 para contabilizar la venta de entradas para una sesión de un espectáculo"
+    	    );
+    	    System.out.println(
+    	      " - Pulse 9 consultar las localidades disponibles para un espectáculo, dada una fecha de representación"
+    	    );
+    	    System.out.println(
+    	      " - Pulse 10 para buscar espectáculos por título o por categoría"
+    	    );
+    	    System.out.println(
+    	      " - Pulse 11 búsqueda de próximos espectáculos con entradas disponibles"
+    	    );
+    System.out.println(" - Pulse 0 para salir");
+    System.out.print("Escoja una opción y pulse enter: ");
+    return scanner.nextInt();
   }
 
   /**
@@ -103,7 +144,8 @@ public final class SystemFunctions {
    */
 
   public static int printE1AdminMenuScreen() {
-    scanner = new Scanner(System.in);
+		SystemFunctions.clearConsole();
+	  scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
     System.out.println("Bienvenido " + userManager.getActiveUser().getName());
     System.out.println("¿Qué desea hacer?");
@@ -121,6 +163,7 @@ public final class SystemFunctions {
    */
 
   public static int printE2AdminMenuScreen() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
     System.out.println("Bienvenido " + userManager.getActiveUser().getName());
@@ -140,6 +183,7 @@ public final class SystemFunctions {
    */
 
   public static int printE1AdminUsersScreen() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
     System.out.println("Bienvenido " + userManager.getActiveUser().getName());
@@ -160,6 +204,7 @@ public final class SystemFunctions {
    */
 
   public static int printE2AdminSpectaclesScreen() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
     System.out.println("Bienvenido " + userManager.getActiveUser().getName());
@@ -179,7 +224,7 @@ public final class SystemFunctions {
       " - Pulse 6 para buscar espectáculos por título o por categoría"
     );
     System.out.println(
-      " - Pulse 7 búsqueda de próximos espectáculos con entradas disponibles, indicando o no una categoría específica"
+      " - Pulse 7 búsqueda de próximos espectáculos con entradas disponibles"
     );
     System.out.println(" - Pulse 0 para salir");
     System.out.print("Escoja una opción y pulse enter: ");
@@ -203,6 +248,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean loginUser() {
+		SystemFunctions.clearConsole();
     UserManager userManager = UserManager.getInstance();
     ArrayList<User> users = userManager.getUsers();
     scanner = new Scanner(System.in);
@@ -232,6 +278,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean registerUser(String type) {
+		SystemFunctions.clearConsole();
     User user = UserFactory.getUser(type);
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
@@ -260,6 +307,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean registerAdmin() {
+		SystemFunctions.clearConsole();
     System.out.println("¿Qué tipo de usuario desea crear?");
     System.out.println(" - Pulse 1 para crear un espectador");
     System.out.println(" - Pulse 2 para crear un administrador");
@@ -289,6 +337,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean deleteUser() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
 
@@ -307,6 +356,7 @@ public final class SystemFunctions {
    */
 
   private static void listUsers() {
+		SystemFunctions.clearConsole();
     UserManager userManager = UserManager.getInstance();
 
     ArrayList<User> users = userManager.getUsers();
@@ -326,9 +376,10 @@ public final class SystemFunctions {
    */
 
   public static void searchUser() {
+		SystemFunctions.clearConsole();
     SystemFunctions.listUsers();
     System.out.print(
-      "Introduzca el identificador del usuario que desea ver la información"
+      "Introduzca el identificador del usuario que desea ver la información: "
     );
     int userReviewId = scanner.nextInt();
     UserManager userManager = UserManager.getInstance();
@@ -352,6 +403,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean modifyUser() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
 
@@ -393,6 +445,7 @@ public final class SystemFunctions {
    */
 
   public static boolean registerReviewE1() {
+		SystemFunctions.clearConsole();
     Review review = new Review();
     scanner = new Scanner(System.in);
 
@@ -426,6 +479,7 @@ public final class SystemFunctions {
    */
 
   public static boolean registerReviewE2() {
+		SystemFunctions.clearConsole();
     Review review = new Review();
     scanner = new Scanner(System.in);
 
@@ -462,6 +516,7 @@ public final class SystemFunctions {
    */
 
   public static void showReviewsE1() {
+		SystemFunctions.clearConsole();
     ReviewManager reviewManager = ReviewManager.getInstance();
     ArrayList<Review> reviews = reviewManager.getReviews();
     for (int i = 0; i < reviews.size(); i++) {
@@ -487,6 +542,7 @@ public final class SystemFunctions {
    */
 
   public static void showReviewsE2() {
+		SystemFunctions.clearConsole();
     ReviewManager reviewManager = ReviewManager.getInstance();
     ArrayList<Review> reviews = reviewManager.getReviews();
     for (int i = 0; i < reviews.size(); i++) {
@@ -513,6 +569,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean deleteReview() {
+		SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
     ReviewManager reviewManager = ReviewManager.getInstance();
 
@@ -531,6 +588,7 @@ public final class SystemFunctions {
    */
 
   public static void searchUsersReview() {
+		SystemFunctions.clearConsole();
     ReviewManager reviewManager = ReviewManager.getInstance();
 
     SystemFunctions.listUsers();
@@ -565,6 +623,7 @@ public final class SystemFunctions {
    */
 
   public static boolean voteReview() {
+		SystemFunctions.clearConsole();
     ReviewManager reviewManager = ReviewManager.getInstance();
 
     SystemFunctions.listReviews();
@@ -597,7 +656,8 @@ public final class SystemFunctions {
    */
 
   public static void listReviews() {
-    ReviewManager reviewManager = ReviewManager.getInstance();
+		SystemFunctions.clearConsole();
+	  ReviewManager reviewManager = ReviewManager.getInstance();
 
     ArrayList<Review> reviews = reviewManager.getReviews();
     System.out.println("ReviewId | Título ");
@@ -619,6 +679,7 @@ public final class SystemFunctions {
    */
 
   public static void listSpectacles() {
+		SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
 
     ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
@@ -641,6 +702,7 @@ public final class SystemFunctions {
    */
 
   public static Boolean registerSpectacle() throws ParseException {
+		SystemFunctions.clearConsole();
     System.out.println("¿Qué tipo de espectáculo desea crear?");
     System.out.println(" - Pulse 1 para crear un espectáculo único");
     System.out.println(" - Pulse 2 para crear un espectáculo múltiple");
@@ -674,6 +736,7 @@ public final class SystemFunctions {
    */
 
   private static Boolean createSingle() throws ParseException {
+		SystemFunctions.clearConsole();
     Spectacle spectacle = SpectacleFactory.getSpectacle("Single");
     Sesion sesion = new Sesion();
     scanner = new Scanner(System.in);
@@ -718,6 +781,7 @@ public final class SystemFunctions {
    */
 
   private static Boolean createMultiple() throws ParseException {
+		SystemFunctions.clearConsole();
     Spectacle spectacle = SpectacleFactory.getSpectacle("Multiple");
     scanner = new Scanner(System.in);
 
@@ -772,6 +836,7 @@ public final class SystemFunctions {
    */
 
   private static Boolean createSeason() throws ParseException {
+		SystemFunctions.clearConsole();
     Spectacle spectacle = SpectacleFactory.getSpectacle("Season");
     scanner = new Scanner(System.in);
 
@@ -832,6 +897,7 @@ public final class SystemFunctions {
    */
 
   private static spectacles.Spectacle.category choiceCategory() {
+		SystemFunctions.clearConsole();
     System.out.println("¿De qué categoría es el espectáculo?");
     System.out.println(" - Pulse 1 si es un concierto");
     System.out.println(" - Pulse 2 si es un monólogo");
@@ -885,6 +951,7 @@ public final class SystemFunctions {
    */
 
   public static void deleteSpectacle() {
+		SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SesionManager sesionManager = SesionManager.getInstance();
     SystemFunctions.listSpectacles();
@@ -918,6 +985,7 @@ public final class SystemFunctions {
    */
 
   private static void listSpectacleSesions(int spectacleId) {
+		SystemFunctions.clearConsole();
     SesionManager sesionManager = SesionManager.getInstance();
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     ArrayList<Sesion> sesions = sesionManager.getSesions();
@@ -942,6 +1010,7 @@ public final class SystemFunctions {
    */
 
   public static void modifySpectacle() {
+		SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SystemFunctions.listSpectacles();
 
@@ -967,7 +1036,8 @@ public final class SystemFunctions {
    */
 
   public static void sesionPlacesLeft() {
-    SesionManager sesionManager = SesionManager.getInstance();
+		SystemFunctions.clearConsole();
+	  SesionManager sesionManager = SesionManager.getInstance();
     SystemFunctions.listSpectacles();
     System.out.print(" - Identificador del espectáculo: ");
     int spectacleId = scanner.nextInt();
@@ -989,6 +1059,7 @@ public final class SystemFunctions {
    */
 
   public static void sesionPlacesLeftByDate() throws ParseException {
+		SystemFunctions.clearConsole();
     SesionManager sesionManager = SesionManager.getInstance();
     SystemFunctions.listSpectacles();
     System.out.print(" - Identificador del espectáculo: ");
@@ -1019,6 +1090,7 @@ public final class SystemFunctions {
    */
 
   public static void spectaclesWithFreePlaces() {
+		SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SesionManager sesionManager = SesionManager.getInstance();
     ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
@@ -1049,7 +1121,8 @@ public final class SystemFunctions {
    */
 
   public static void searchSpectacles() {
-    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+		SystemFunctions.clearConsole();
+	  SpectacleManager spectacleManager = SpectacleManager.getInstance();
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para buscar por título");
     System.out.println(" - Pulse 2 para buscar por categoría");
@@ -1099,6 +1172,7 @@ public final class SystemFunctions {
    */
 
   public static void searchReviewBySpectacleTitle() {
+		SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     ReviewManager reviewManager = ReviewManager.getInstance();
     scanner.nextLine();
@@ -1127,5 +1201,32 @@ public final class SystemFunctions {
         System.out.println("------------------");
       }
     }
+  }
+  
+  /**
+   * Función que limpia la pantalla
+   * @param none
+   * @return none
+   */
+  
+  public final static void clearConsole()
+  {
+      try
+      {
+          final String os = System.getProperty("os.name");
+
+          if (os.contains("Windows"))
+          {
+              Runtime.getRuntime().exec("cls");
+          }
+          else
+          {
+              Runtime.getRuntime().exec("clear");
+          }
+      }
+      catch (final Exception e)
+      {
+          //  Handle any exceptions.
+      }
   }
 }
