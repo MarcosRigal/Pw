@@ -32,4 +32,4 @@
 *.app
 *.metadata
 
-P2/E1/src/es/uco/pw/p2/data/common/DBConnection.java
+/P2/E1/src/storage/DBConnection.java
