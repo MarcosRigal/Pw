@@ -21,14 +21,13 @@ DROP TABLE IF EXISTS `Sesion`;
 DROP TABLE IF EXISTS `User-Review`;
 
 CREATE TABLE IF NOT EXISTS `User` (
-  `userId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `type` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `surname` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nick` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`userId`)
+  PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `Spectacle` (
@@ -43,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `Spectacle` (
 
 CREATE TABLE IF NOT EXISTS `Review` (
   `reviewId` INT NOT NULL AUTO_INCREMENT,
-  `userId` INT NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `spectacleId` INT NOT NULL,
   `title` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `score` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -51,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `Review` (
   `likes` INT NOT NULL,
   `dislikes` INT NOT NULL,
   PRIMARY KEY (`reviewId`),
-  FOREIGN KEY (`userId`) REFERENCES User(userId),
+  FOREIGN KEY (`email`) REFERENCES User(email),
   FOREIGN KEY (`spectacleId`) REFERENCES Spectacle(spectacleId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -65,10 +64,10 @@ CREATE TABLE IF NOT EXISTS `Sesion` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `User-Review` (
-  `userId` INT NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `reviewId` INT NOT NULL,
-  PRIMARY KEY (`reviewId`,`userId`),
-  FOREIGN KEY (`userId`) REFERENCES User(userId),
+  PRIMARY KEY (`reviewId`,`email`),
+  FOREIGN KEY (`email`) REFERENCES User(email),
   FOREIGN KEY (`reviewId`) REFERENCES Review(reviewId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -78,11 +77,11 @@ CREATE TABLE IF NOT EXISTS `User-Review` (
 -- Volcar la base de datos para la tabla `User`
 -- 
 
-INSERT INTO `User` VALUES (NULL,'Marcos','Admin','Rivera Gavilán','i92rigam','i92rigam@uco.es','1234');
-INSERT INTO `User` VALUES (NULL,'David','Admin','Pérez Dueñas','i92pedud','i92pedud@uco.es','1234');
-INSERT INTO `User` VALUES (NULL,'Antonio','Admin','Moruno Gracia','i92mogra','i92mogra@uco.es','1234');
-INSERT INTO `User` VALUES (NULL,'Javier','Spectator','de Santiago Palomino','i92sanpj','i92sanpj@uco.es','1234');
-INSERT INTO `User` VALUES (NULL,'Marcos','Spectator','Rodriguez Moreno','i92romom','i92romom@uco.es','1234');
+INSERT INTO `User` VALUES ('Marcos','Admin','Rivera Gavilán','i92rigam','i92rigam@uco.es','1234');
+INSERT INTO `User` VALUES ('David','Admin','Pérez Dueñas','i92pedud','i92pedud@uco.es','1234');
+INSERT INTO `User` VALUES ('Antonio','Admin','Moruno Gracia','i92mogra','i92mogra@uco.es','1234');
+INSERT INTO `User` VALUES ('Javier','Spectator','de Santiago Palomino','i92sanpj','i92sanpj@uco.es','1234');
+INSERT INTO `User` VALUES ('Marcos','Spectator','Rodriguez Moreno','i92romom','i92romom@uco.es','1234');
 
 INSERT INTO `Spectacle` VALUES (NULL,'Cars','Single','Coches','obra',50);
 INSERT INTO `Spectacle` VALUES (NULL,'Cars 2','Multiple','Más coches','obra',60);
@@ -92,9 +91,9 @@ INSERT INTO `Sesion` VALUES (NULL,2,60,'2021-11-11 15:00:00');
 INSERT INTO `Sesion` VALUES (NULL,2,0,'2021-11-12 16:00:00');
 INSERT INTO `Sesion` VALUES (NULL,2,60,'2021-11-13 17:00:00');
 
-INSERT INTO `Review` VALUES (NULL,1,1,'Cars',5,'Peliculon',1,0);
-INSERT INTO `Review` VALUES (NULL,2,2,'Cars2',5,'Peliculon',1,0);
-INSERT INTO `Review` VALUES (NULL,1,1,'Muy Buena',5,'Buenisima',0,0);
+INSERT INTO `Review` VALUES (NULL,'i92rigam@uco.es',1,'Cars',5,'Peliculon',1,0);
+INSERT INTO `Review` VALUES (NULL,'i92pedud@uco.es',2,'Cars2',5,'Peliculon',1,0);
+INSERT INTO `Review` VALUES (NULL,'i92rigam@uco.es',1,'Muy Buena',5,'Buenisima',0,0);
 
-INSERT INTO `User-Review` VALUES (1,1);
-INSERT INTO `User-Review` VALUES (1,2);
+INSERT INTO `User-Review` VALUES ('i92rigam@uco.es',1);
+INSERT INTO `User-Review` VALUES ('i92rigam@uco.es',2);

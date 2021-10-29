@@ -46,7 +46,7 @@ public class ReviewManager {
   /**
    * Devuelve todas las críticas disponibles
    * @param none
-   * @return ArrayList<Review> Vector con las criticas
+   * @return ArrayList<ReviewDTO> Vector con las criticas
    */
 
   public ArrayList<Review> getReviews() {
@@ -55,7 +55,7 @@ public class ReviewManager {
 
   /**
    * Modifica la lista de las reviews
-   * @param ArrayList<Review> La nueva lista de reviews
+   * @param ArrayList<ReviewDTO> La nueva lista de reviews
    * @return none
    */
 
@@ -65,7 +65,7 @@ public class ReviewManager {
 
   /**
    * Añade una review al listado de reviews
-   * @param Review Review que se desea añadir
+   * @param ReviewDTO ReviewDTO que se desea añadir
    * @return none
    */
 
@@ -136,7 +136,7 @@ public class ReviewManager {
   /**
    * Busca y las reviews creadas por un usuario
    * @param int Identificador del usuario que creo las reviews que se desean buscar
-   * @return Review review buscada o null si no la encuentra
+   * @return ReviewDTO review buscada o null si no la encuentra
    */
 
   public ArrayList<Review> searchUsersReview(int userReviewId) {
@@ -172,7 +172,7 @@ public class ReviewManager {
 
   /**
    * Registra en el sistema una nueva review
-   * @param Review review que se acaba de crear
+   * @param ReviewDTO review que se acaba de crear
    * @return none
    */
 
@@ -186,7 +186,7 @@ public class ReviewManager {
   /**
    * Devuelve las reviews asociadas a un spectacleId
    * @param int Identificador del espectáculo del que se desean obtener las reviews
-   * @return ArrayList<Review> Array con todas las reviews que pertenecen a ese espectáculo
+   * @return ArrayList<ReviewDTO> Array con todas las reviews que pertenecen a ese espectáculo
    */
 
   public ArrayList<Review> searchSpectaclesReview(int spectacleId) {

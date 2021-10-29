@@ -47,7 +47,7 @@ public class SesionManager {
   /**
    * Devuelve todas las sesiones disponibles
    * @param none
-   * @return ArrayList<Sesion> Vector con las sesiones
+   * @return ArrayList<SesionDTO> Vector con las sesiones
    */
 
   public ArrayList<Sesion> getSesions() {
@@ -56,7 +56,7 @@ public class SesionManager {
 
   /**
    * Modifica la lista de las sesiones
-   * @param ArrayList<Sesion> La nueva lista de sesiones
+   * @param ArrayList<SesionDTO> La nueva lista de sesiones
    * @return none
    */
 
@@ -66,7 +66,7 @@ public class SesionManager {
 
   /**
    * Registra en el sistema una nueva sesión
-   * @param Sesion sesion que se acaba de crear
+   * @param SesionDTO sesion que se acaba de crear
    * @return none
    */
 
@@ -77,7 +77,7 @@ public class SesionManager {
 
   /**
    * Añade una sesion al listado de sesiones
-   * @param Sesion sesion que se desea añadir
+   * @param SesionDTO sesion que se desea añadir
    * @return none
    */
 
@@ -128,7 +128,7 @@ public class SesionManager {
   /**
    * Busca una sesión en concreto
    * @param int Identificador de la sesión que se desea buscar
-   * @return Sesion La sesión si la ha encontrado
+   * @return SesionDTO La sesión si la ha encontrado
    */
 
   public Sesion findSesion(int sesionId) {
@@ -161,7 +161,7 @@ public class SesionManager {
   /**
    * Sesiones de un espectáculo
    * @param int Identificador del espectáculo
-   * @return ArrayList<Sesion> Lista con las sesiones relativas a ese espectáculo
+   * @return ArrayList<SesionDTO> Lista con las sesiones relativas a ese espectáculo
    */
 
   public ArrayList<Sesion> searchSpectacleSesions(int SpectacleId) {

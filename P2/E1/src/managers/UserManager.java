@@ -36,7 +36,7 @@ public class UserManager {
    * Método público encargado de devolver
    * la única instancia de la clase
    * @param none
-   * @return UserManager Instancia de la clase
+   * @return Manager Instancia de la clase
    */
 
   public static UserManager getInstance() {

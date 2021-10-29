@@ -17,10 +17,7 @@ import utilities.SystemFunctions;
 public class E1 {
 
   public static void main(String[] args) throws IOException, ParseException {
-    
     UserManager userManager = UserManager.getInstance();
-
-    
 
     int choice;
 
