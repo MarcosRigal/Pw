@@ -33,3 +33,5 @@
 *.metadata
 
 /P2/E1/src/storage/DBConnection.java
+config.properties
+sql.properties
