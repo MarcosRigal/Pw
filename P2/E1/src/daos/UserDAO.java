@@ -101,4 +101,43 @@ public class UserDAO {
 	      e.printStackTrace();
 	    }
 	  }
+
+public void deleteUser(String deleteUserMail) {
+    try {
+        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+        Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(dataBaseManager.getDeleteUserQuery(),"'",deleteUserMail,"'");
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+}
+
+public void modifyUser(UserDTO user) {
+    try {
+        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+        Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+
+        String query = MessageFormat.format(dataBaseManager.getUpdateUserQuery(),"'",user.getName(),"'","'",user.getSurname(),"'","'",user.getNick(),"'","'",user.getPassword(),"'","'",user.getEmail(),"'");
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+}
 }

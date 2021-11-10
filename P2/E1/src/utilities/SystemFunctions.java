@@ -252,7 +252,7 @@ public final class SystemFunctions {
     return false;
   }
 
-  /**TODO
+  /**
    * Imprime el menú de registro de nuevos usuarios del adminsitrador
    * @param none
    * @return boolean True si se ha podido registrar
@@ -282,7 +282,7 @@ public final class SystemFunctions {
     return false;
   }
 
-  /**TODO
+  /**
    * Imprime el menú de borrar un usuario
    * @param none
    * @return boolean True si se ha podido borrar
@@ -295,13 +295,13 @@ public final class SystemFunctions {
 
     SystemFunctions.listUsers();
     System.out.print(
-      "Introduzca el identificador del usuario que desea borrar: "
+      "Introduzca el correo del usuario que desea borrar: "
     );
-    int deleteUserId = scanner.nextInt();
-    return userManager.deleteUser(deleteUserId);
+    String deleteUserMail = scanner.nextLine();
+    return userManager.deleteUser(deleteUserMail);
   }
 
-  /**TODO
+  /**
    * Lista los usuarios del sistema
    * @param none
    * @return none
@@ -312,16 +312,16 @@ public final class SystemFunctions {
     UserManager userManager = UserManager.getInstance();
 
     ArrayList<UserDTO> users = userManager.getUsers();
-    System.out.println("UserId | Email ");
-    System.out.println("------------------");
+    System.out.println("        Email        ");
+    System.out.println("---------------------");
     for (int i = 0; i < users.size(); i++) {
       System.out.println(
-        "   " + users.get(i).getUserId() + "  | " + users.get(i).getEmail()
+        "   " + users.get(i).getEmail()
       );
     }
   }
 
-  /**TODO
+  /**
    * Busca un usuario del sistema
    * @param none
    * @return none
@@ -331,15 +331,16 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     SystemFunctions.listUsers();
     System.out.print(
-      "Introduzca el identificador del usuario que desea ver la información: "
-    );
-    int userReviewId = scanner.nextInt();
+    	      "Introduzca el correo del usuario que desea consultar sus datos: "
+    	    );
+    scanner.nextLine();
+    String mail = scanner.nextLine();
     UserManager userManager = UserManager.getInstance();
 
-    User user = userManager.findUser(userReviewId);
+    UserDTO user = userManager.findUser(mail);
 
     System.out.println("------------------");
-    System.out.println(" - UserId: " + user.getUserId());
+
     System.out.println(" - Nombre: " + user.getName());
     System.out.println(" - Apellidos: " + user.getSurname());
     System.out.println(" - Tipo: " + user.getType());
@@ -348,7 +349,7 @@ public final class SystemFunctions {
     System.out.println("------------------");
   }
 
-  /**TODO
+  /**
    * Modifica los usuarios del sistema
    * @param none
    * @return boolean True si se ha podido modificar
@@ -359,35 +360,29 @@ public final class SystemFunctions {
     scanner = new Scanner(System.in);
     UserManager userManager = UserManager.getInstance();
 
-    int userId;
-
     SystemFunctions.listUsers();
 
-    System.out.println(
-      "Introduzca el identificador del usuario que desea modificar: "
-    );
-    userId = scanner.nextInt();
+    System.out.print(
+  	      "Introduzca el correo del usuario que desea consultar sus datos: "
+  	    );
+  	String mail = scanner.nextLine();
 
-    User user = userManager.findUser(userId);
+    UserDTO user = userManager.findUser(mail);
 
     if (user != null) {
       System.out.println("Introduzca los siguientes datos: ");
-      user.setName(scanner.nextLine());
       System.out.print(" - Nombre: ");
       user.setName(scanner.nextLine());
       System.out.print(" - Apellidos: ");
       user.setSurname(scanner.nextLine());
       System.out.print(" - Nick: ");
       user.setNick(scanner.nextLine());
-      System.out.print(" - Email: ");
-      user.setEmail(scanner.nextLine());
       System.out.print(" - Contraseña: ");
       user.setPassword(scanner.nextLine());
 
       return userManager.modifyUser(user);
     }
-
-    return false;
+    return false; 
   }
 
   /**TODO

@@ -136,7 +136,12 @@ public class E1 {
                     SystemFunctions.searchUser();
                   }
                   if (choice == 4) {
-                    SystemFunctions.modifyUser();
+                      if (SystemFunctions.modifyUser()) {
+                          System.out.println("Modificación correcta");
+                        } else {
+                          System.out.println("Error al modificar");
+                        }
+                    
                   }
                   choice = SystemFunctions.printAdminUsersScreen();
                 }

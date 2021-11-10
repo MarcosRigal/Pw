@@ -36,6 +36,10 @@ public class DataBaseManager {
   
   private String registerUserQuery;
   
+  private String deleteUserQuery;
+  
+  private String updateUserQuery;
+  
   protected Connection connection = null;
   /**
    * Constructor del review manager
@@ -71,6 +75,8 @@ public class DataBaseManager {
 	      getUserQuery = prop.getProperty("getUsers");
 	      updateLastLoginQuery = prop.getProperty("updateLastLogin");
 	      registerUserQuery = prop.getProperty("registerUser");
+	      deleteUserQuery = prop.getProperty("deleteUser");
+	      setUpdateUserQuery(prop.getProperty("updateUser"));
 	      
 	    } catch (FileNotFoundException e) {
 	      e.printStackTrace();
@@ -162,5 +168,21 @@ public String getRegisterUserQuery() {
 
 public void setRegisterUserQuery(String registerUserQuery) {
 	this.registerUserQuery = registerUserQuery;
+}
+
+public String getDeleteUserQuery() {
+	return deleteUserQuery;
+}
+
+public void setDeleteUserQuery(String deleteUserQuery) {
+	this.deleteUserQuery = deleteUserQuery;
+}
+
+public String getUpdateUserQuery() {
+	return updateUserQuery;
+}
+
+public void setUpdateUserQuery(String updateUserQuery) {
+	this.updateUserQuery = updateUserQuery;
 }
 }

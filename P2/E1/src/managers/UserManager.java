@@ -134,15 +134,19 @@ public class UserManager {
    * @return Boolean True si se ha podido borrar false si no
    */
 
-  public boolean deleteUser(int deleteUserId) {
-    return users.removeIf(
-      n ->
-        (
-          (n.getUserId() == deleteUserId) &&
-          (n.getUserId() != activeUser.getUserId()) &&
-          (getActiveUser().getType().equals("Admin"))
-        )
-    );
+  public boolean deleteUser(String deleteUserMail) {
+	  if (activeUser.getEmail().equals(deleteUserMail)) {
+		return false;
+	}
+	  ArrayList<UserDTO> users = getUsers();
+	    for (int i = 0; i < users.size(); i++) {
+	      if (users.get(i).getEmail().equals(deleteUserMail)) {
+	    	  UserDAO userDAO = new UserDAO();
+	    	  userDAO.deleteUser(deleteUserMail);
+	    	  return true;
+	      }
+	    }
+    return false;
   }
 
   /**
@@ -151,21 +155,13 @@ public class UserManager {
    * @return Boolean True si se ha podido añadir false si no
    */
 
-  public boolean modifyUser(User user) {
-    for (int i = 0; i < users.size(); i++) {
-      if (users.get(i).getUserId() == user.getUserId()) {
-        users.get(i).setName(user.getName());
-        users.get(i).setSurname(user.getSurname());
-        users.get(i).setNick(user.getNick());
-        users.get(i).setEmail(user.getEmail());
-        users.get(i).setPassword(user.getPassword());
-        if (activeUser.getUserId() == user.getUserId()) {
-          //TODO
-        }
-        return true;
-      }
-    }
-    return false;
+  public boolean modifyUser(UserDTO user) {
+	  UserDAO userDAO = new UserDAO();
+	  userDAO.modifyUser(user);
+	  if (activeUser.getEmail().equals(user.getEmail())) {
+		setActiveUser(user);
+	  }
+	  return true;
   }
 
   /**
@@ -174,14 +170,14 @@ public class UserManager {
    * @return User Usuario buscado o null si no la encuentra
    */
 
-  public User findUser(int userId) {
-    for (int i = 0; i < users.size(); i++) {
-      if (users.get(i).getUserId() == userId) {
-        User user = users.get(i);
-        return user;
-      }
-    }
-    return null;
+  public UserDTO findUser(String email) {
+	  ArrayList<UserDTO> users = getUsers();
+	    for (int i = 0; i < users.size(); i++) {
+	      if (users.get(i).getEmail().equals(email)) {
+	    	  return users.get(i);
+	      }
+	    }
+  return null;
   }
 
   /**
