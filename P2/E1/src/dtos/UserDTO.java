@@ -56,6 +56,10 @@ public class UserDTO{
     return name;
   }
 
+  public int getUserId() {
+	    return 1;
+	  }
+  
   /**
    * Devuelve los apellidos del usuario
    * @param none

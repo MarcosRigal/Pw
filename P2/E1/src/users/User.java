@@ -1,5 +1,7 @@
 package users;
 
+import java.util.Date;
+
 /**
  * Clase abstracta de la que heredan las clases User y Admin
  * @author Antonio Moruno Gracia
@@ -67,10 +69,19 @@ public abstract class User {
   public abstract String getType();
 
   /**
+   * Devuelve la ultima hora de conexión del usuario
+   * @param none
+   * @return lastLogin ultima hora de conexión del usuario
+   */
+  
+  public abstract Date getLastLogin();
+
+  /**
    * Cambia el identificador del usuario
    * @param int Identificador del usuario
    * @return none
    */
+  
 
   public abstract void setUserId(int userId);
 
@@ -112,4 +123,12 @@ public abstract class User {
    * @return none
    */
   public abstract void setPassword(String password);
+  
+  /**
+   * Permite asignar una última hora de conexión al usuario
+   * @param lastLogin Última hora de conexión del usuario
+   * @return none
+   */
+
+  public abstract void setLastLogin(Date lastLogin);
 }

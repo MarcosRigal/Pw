@@ -2,11 +2,14 @@ package utilities;
 
 import factories.SpectacleFactory;
 import factories.UserFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+
+import dtos.UserDTO;
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -207,25 +210,13 @@ public final class SystemFunctions {
   public static Boolean loginUser() {
     SystemFunctions.clearConsole();
     UserManager userManager = UserManager.getInstance();
-    ArrayList<User> users = userManager.getUsers();
     scanner = new Scanner(System.in);
-
     System.out.print(" - Email: ");
     String email = scanner.nextLine();
 
     System.out.print(" - Contraseña: ");
     String password = scanner.nextLine();
-
-    for (int i = 0; i < users.size(); i++) {
-      if (
-        (users.get(i).getEmail().equals(email)) &&
-        (users.get(i).getPassword().equals(password))
-      ) {
-        userManager.setActiveUser(users.get(i));
-        return true;
-      }
-    }
-    return false;
+    return userManager.loginUser(email, password);
   }
 
   /**TODO
@@ -316,7 +307,7 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     UserManager userManager = UserManager.getInstance();
 
-    ArrayList<User> users = userManager.getUsers();
+    ArrayList<UserDTO> users = userManager.getUsers();
     System.out.println("UserId | Email ");
     System.out.println("------------------");
     for (int i = 0; i < users.size(); i++) {

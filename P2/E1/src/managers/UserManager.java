@@ -1,6 +1,11 @@
 package managers;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import daos.UserDAO;
+import dtos.UserDTO;
 import users.User;
 
 /**
@@ -18,9 +23,11 @@ public class UserManager {
 
   private ArrayList<User> users = new ArrayList<User>();
 
-  private User activeUser;
+  private UserDTO activeUser;
 
   private int userId;
+
+private SimpleDateFormat formatter;
 
   /**
    * Constructor de la clase privado
@@ -52,8 +59,35 @@ public class UserManager {
    * @return ArrayList<User> Vector con los usuarios
    */
 
-  public ArrayList<User> getUsers() {
-    return users;
+  public ArrayList<UserDTO> getUsers() {
+	  UserDAO users = new UserDAO();
+	  return users.requestUsers();
+  }
+  
+  /**
+   * Devuelve todos los usuarios disponibles
+   * @param none
+   * @return ArrayList<User> Vector con los usuarios
+   */
+
+  public boolean loginUser(String email, String password) {
+	    ArrayList<UserDTO> users = getUsers();
+	    for (int i = 0; i < users.size(); i++) {
+	      if (
+	        (users.get(i).getEmail().equals(email)) &&
+	        (users.get(i).getPassword().equals(password))
+	      ) {
+	        setActiveUser(users.get(i));
+	        formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	        Date lastLogin = new Date(System.currentTimeMillis());
+	        activeUser.setLastLogin(lastLogin);
+	  	  	UserDAO user = new UserDAO();
+	  	  	user.updateLastLogin(lastLogin, email);
+	        System.out.println(formatter.format(activeUser.getLastLogin()));
+	        return true;
+	      }
+	    }
+	    return false;
   }
 
   /**
@@ -121,7 +155,7 @@ public class UserManager {
         users.get(i).setEmail(user.getEmail());
         users.get(i).setPassword(user.getPassword());
         if (activeUser.getUserId() == user.getUserId()) {
-          activeUser = users.get(i);
+          //TODO
         }
         return true;
       }
@@ -171,7 +205,7 @@ public class UserManager {
    * @return User usuario logeado
    */
 
-  public User getActiveUser() {
+  public UserDTO getActiveUser() {
     return activeUser;
   }
 
@@ -181,7 +215,7 @@ public class UserManager {
    * @return none
    */
 
-  public void setActiveUser(User activeUser) {
+  public void setActiveUser(UserDTO activeUser) {
     this.activeUser = activeUser;
   }
 }

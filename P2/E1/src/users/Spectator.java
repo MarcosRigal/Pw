@@ -1,5 +1,7 @@
 package users;
 
+import java.util.Date;
+
 /**
  * Clase que representa al usuario del sistema.
  * @author Antonio Moruno Gracia
@@ -16,6 +18,7 @@ public class Spectator extends User {
   private String nick;
   private String email;
   private String password;
+  private Date lastLogin;
 
   /**
    * Constructor de la clase usuario
@@ -100,6 +103,16 @@ public class Spectator extends User {
   public String getPassword() {
     return password;
   }
+  
+  /**
+   * Devuelve la ultima hora de conexión del usuario
+   * @param none
+   * @return lastLogin ultima hora de conexión del usuario
+   */
+  
+  public Date getLastLogin() {
+	    return lastLogin;
+	  }
 
   /**
    * Cambia el identificador del usuario
@@ -165,5 +178,15 @@ public class Spectator extends User {
   @Override
   public void setPassword(String password) {
     this.password = password;
+  }
+  
+  /**
+   * Permite asignar una última hora de conexión al usuario
+   * @param lastLogin Última hora de conexión del usuario
+   * @return none
+   */
+
+  public void setLastLogin(Date lastLogin) {
+    this.lastLogin = lastLogin;
   }
 }

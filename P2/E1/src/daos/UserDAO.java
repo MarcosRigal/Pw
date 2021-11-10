@@ -5,6 +5,7 @@ import com.mysql.jdbc.ResultSet;
 import dtos.UserDTO;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import managers.DataBaseManager;
@@ -52,4 +53,24 @@ public class UserDAO {
     }
     return listOfUsers;
   }
+  
+  public void updateLastLogin(Date lastLogin, String email) {
+	    try {
+	        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+	        Connection connection = dataBaseManager.getConnected();
+	      // Important: This query is hard-coded here for illustrative purposes only
+	      SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	      String query = "UPDATE User SET lastLogin = '"+formatter.format(lastLogin)+ "' WHERE email = '" + email + "'";
+
+	      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+	      Statement stmt = connection.createStatement();
+	      stmt.executeUpdate(query);
+	      if (stmt != null) {
+	        stmt.close();
+	      }
+	    } catch (Exception e) {
+	      System.err.println(e);
+	      e.printStackTrace();
+	    }
+	  }
 }
