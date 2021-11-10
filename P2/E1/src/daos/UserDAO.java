@@ -5,8 +5,10 @@ import com.mysql.jdbc.ResultSet;
 import dtos.UserDTO;
 
 import java.sql.*;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import managers.DataBaseManager;
 
@@ -18,13 +20,13 @@ import managers.DataBaseManager;
 
 public class UserDAO {
 
-  public ArrayList<UserDTO> requestUsers() {
+  public ArrayList<UserDTO> getUsers() {
     ArrayList<UserDTO> listOfUsers = new ArrayList<UserDTO>();
     try {
         DataBaseManager dataBaseManager = DataBaseManager.getInstance();
         Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
-      String query = "select * from User";
+      String query = dataBaseManager.getGetUserQuery();
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
@@ -60,7 +62,33 @@ public class UserDAO {
 	        Connection connection = dataBaseManager.getConnected();
 	      // Important: This query is hard-coded here for illustrative purposes only
 	      SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	      String query = "UPDATE User SET lastLogin = '"+formatter.format(lastLogin)+ "' WHERE email = '" + email + "'";
+	      String query = MessageFormat.format(dataBaseManager.getUpdateLastLoginQuery(), "'",formatter.format(lastLogin), "'", "'", email, "'");
+
+	      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+	      Statement stmt = connection.createStatement();
+	      stmt.executeUpdate(query);
+	      if (stmt != null) {
+	        stmt.close();
+	      }
+	    } catch (Exception e) {
+	      System.err.println(e);
+	      e.printStackTrace();
+	    }
+	  }
+  
+  public void registerUser(String name,
+		    String type,
+		    String surname,
+		    String nick,
+		    String email,
+		    String password,
+		    Date lastLogin) {
+	    try {
+	        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+	        Connection connection = dataBaseManager.getConnected();
+	      // Important: This query is hard-coded here for illustrative purposes only
+	      SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	      String query = MessageFormat.format(dataBaseManager.getRegisterUserQuery(),"'",name,"'","'",type,"'","'",surname,"'","'",nick,"'","'",email,"'","'",password,"'","'",formatter.format(lastLogin),"'");
 
 	      // Important: We can replace this direct invocation to CRUD operations in DBConnection
 	      Statement stmt = connection.createStatement();

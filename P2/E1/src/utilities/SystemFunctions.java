@@ -201,7 +201,7 @@ public final class SystemFunctions {
     System.out.println("Apagando el sistema, por favor espere...");
   }
 
-  /**TODO
+  /**
    * Imprime el menú de login
    * @param none
    * @return boolean True si se ha podido completar el login
@@ -219,7 +219,7 @@ public final class SystemFunctions {
     return userManager.loginUser(email, password);
   }
 
-  /**TODO
+  /**
    * Imprime el menú de registro
    * @param none
    * @return boolean True si se ha podido registrar
@@ -244,8 +244,12 @@ public final class SystemFunctions {
     System.out.print(" - Contraseña: ");
     user.setPassword(scanner.nextLine());
 
-    userManager.registerUser(user);
-    return true;
+    if (userManager.registerUser(user)) {
+        System.out.println("Registro correcto");
+        return true;
+	}
+    System.out.println("Error al registrarse el correo introducido ya existía");    
+    return false;
   }
 
   /**TODO

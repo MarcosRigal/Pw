@@ -29,6 +29,12 @@ public class DataBaseManager {
   private String user;
 
   private String password;
+
+  private String getUserQuery;
+  
+  private String updateLastLoginQuery;
+  
+  private String registerUserQuery;
   
   protected Connection connection = null;
   /**
@@ -48,6 +54,24 @@ public class DataBaseManager {
 	      url = prop.getProperty("url");
 	      user = prop.getProperty("user");
 	      password = prop.getProperty("password");
+	    } catch (FileNotFoundException e) {
+	      e.printStackTrace();
+	    } catch (IOException e) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	    }
+	    prop = new Properties();
+	    filename = "sql.properties";
+	    try {
+	      BufferedReader reader = new BufferedReader(
+	        new FileReader(new File(filename))
+	      );
+	      prop.load(reader);
+
+	      getUserQuery = prop.getProperty("getUsers");
+	      updateLastLoginQuery = prop.getProperty("updateLastLogin");
+	      registerUserQuery = prop.getProperty("registerUser");
+	      
 	    } catch (FileNotFoundException e) {
 	      e.printStackTrace();
 	    } catch (IOException e) {
@@ -115,4 +139,28 @@ public boolean getDisconnected() {
     }
     return status;
   }
+
+public String getGetUserQuery() {
+	return getUserQuery;
+}
+
+public void setGetUserQuery(String getUserQuery) {
+	this.getUserQuery = getUserQuery;
+}
+
+public String getUpdateLastLoginQuery() {
+	return updateLastLoginQuery;
+}
+
+public void setUpdateLastLoginQuery(String updateLastLoginQuery) {
+	this.updateLastLoginQuery = updateLastLoginQuery;
+}
+
+public String getRegisterUserQuery() {
+	return registerUserQuery;
+}
+
+public void setRegisterUserQuery(String registerUserQuery) {
+	this.registerUserQuery = registerUserQuery;
+}
 }

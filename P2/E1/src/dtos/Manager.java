@@ -19,7 +19,7 @@ public class Manager {
   public String findUsers() {
     UserDAO userByAge = new UserDAO();
     String usersInfo = "";
-    ArrayList<UserDTO> users = userByAge.requestUsers();
+    ArrayList<UserDTO> users = userByAge.getUsers();
     for (UserDTO u : users) {
       usersInfo += u.toString() + "\n";
     }

@@ -27,9 +27,7 @@ public class UserManager {
 
   private int userId;
 
-private SimpleDateFormat formatter;
-
-  /**
+/**
    * Constructor de la clase privado
    * para evitar que se instancie más de una vez
    * @param none
@@ -61,7 +59,7 @@ private SimpleDateFormat formatter;
 
   public ArrayList<UserDTO> getUsers() {
 	  UserDAO users = new UserDAO();
-	  return users.requestUsers();
+	  return users.getUsers();
   }
   
   /**
@@ -78,12 +76,11 @@ private SimpleDateFormat formatter;
 	        (users.get(i).getPassword().equals(password))
 	      ) {
 	        setActiveUser(users.get(i));
-	        formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	        new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	        Date lastLogin = new Date(System.currentTimeMillis());
 	        activeUser.setLastLogin(lastLogin);
 	  	  	UserDAO user = new UserDAO();
 	  	  	user.updateLastLogin(lastLogin, email);
-	        System.out.println(formatter.format(activeUser.getLastLogin()));
 	        return true;
 	      }
 	    }
@@ -118,8 +115,16 @@ private SimpleDateFormat formatter;
    */
 
   public boolean registerUser(User user) {
-    users.add(user);
-    userId += 1;
+	  ArrayList<UserDTO> users = getUsers();
+	    for (int i = 0; i < users.size(); i++) {
+	      if (users.get(i).getEmail().equals(user.getEmail())) {
+	        return false;
+	      }
+	    }
+	UserDAO userDAO = new UserDAO();
+    new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    Date lastLogin = new Date(System.currentTimeMillis());
+    userDAO.registerUser(user.getName(),user.getType(),user.getSurname(), user.getNick(), user.getEmail(), user.getPassword(), lastLogin);
     return true;
   }
 
