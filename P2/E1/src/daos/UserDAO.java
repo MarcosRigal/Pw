@@ -36,8 +36,10 @@ public class UserDAO {
         String nick = rs.getString("nick");
         String email = rs.getString("email");
         String password = rs.getString("password");
+        java.sql.Timestamp timestamp = rs.getTimestamp("lastLogin"); // O/P: DD:MM:YYYY HH:mm:ss
+        java.util.Date lastLogin = new java.util.Date(timestamp.getTime());
         listOfUsers.add(
-          new UserDTO(name, type, surname, nick, email, password)
+          new UserDTO(name, type, surname, nick, email, password, lastLogin)
         );
       }
 

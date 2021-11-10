@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `nick` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastLogin` DATETIME NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -77,11 +78,11 @@ CREATE TABLE IF NOT EXISTS `User-Review` (
 -- Volcar la base de datos para la tabla `User`
 -- 
 
-INSERT INTO `User` VALUES ('Marcos','Admin','Rivera Gavilán','i92rigam','i92rigam@uco.es','1234');
-INSERT INTO `User` VALUES ('David','Admin','Pérez Dueñas','i92pedud','i92pedud@uco.es','1234');
-INSERT INTO `User` VALUES ('Antonio','Admin','Moruno Gracia','i92mogra','i92mogra@uco.es','1234');
-INSERT INTO `User` VALUES ('Javier','Spectator','de Santiago Palomino','i92sanpj','i92sanpj@uco.es','1234');
-INSERT INTO `User` VALUES ('Marcos','Spectator','Rodriguez Moreno','i92romom','i92romom@uco.es','1234');
+INSERT INTO `User` VALUES ('Marcos','Admin','Rivera Gavilán','i92rigam','i92rigam@uco.es','1234', '0001-01-1 00:00:00');
+INSERT INTO `User` VALUES ('David','Admin','Pérez Dueñas','i92pedud','i92pedud@uco.es','1234', '0001-01-1 00:00:00');
+INSERT INTO `User` VALUES ('Antonio','Admin','Moruno Gracia','i92mogra','i92mogra@uco.es','1234', '0001-01-1 00:00:00');
+INSERT INTO `User` VALUES ('Javier','Spectator','de Santiago Palomino','i92sanpj','i92sanpj@uco.es','1234', '0001-01-1 00:00:00');
+INSERT INTO `User` VALUES ('Marcos','Spectator','Rodriguez Moreno','i92romom','i92romom@uco.es','1234', '0001-01-1 00:00:00');
 
 INSERT INTO `Spectacle` VALUES (NULL,'Cars','Single','Coches','obra',50);
 INSERT INTO `Spectacle` VALUES (NULL,'Cars 2','Multiple','Más coches','obra',60);

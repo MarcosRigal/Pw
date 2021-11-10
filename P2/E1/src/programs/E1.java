@@ -2,6 +2,8 @@ package programs;
 
 import java.io.IOException;
 import java.text.ParseException;
+
+import managers.DataBaseManager;
 import managers.UserManager;
 import utilities.SystemFunctions;
 
@@ -17,6 +19,8 @@ import utilities.SystemFunctions;
 public class E1 {
 
   public static void main(String[] args) throws IOException, ParseException {
+	DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+	dataBaseManager.getConnected();
     UserManager userManager = UserManager.getInstance();
 
     int choice;
@@ -173,6 +177,7 @@ public class E1 {
       }
       choice = SystemFunctions.printLoginScreen();
     }
+    dataBaseManager.getDisconnected();
     SystemFunctions.printExitScreen();
   }
 }

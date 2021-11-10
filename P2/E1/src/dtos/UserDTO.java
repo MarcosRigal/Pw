@@ -1,5 +1,8 @@
 package dtos;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Clase que representa al usuario del sistema.
  * @author Antonio Moruno Gracia
@@ -8,7 +11,7 @@ package dtos;
  * @version 1.0
  */
 
-public class UserDTO {
+public class UserDTO{
 
   private String name;
   private String type;
@@ -16,6 +19,7 @@ public class UserDTO {
   private String nick;
   private String email;
   private String password;
+  private Date lastLogin;
 
   /**
    * Constructor de la clase usuario
@@ -30,7 +34,8 @@ public class UserDTO {
     String surname,
     String nick,
     String email,
-    String password
+    String password,
+    Date lastLogin
   ) {
     this.name = name;
     this.type = type;
@@ -38,6 +43,7 @@ public class UserDTO {
     this.nick = nick;
     this.email = email;
     this.password = password;
+    this.lastLogin = lastLogin;
   }
 
   /**
@@ -101,6 +107,16 @@ public class UserDTO {
   }
 
   /**
+   * Devuelve la ultima hora de conexión del usuario
+   * @param none
+   * @return lastLogin ultima hora de conexión del usuario
+   */
+  
+  public Date getLastLogin() {
+	    return lastLogin;
+	  }
+  
+  /**
    * Cambia el nombre del usuario
    * @param String Nombre del usuario
    * @return none
@@ -159,15 +175,28 @@ public class UserDTO {
   public void setType(String type) {
     this.type = type;
   }
+  
+  /**
+   * Permite asignar una última hora de conexión al usuario
+   * @param lastLogin Última hora de conexión del usuario
+   * @return none
+   */
+
+  public void setLastLogin(Date lastLogin) {
+    this.lastLogin = lastLogin;
+  }
 
   public String toString() {
+    SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     String userInfo =
       " Name: " +
       this.name +
       " Surname: " +
       this.surname +
       " Nick: " +
-      this.nick;
+      this.nick +
+      " Last Login: " +
+      formatter6.format(this.lastLogin);
     return userInfo;
   }
 }
