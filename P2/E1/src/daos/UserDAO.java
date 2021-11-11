@@ -1,15 +1,12 @@
 package daos;
 
 import com.mysql.jdbc.ResultSet;
-
 import dtos.UserDTO;
-
 import java.sql.*;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import managers.DataBaseManager;
 
 /**
@@ -23,8 +20,8 @@ public class UserDAO {
   public ArrayList<UserDTO> getUsers() {
     ArrayList<UserDTO> listOfUsers = new ArrayList<UserDTO>();
     try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
       String query = dataBaseManager.getGetUserQuery();
 
@@ -55,59 +52,22 @@ public class UserDAO {
     }
     return listOfUsers;
   }
-  
+
   public void updateLastLogin(Date lastLogin, String email) {
-	    try {
-	        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-	        Connection connection = dataBaseManager.getConnected();
-	      // Important: This query is hard-coded here for illustrative purposes only
-	      SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	      String query = MessageFormat.format(dataBaseManager.getUpdateLastLoginQuery(), "'",formatter.format(lastLogin), "'", "'", email, "'");
-
-	      // Important: We can replace this direct invocation to CRUD operations in DBConnection
-	      Statement stmt = connection.createStatement();
-	      stmt.executeUpdate(query);
-	      if (stmt != null) {
-	        stmt.close();
-	      }
-	    } catch (Exception e) {
-	      System.err.println(e);
-	      e.printStackTrace();
-	    }
-	  }
-  
-  public void registerUser(String name,
-		    String type,
-		    String surname,
-		    String nick,
-		    String email,
-		    String password,
-		    Date lastLogin) {
-	    try {
-	        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-	        Connection connection = dataBaseManager.getConnected();
-	      // Important: This query is hard-coded here for illustrative purposes only
-	      SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	      String query = MessageFormat.format(dataBaseManager.getRegisterUserQuery(),"'",name,"'","'",type,"'","'",surname,"'","'",nick,"'","'",email,"'","'",password,"'","'",formatter.format(lastLogin),"'");
-
-	      // Important: We can replace this direct invocation to CRUD operations in DBConnection
-	      Statement stmt = connection.createStatement();
-	      stmt.executeUpdate(query);
-	      if (stmt != null) {
-	        stmt.close();
-	      }
-	    } catch (Exception e) {
-	      System.err.println(e);
-	      e.printStackTrace();
-	    }
-	  }
-
-public void deleteUser(String deleteUserMail) {
     try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
-      String query = MessageFormat.format(dataBaseManager.getDeleteUserQuery(),"'",deleteUserMail,"'");
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      String query = MessageFormat.format(
+        dataBaseManager.getUpdateLastLoginQuery(),
+        "'",
+        formatter.format(lastLogin),
+        "'",
+        "'",
+        email,
+        "'"
+      );
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
@@ -119,15 +79,46 @@ public void deleteUser(String deleteUserMail) {
       System.err.println(e);
       e.printStackTrace();
     }
-}
+  }
 
-public void modifyUser(UserDTO user) {
+  public void registerUser(
+    String name,
+    String type,
+    String surname,
+    String nick,
+    String email,
+    String password,
+    Date lastLogin
+  ) {
     try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
-
-        String query = MessageFormat.format(dataBaseManager.getUpdateUserQuery(),"'",user.getName(),"'","'",user.getSurname(),"'","'",user.getNick(),"'","'",user.getPassword(),"'","'",user.getEmail(),"'");
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      String query = MessageFormat.format(
+        dataBaseManager.getRegisterUserQuery(),
+        "'",
+        name,
+        "'",
+        "'",
+        type,
+        "'",
+        "'",
+        surname,
+        "'",
+        "'",
+        nick,
+        "'",
+        "'",
+        email,
+        "'",
+        "'",
+        password,
+        "'",
+        "'",
+        formatter.format(lastLogin),
+        "'"
+      );
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
@@ -139,5 +130,66 @@ public void modifyUser(UserDTO user) {
       System.err.println(e);
       e.printStackTrace();
     }
-}
+  }
+
+  public void deleteUser(String deleteUserMail) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+        dataBaseManager.getDeleteUserQuery(),
+        "'",
+        deleteUserMail,
+        "'"
+      );
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+  }
+
+  public void modifyUser(UserDTO user) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+
+      String query = MessageFormat.format(
+        dataBaseManager.getUpdateUserQuery(),
+        "'",
+        user.getName(),
+        "'",
+        "'",
+        user.getSurname(),
+        "'",
+        "'",
+        user.getNick(),
+        "'",
+        "'",
+        user.getPassword(),
+        "'",
+        "'",
+        user.getEmail(),
+        "'"
+      );
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+  }
 }

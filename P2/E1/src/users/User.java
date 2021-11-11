@@ -73,7 +73,7 @@ public abstract class User {
    * @param none
    * @return lastLogin ultima hora de conexión del usuario
    */
-  
+
   public abstract Date getLastLogin();
 
   /**
@@ -81,7 +81,6 @@ public abstract class User {
    * @param int Identificador del usuario
    * @return none
    */
-  
 
   public abstract void setUserId(int userId);
 
@@ -123,7 +122,7 @@ public abstract class User {
    * @return none
    */
   public abstract void setPassword(String password);
-  
+
   /**
    * Permite asignar una última hora de conexión al usuario
    * @param lastLogin Última hora de conexión del usuario

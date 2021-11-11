@@ -1,12 +1,9 @@
 package daos;
 
 import com.mysql.jdbc.ResultSet;
-
 import dtos.SpectacleDTO;
-
 import java.sql.*;
 import java.util.ArrayList;
-
 import managers.DataBaseManager;
 
 /**
@@ -20,8 +17,8 @@ public class SpectacleDAO {
   public ArrayList<SpectacleDTO> requestSpectacles() {
     ArrayList<SpectacleDTO> listOfSpectacles = new ArrayList<SpectacleDTO>();
     try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
       String query = "select * from Spectacle";
 

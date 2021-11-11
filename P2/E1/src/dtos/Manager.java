@@ -39,7 +39,7 @@ public class Manager {
   public String findReviews() {
     ReviewDAO reviews = new ReviewDAO();
     String reviewsInfo = "";
-    ArrayList<ReviewDTO> listOfReviews = reviews.requestReviews();
+    ArrayList<ReviewDTO> listOfReviews = reviews.getReviews();
     for (ReviewDTO s : listOfReviews) {
       reviewsInfo += s.toString() + "\n";
     }

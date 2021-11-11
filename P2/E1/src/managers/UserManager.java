@@ -1,11 +1,10 @@
 package managers;
 
+import daos.UserDAO;
+import dtos.UserDTO;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import daos.UserDAO;
-import dtos.UserDTO;
 import users.User;
 
 /**
@@ -27,7 +26,7 @@ public class UserManager {
 
   private int userId;
 
-/**
+  /**
    * Constructor de la clase privado
    * para evitar que se instancie más de una vez
    * @param none
@@ -58,10 +57,10 @@ public class UserManager {
    */
 
   public ArrayList<UserDTO> getUsers() {
-	  UserDAO users = new UserDAO();
-	  return users.getUsers();
+    UserDAO users = new UserDAO();
+    return users.getUsers();
   }
-  
+
   /**
    * Devuelve todos los usuarios disponibles
    * @param none
@@ -69,22 +68,22 @@ public class UserManager {
    */
 
   public boolean loginUser(String email, String password) {
-	    ArrayList<UserDTO> users = getUsers();
-	    for (int i = 0; i < users.size(); i++) {
-	      if (
-	        (users.get(i).getEmail().equals(email)) &&
-	        (users.get(i).getPassword().equals(password))
-	      ) {
-	        setActiveUser(users.get(i));
-	        new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-	        Date lastLogin = new Date(System.currentTimeMillis());
-	        activeUser.setLastLogin(lastLogin);
-	  	  	UserDAO user = new UserDAO();
-	  	  	user.updateLastLogin(lastLogin, email);
-	        return true;
-	      }
-	    }
-	    return false;
+    ArrayList<UserDTO> users = getUsers();
+    for (int i = 0; i < users.size(); i++) {
+      if (
+        (users.get(i).getEmail().equals(email)) &&
+        (users.get(i).getPassword().equals(password))
+      ) {
+        setActiveUser(users.get(i));
+        new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date lastLogin = new Date(System.currentTimeMillis());
+        activeUser.setLastLogin(lastLogin);
+        UserDAO user = new UserDAO();
+        user.updateLastLogin(lastLogin, email);
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -115,16 +114,24 @@ public class UserManager {
    */
 
   public boolean registerUser(User user) {
-	  ArrayList<UserDTO> users = getUsers();
-	    for (int i = 0; i < users.size(); i++) {
-	      if (users.get(i).getEmail().equals(user.getEmail())) {
-	        return false;
-	      }
-	    }
-	UserDAO userDAO = new UserDAO();
+    ArrayList<UserDTO> users = getUsers();
+    for (int i = 0; i < users.size(); i++) {
+      if (users.get(i).getEmail().equals(user.getEmail())) {
+        return false;
+      }
+    }
+    UserDAO userDAO = new UserDAO();
     new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     Date lastLogin = new Date(System.currentTimeMillis());
-    userDAO.registerUser(user.getName(),user.getType(),user.getSurname(), user.getNick(), user.getEmail(), user.getPassword(), lastLogin);
+    userDAO.registerUser(
+      user.getName(),
+      user.getType(),
+      user.getSurname(),
+      user.getNick(),
+      user.getEmail(),
+      user.getPassword(),
+      lastLogin
+    );
     return true;
   }
 
@@ -135,17 +142,17 @@ public class UserManager {
    */
 
   public boolean deleteUser(String deleteUserMail) {
-	  if (activeUser.getEmail().equals(deleteUserMail)) {
-		return false;
-	}
-	  ArrayList<UserDTO> users = getUsers();
-	    for (int i = 0; i < users.size(); i++) {
-	      if (users.get(i).getEmail().equals(deleteUserMail)) {
-	    	  UserDAO userDAO = new UserDAO();
-	    	  userDAO.deleteUser(deleteUserMail);
-	    	  return true;
-	      }
-	    }
+    if (activeUser.getEmail().equals(deleteUserMail)) {
+      return false;
+    }
+    ArrayList<UserDTO> users = getUsers();
+    for (int i = 0; i < users.size(); i++) {
+      if (users.get(i).getEmail().equals(deleteUserMail)) {
+        UserDAO userDAO = new UserDAO();
+        userDAO.deleteUser(deleteUserMail);
+        return true;
+      }
+    }
     return false;
   }
 
@@ -156,12 +163,12 @@ public class UserManager {
    */
 
   public boolean modifyUser(UserDTO user) {
-	  UserDAO userDAO = new UserDAO();
-	  userDAO.modifyUser(user);
-	  if (activeUser.getEmail().equals(user.getEmail())) {
-		setActiveUser(user);
-	  }
-	  return true;
+    UserDAO userDAO = new UserDAO();
+    userDAO.modifyUser(user);
+    if (activeUser.getEmail().equals(user.getEmail())) {
+      setActiveUser(user);
+    }
+    return true;
   }
 
   /**
@@ -171,13 +178,13 @@ public class UserManager {
    */
 
   public UserDTO findUser(String email) {
-	  ArrayList<UserDTO> users = getUsers();
-	    for (int i = 0; i < users.size(); i++) {
-	      if (users.get(i).getEmail().equals(email)) {
-	    	  return users.get(i);
-	      }
-	    }
-  return null;
+    ArrayList<UserDTO> users = getUsers();
+    for (int i = 0; i < users.size(); i++) {
+      if (users.get(i).getEmail().equals(email)) {
+        return users.get(i);
+      }
+    }
+    return null;
   }
 
   /**

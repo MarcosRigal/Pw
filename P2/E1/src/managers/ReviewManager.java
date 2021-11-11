@@ -1,5 +1,7 @@
 package managers;
 
+import daos.ReviewDAO;
+import dtos.ReviewDTO;
 import java.util.ArrayList;
 import reviews.Review;
 
@@ -49,8 +51,9 @@ public class ReviewManager {
    * @return ArrayList<ReviewDTO> Vector con las criticas
    */
 
-  public ArrayList<Review> getReviews() {
-    return reviews;
+  public ArrayList<ReviewDTO> getReviews() {
+    ReviewDAO reviews = new ReviewDAO();
+    return reviews.getReviews();
   }
 
   /**
@@ -139,15 +142,9 @@ public class ReviewManager {
    * @return ReviewDTO review buscada o null si no la encuentra
    */
 
-  public ArrayList<Review> searchUsersReview(int userReviewId) {
-    ArrayList<Review> userReviews = new ArrayList<Review>();
-
-    for (int i = 0; i < reviews.size(); i++) {
-      if (reviews.get(i).getUserId() == userReviewId) {
-        userReviews.add(reviews.get(i));
-      }
-    }
-    return userReviews;
+  public ArrayList<ReviewDTO> searchUsersReview(String email) {
+    ReviewDAO reviews = new ReviewDAO();
+    return reviews.getUserReviews(email);
   }
 
   /**
@@ -198,5 +195,16 @@ public class ReviewManager {
       }
     }
     return spectaclesReviews;
+  }
+
+  /**
+   * Devuelve todas las críticas de los espectáculos dado un título
+   * @param String Title
+   * @return ArrayList<ReviewDTO> Vector con las criticas
+   */
+
+  public ArrayList<ReviewDTO> getReviewsBySpectacleTitle(String title) {
+    ReviewDAO reviews = new ReviewDAO();
+    return reviews.getReviewsBySpectacleTitle(title);
   }
 }

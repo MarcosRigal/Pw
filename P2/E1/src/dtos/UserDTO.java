@@ -11,7 +11,7 @@ import java.util.Date;
  * @version 1.0
  */
 
-public class UserDTO{
+public class UserDTO {
 
   private String name;
   private String type;
@@ -57,9 +57,9 @@ public class UserDTO{
   }
 
   public int getUserId() {
-	    return 1;
-	  }
-  
+    return 1;
+  }
+
   /**
    * Devuelve los apellidos del usuario
    * @param none
@@ -115,11 +115,11 @@ public class UserDTO{
    * @param none
    * @return lastLogin ultima hora de conexión del usuario
    */
-  
+
   public Date getLastLogin() {
-	    return lastLogin;
-	  }
-  
+    return lastLogin;
+  }
+
   /**
    * Cambia el nombre del usuario
    * @param String Nombre del usuario
@@ -179,7 +179,7 @@ public class UserDTO{
   public void setType(String type) {
     this.type = type;
   }
-  
+
   /**
    * Permite asignar una última hora de conexión al usuario
    * @param lastLogin Última hora de conexión del usuario

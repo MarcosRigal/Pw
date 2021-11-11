@@ -1,15 +1,14 @@
 package utilities;
 
+import dtos.ReviewDTO;
+import dtos.UserDTO;
 import factories.SpectacleFactory;
 import factories.UserFactory;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
-
-import dtos.UserDTO;
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -76,7 +75,9 @@ public final class SystemFunctions {
     System.out.println(" - Pulse 0 para salir");
     System.out.print("Escoja una opción y pulse enter: ");
     return scanner.nextInt();
-  }/**
+  }
+
+  /**
    * Imprime el menú del espectador
    * @param none
    * @return int Elección del usuario
@@ -245,10 +246,10 @@ public final class SystemFunctions {
     user.setPassword(scanner.nextLine());
 
     if (userManager.registerUser(user)) {
-        System.out.println("Registro correcto");
-        return true;
-	}
-    System.out.println("Error al registrarse el correo introducido ya existía");    
+      System.out.println("Registro correcto");
+      return true;
+    }
+    System.out.println("Error al registrarse el correo introducido ya existía");
     return false;
   }
 
@@ -294,9 +295,7 @@ public final class SystemFunctions {
     UserManager userManager = UserManager.getInstance();
 
     SystemFunctions.listUsers();
-    System.out.print(
-      "Introduzca el correo del usuario que desea borrar: "
-    );
+    System.out.print("Introduzca el correo del usuario que desea borrar: ");
     String deleteUserMail = scanner.nextLine();
     return userManager.deleteUser(deleteUserMail);
   }
@@ -315,9 +314,7 @@ public final class SystemFunctions {
     System.out.println("        Email        ");
     System.out.println("---------------------");
     for (int i = 0; i < users.size(); i++) {
-      System.out.println(
-        "   " + users.get(i).getEmail()
-      );
+      System.out.println("   " + users.get(i).getEmail());
     }
   }
 
@@ -331,8 +328,8 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     SystemFunctions.listUsers();
     System.out.print(
-    	      "Introduzca el correo del usuario que desea consultar sus datos: "
-    	    );
+      "Introduzca el correo del usuario que desea consultar sus datos: "
+    );
     scanner.nextLine();
     String mail = scanner.nextLine();
     UserManager userManager = UserManager.getInstance();
@@ -363,9 +360,9 @@ public final class SystemFunctions {
     SystemFunctions.listUsers();
 
     System.out.print(
-  	      "Introduzca el correo del usuario que desea consultar sus datos: "
-  	    );
-  	String mail = scanner.nextLine();
+      "Introduzca el correo del usuario que desea consultar sus datos: "
+    );
+    String mail = scanner.nextLine();
 
     UserDTO user = userManager.findUser(mail);
 
@@ -382,7 +379,7 @@ public final class SystemFunctions {
 
       return userManager.modifyUser(user);
     }
-    return false; 
+    return false;
   }
 
   /**TODO
@@ -422,7 +419,7 @@ public final class SystemFunctions {
     return true;
   }
 
-  /**TODO
+  /**
    * Muestra las reviews del sistema
    * @param none
    * @return none
@@ -431,22 +428,25 @@ public final class SystemFunctions {
   public static void showReviews() {
     SystemFunctions.clearConsole();
     ReviewManager reviewManager = ReviewManager.getInstance();
-    ArrayList<Review> reviews = reviewManager.getReviews();
+    ArrayList<ReviewDTO> reviews = reviewManager.getReviews();
     for (int i = 0; i < reviews.size(); i++) {
-      System.out.println("Review nº: " + i);
       System.out.println("------------------");
       System.out.println(" - ReviewId: " + reviews.get(i).getReviewId());
-      System.out.println(" - AuthorId: " + reviews.get(i).getUserId());
-      System.out.println(" - SpectacleId: " + reviews.get(i).getSpectacleId());
-      System.out.println(" - Título: " + reviews.get(i).getTitle());
+      System.out.println(" - Autor: " + reviews.get(i).getEmail());
+      System.out.println(
+        " - Título del espectáculo: " + reviews.get(i).getSpectacleTitle()
+      );
+      System.out.println(
+        " - Título de la review: " + reviews.get(i).getTitle()
+      );
       System.out.println(
         " - Puntuación del (0-5): " + reviews.get(i).getScore()
       );
       System.out.println(" - Review: " + reviews.get(i).getReview());
       System.out.println(" - Likes: " + reviews.get(i).getLike());
       System.out.println(" - Dislikes: " + reviews.get(i).getDislike());
-      System.out.println("------------------");
     }
+    System.out.println("------------------");
   }
 
   /**TODO
@@ -468,7 +468,7 @@ public final class SystemFunctions {
     return reviewManager.deleteReview(deleteReviewId);
   }
 
-  /**TODO
+  /**
    * Imprime las reviews de un usuario en concreto
    * @param none
    * @return none
@@ -480,27 +480,30 @@ public final class SystemFunctions {
 
     SystemFunctions.listUsers();
     System.out.print(
-      "Introduzca el identificador del usuario para el que desea buscar críticas: "
+      "Introduzca el correo del usuario para el que desea buscar críticas: "
     );
-    int userReviewId = scanner.nextInt();
+    scanner.nextLine();
+    String email = scanner.nextLine();
 
-    ArrayList<Review> userReviews = reviewManager.searchUsersReview(
-      userReviewId
-    );
-    for (int i = 0; i < userReviews.size(); i++) {
-      System.out.println("Review nº: " + i);
+    ArrayList<ReviewDTO> reviews = reviewManager.searchUsersReview(email);
+    for (int i = 0; i < reviews.size(); i++) {
       System.out.println("------------------");
-      System.out.println(" - ReviewId: " + userReviews.get(i).getReviewId());
-      System.out.println(" - AuthorId: " + userReviews.get(i).getUserId());
-      System.out.println(" - Título: " + userReviews.get(i).getTitle());
+      System.out.println(" - ReviewId: " + reviews.get(i).getReviewId());
+      System.out.println(" - Autor: " + reviews.get(i).getEmail());
       System.out.println(
-        " - Puntuación del (0-5): " + userReviews.get(i).getScore()
+        " - Título del espectáculo: " + reviews.get(i).getSpectacleTitle()
       );
-      System.out.println(" - Review: " + userReviews.get(i).getReview());
-      System.out.println(" - Likes: " + userReviews.get(i).getLike());
-      System.out.println(" - Dislikes: " + userReviews.get(i).getDislike());
-      System.out.println("------------------");
+      System.out.println(
+        " - Título de la review: " + reviews.get(i).getTitle()
+      );
+      System.out.println(
+        " - Puntuación del (0-5): " + reviews.get(i).getScore()
+      );
+      System.out.println(" - Review: " + reviews.get(i).getReview());
+      System.out.println(" - Likes: " + reviews.get(i).getLike());
+      System.out.println(" - Dislikes: " + reviews.get(i).getDislike());
     }
+    System.out.println("------------------");
   }
 
   /**TODO
@@ -536,7 +539,7 @@ public final class SystemFunctions {
     return false;
   }
 
-  /**TODO
+  /**
    * Imprime las reviews
    * @param none
    * @return none
@@ -546,14 +549,14 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     ReviewManager reviewManager = ReviewManager.getInstance();
 
-    ArrayList<Review> reviews = reviewManager.getReviews();
-    System.out.println("ReviewId | Título ");
+    ArrayList<ReviewDTO> reviews = reviewManager.getReviews();
+    System.out.println(" ReviewId | Título ");
     System.out.println("------------------");
     for (int i = 0; i < reviews.size(); i++) {
       System.out.println(
-        "   " +
+        "     " +
         reviews.get(i).getReviewId() +
-        "  | " +
+        "    | " +
         reviews.get(i).getTitle()
       );
     }
@@ -1052,7 +1055,7 @@ public final class SystemFunctions {
     }
   }
 
-  /**TODO
+  /**
    * Función que busca una review según el titulo del espectáculo
    * @param none
    * @return none
@@ -1060,34 +1063,32 @@ public final class SystemFunctions {
 
   public static void searchReviewBySpectacleTitle() {
     SystemFunctions.clearConsole();
-    SpectacleManager spectacleManager = SpectacleManager.getInstance();
-    ReviewManager reviewManager = ReviewManager.getInstance();
     scanner.nextLine();
     System.out.print(" - Título: ");
     String title = scanner.nextLine();
-    ArrayList<Spectacle> spectacles = spectacleManager.searchByTitle(title);
-    for (int i = 0; i < spectacles.size(); i++) {
-      ArrayList<Review> reviews = reviewManager.searchSpectaclesReview(
-        spectacles.get(i).getSpectacleId()
+    SystemFunctions.clearConsole();
+    ReviewManager reviewManager = ReviewManager.getInstance();
+    ArrayList<ReviewDTO> reviews = reviewManager.getReviewsBySpectacleTitle(
+      title
+    );
+    for (int i = 0; i < reviews.size(); i++) {
+      System.out.println("------------------");
+      System.out.println(" - ReviewId: " + reviews.get(i).getReviewId());
+      System.out.println(" - Autor: " + reviews.get(i).getEmail());
+      System.out.println(
+        " - Título del espectáculo: " + reviews.get(i).getSpectacleTitle()
       );
-      for (int j = 0; j < reviews.size(); j++) {
-        System.out.println("Review nº: " + i);
-        System.out.println("------------------");
-        System.out.println(" - ReviewId: " + reviews.get(i).getReviewId());
-        System.out.println(" - AuthorId: " + reviews.get(i).getUserId());
-        System.out.println(
-          " - SpectacleId: " + reviews.get(i).getSpectacleId()
-        );
-        System.out.println(" - Título: " + reviews.get(i).getTitle());
-        System.out.println(
-          " - Puntuación del (0-5): " + reviews.get(i).getScore()
-        );
-        System.out.println(" - Review: " + reviews.get(i).getReview());
-        System.out.println(" - Likes: " + reviews.get(i).getLike());
-        System.out.println(" - Dislikes: " + reviews.get(i).getDislike());
-        System.out.println("------------------");
-      }
+      System.out.println(
+        " - Título de la review: " + reviews.get(i).getTitle()
+      );
+      System.out.println(
+        " - Puntuación del (0-5): " + reviews.get(i).getScore()
+      );
+      System.out.println(" - Review: " + reviews.get(i).getReview());
+      System.out.println(" - Likes: " + reviews.get(i).getLike());
+      System.out.println(" - Dislikes: " + reviews.get(i).getDislike());
     }
+    System.out.println("------------------");
   }
 
   /**

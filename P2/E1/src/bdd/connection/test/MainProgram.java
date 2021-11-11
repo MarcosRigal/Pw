@@ -1,9 +1,9 @@
 package bdd.connection.test;
 
+import dtos.Manager;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import managers.DataBaseManager;
-import dtos.Manager;
 
 /**
  * Main program to illustrate JDBC usage
@@ -25,9 +25,9 @@ public class MainProgram {
     System.out.println(spectaclesInfo);
     System.out.println(sesionsInfo);
     System.out.println(reviewsInfo);
-    SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     Date date = new Date(System.currentTimeMillis());
-    System.out.println(formatter.format(date)); 
+    System.out.println(formatter.format(date));
     dataBaseManager.getDisconnected();
   }
 }

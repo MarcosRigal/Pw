@@ -111,11 +111,11 @@ public class Admin extends User {
    * @param none
    * @return lastLogin ultima hora de conexión del usuario
    */
-  
+
   public Date getLastLogin() {
-	    return lastLogin;
-	  }
-  
+    return lastLogin;
+  }
+
   /**
    * Cambia el identificador del usuario
    * @param int Identificador del usuario
@@ -181,7 +181,7 @@ public class Admin extends User {
   public void setPassword(String password) {
     this.password = password;
   }
-  
+
   /**
    * Permite asignar una última hora de conexión al usuario
    * @param lastLogin Última hora de conexión del usuario

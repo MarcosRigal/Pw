@@ -12,7 +12,7 @@ import java.util.Properties;
 
 /**
  * Clase que implementa el patrón de diseño
- * singleton encargada de gestionar las 
+ * singleton encargada de gestionar las
  * conexiones a la base de datos
  * @author Antonio Moruno Gracia
  * @author David Pérez Dueñas
@@ -23,7 +23,7 @@ import java.util.Properties;
 public class DataBaseManager {
 
   private static DataBaseManager instance = null;
-  
+
   private String url;
 
   private String user;
@@ -31,59 +31,69 @@ public class DataBaseManager {
   private String password;
 
   private String getUserQuery;
-  
+
   private String updateLastLoginQuery;
-  
+
   private String registerUserQuery;
-  
+
   private String deleteUserQuery;
-  
+
   private String updateUserQuery;
-  
+
+  private String getReviewsQuery;
+
+  private String getReviewsBySpectacleTitleQuery;
+
+  private String getUserReviewsQuery;
+
   protected Connection connection = null;
+
   /**
    * Constructor del review manager
    * @param none
    */
 
   private DataBaseManager() {
-	    Properties prop = new Properties();
-	    String filename = "config.properties";
-	    try {
-	      BufferedReader reader = new BufferedReader(
-	        new FileReader(new File(filename))
-	      );
-	      prop.load(reader);
+    Properties prop = new Properties();
+    String filename = "config.properties";
+    try {
+      BufferedReader reader = new BufferedReader(
+        new FileReader(new File(filename))
+      );
+      prop.load(reader);
 
-	      url = prop.getProperty("url");
-	      user = prop.getProperty("user");
-	      password = prop.getProperty("password");
-	    } catch (FileNotFoundException e) {
-	      e.printStackTrace();
-	    } catch (IOException e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
-	    }
-	    prop = new Properties();
-	    filename = "sql.properties";
-	    try {
-	      BufferedReader reader = new BufferedReader(
-	        new FileReader(new File(filename))
-	      );
-	      prop.load(reader);
+      url = prop.getProperty("url");
+      user = prop.getProperty("user");
+      password = prop.getProperty("password");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    prop = new Properties();
+    filename = "sql.properties";
+    try {
+      BufferedReader reader = new BufferedReader(
+        new FileReader(new File(filename))
+      );
+      prop.load(reader);
 
-	      getUserQuery = prop.getProperty("getUsers");
-	      updateLastLoginQuery = prop.getProperty("updateLastLogin");
-	      registerUserQuery = prop.getProperty("registerUser");
-	      deleteUserQuery = prop.getProperty("deleteUser");
-	      setUpdateUserQuery(prop.getProperty("updateUser"));
-	      
-	    } catch (FileNotFoundException e) {
-	      e.printStackTrace();
-	    } catch (IOException e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
-	    }
+      getUserQuery = prop.getProperty("getUsers");
+      updateLastLoginQuery = prop.getProperty("updateLastLogin");
+      registerUserQuery = prop.getProperty("registerUser");
+      deleteUserQuery = prop.getProperty("deleteUser");
+      updateUserQuery = prop.getProperty("updateUser");
+      getReviewsQuery = prop.getProperty("getReviews");
+      getReviewsBySpectacleTitleQuery =
+        prop.getProperty("getReviewsBySpectacleTitle");
+      getUserReviewsQuery = prop.getProperty("getUserReviews");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -100,8 +110,7 @@ public class DataBaseManager {
     return instance;
   }
 
-
-private Connection connect() {
+  private Connection connect() {
     try {
       Class.forName("com.mysql.jdbc.Driver");
       this.connection =
@@ -117,14 +126,14 @@ private Connection connect() {
     return this.connection;
   }
 
-public Connection getConnected() {
+  public Connection getConnected() {
     if (connection == null) {
-    	connection = connect();
+      connection = connect();
     }
     return connection;
   }
 
-private void disconnect() {
+  private void disconnect() {
     try {
       if (this.connection != null && !this.connection.isClosed()) {
         this.connection.close();
@@ -136,53 +145,78 @@ private void disconnect() {
     }
   }
 
-
-public boolean getDisconnected() {
+  public boolean getDisconnected() {
     boolean status = false;
-	if (connection != null) {
-    	disconnect();
-    	status = true;
+    if (connection != null) {
+      disconnect();
+      status = true;
     }
     return status;
   }
 
-public String getGetUserQuery() {
-	return getUserQuery;
-}
+  public String getGetUserQuery() {
+    return getUserQuery;
+  }
 
-public void setGetUserQuery(String getUserQuery) {
-	this.getUserQuery = getUserQuery;
-}
+  public void setGetUserQuery(String getUserQuery) {
+    this.getUserQuery = getUserQuery;
+  }
 
-public String getUpdateLastLoginQuery() {
-	return updateLastLoginQuery;
-}
+  public String getUpdateLastLoginQuery() {
+    return updateLastLoginQuery;
+  }
 
-public void setUpdateLastLoginQuery(String updateLastLoginQuery) {
-	this.updateLastLoginQuery = updateLastLoginQuery;
-}
+  public void setUpdateLastLoginQuery(String updateLastLoginQuery) {
+    this.updateLastLoginQuery = updateLastLoginQuery;
+  }
 
-public String getRegisterUserQuery() {
-	return registerUserQuery;
-}
+  public String getRegisterUserQuery() {
+    return registerUserQuery;
+  }
 
-public void setRegisterUserQuery(String registerUserQuery) {
-	this.registerUserQuery = registerUserQuery;
-}
+  public void setRegisterUserQuery(String registerUserQuery) {
+    this.registerUserQuery = registerUserQuery;
+  }
 
-public String getDeleteUserQuery() {
-	return deleteUserQuery;
-}
+  public String getDeleteUserQuery() {
+    return deleteUserQuery;
+  }
 
-public void setDeleteUserQuery(String deleteUserQuery) {
-	this.deleteUserQuery = deleteUserQuery;
-}
+  public void setDeleteUserQuery(String deleteUserQuery) {
+    this.deleteUserQuery = deleteUserQuery;
+  }
 
-public String getUpdateUserQuery() {
-	return updateUserQuery;
-}
+  public String getUpdateUserQuery() {
+    return updateUserQuery;
+  }
 
-public void setUpdateUserQuery(String updateUserQuery) {
-	this.updateUserQuery = updateUserQuery;
-}
+  public void setUpdateUserQuery(String updateUserQuery) {
+    this.updateUserQuery = updateUserQuery;
+  }
+
+  public String getGetReviewsQuery() {
+    return getReviewsQuery;
+  }
+
+  public void setGetReviewsQuery(String getReviewsQuery) {
+    this.getReviewsQuery = getReviewsQuery;
+  }
+
+  public String getGetReviewsBySpectacleTitleQuery() {
+    return getReviewsBySpectacleTitleQuery;
+  }
+
+  public void setGetReviewsBySpectacleTitleQuery(
+    String getReviewsBySpectacleTitleQuery
+  ) {
+    this.getReviewsBySpectacleTitleQuery = getReviewsBySpectacleTitleQuery;
+  }
+
+  public String getGetUserReviewsQuery() {
+    return getUserReviewsQuery;
+  }
+
+  public void setGetUserReviewsQuery(String getUserReviewsQuery) {
+    this.getUserReviewsQuery = getUserReviewsQuery;
+  }
 }

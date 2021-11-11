@@ -14,6 +14,7 @@ public class ReviewDTO {
   private int reviewId;
   private String email;
   private int spectacleId;
+  private String spectacleTitle;
   private String title;
   private int score;
   private String review;
@@ -56,6 +57,48 @@ public class ReviewDTO {
     this.reviewId = reviewId;
     this.email = email;
     this.spectacleId = spectacleId;
+    this.title = title;
+    this.score = score;
+    this.review = review;
+    this.like = like;
+    this.dislike = dislike;
+  }
+
+  public ReviewDTO(
+    int reviewId,
+    String email,
+    int spectacleId,
+    String spectacleTitle,
+    String title,
+    int score,
+    String review
+  ) {
+    this.reviewId = reviewId;
+    this.email = email;
+    this.spectacleId = spectacleId;
+    this.spectacleTitle = spectacleTitle;
+    this.title = title;
+    this.score = score;
+    this.review = review;
+    setLike(0);
+    setDislike(0);
+  }
+
+  public ReviewDTO(
+    int reviewId,
+    String email,
+    int spectacleId,
+    String spectacleTitle,
+    String title,
+    int score,
+    String review,
+    int like,
+    int dislike
+  ) {
+    this.reviewId = reviewId;
+    this.email = email;
+    this.spectacleId = spectacleId;
+    this.spectacleTitle = spectacleTitle;
     this.title = title;
     this.score = score;
     this.review = review;
@@ -262,5 +305,64 @@ public class ReviewDTO {
       " Dislike: " +
       this.dislike;
     return reviewInfo;
+  }
+
+  public String getSpectacleTitle() {
+    return spectacleTitle;
+  }
+
+  public void setSpectacleTitle(String spectacleTitle) {
+    this.spectacleTitle = spectacleTitle;
+  }
+}
+  }
+
+  /**
+   * Da un like a la review
+   * @param none
+   * @return none
+   */
+
+  public void like() {
+    this.like = this.like + 1;
+  }
+
+  /**
+   * Da un dislike a la review
+   * @param none
+   * @return none
+   */
+
+  public void dislike() {
+    this.dislike = this.dislike + 1;
+  }
+
+  public String toString() {
+    String reviewInfo =
+      "ReviewId: " +
+      this.reviewId +
+      " Email: " +
+      this.email +
+      " SpectacleId: " +
+      this.spectacleId +
+      " Title: " +
+      title +
+      " Score: " +
+      this.score +
+      " Review: " +
+      this.review +
+      " Like: " +
+      this.like +
+      " Dislike: " +
+      this.dislike;
+    return reviewInfo;
+  }
+
+  public String getSpectacleTitle() {
+    return spectacleTitle;
+  }
+
+  public void setSpectacleTitle(String spectacleTitle) {
+    this.spectacleTitle = spectacleTitle;
   }
 }
