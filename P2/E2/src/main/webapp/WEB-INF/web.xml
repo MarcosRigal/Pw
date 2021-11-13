@@ -9,4 +9,24 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>url</param-name>
+    <param-value>jdbc:mysql://oraclepr.uco.es:3306/i92rigam</param-value>
+  </context-param>
+  <context-param>
+    <param-name>user</param-name>
+    <param-value>i92rigam</param-value>
+  </context-param>
+  <context-param>
+    <param-name>password</param-name>
+    <param-value>PW2122WP</param-value>
+  </context-param>
+  <context-param>
+	<param-name>properties</param-name>
+	<param-value>/WEB-INF/sql.properties</param-value>
+  </context-param>
+  <context-param>
+    <param-name>PARAMETER_ENCODING</param-name>
+    <param-value>UTF-8</param-value>
+  </context-param>
 </web-app>

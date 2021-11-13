@@ -2,6 +2,9 @@ package managers;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import daos.SesionDAO;
+import dtos.SesionDTO;
 import sesions.Sesion;
 
 /**
@@ -50,8 +53,9 @@ public class SesionManager {
    * @return ArrayList<SesionDTO> Vector con las sesiones
    */
 
-  public ArrayList<Sesion> getSesions() {
-    return sesions;
+  public ArrayList<SesionDTO> getSesions() {
+	    SesionDAO sesions = new SesionDAO();
+	    return sesions.getSesions();
   }
 
   /**

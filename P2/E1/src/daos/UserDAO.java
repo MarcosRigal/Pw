@@ -36,10 +36,12 @@ public class UserDAO {
         String nick = rs.getString("nick");
         String email = rs.getString("email");
         String password = rs.getString("password");
+        java.sql.Timestamp timetamp = rs.getTimestamp("registerDate"); // O/P: DD:MM:YYYY HH:mm:ss
+        java.util.Date registerDate = new java.util.Date(timetamp.getTime());
         java.sql.Timestamp timestamp = rs.getTimestamp("lastLogin"); // O/P: DD:MM:YYYY HH:mm:ss
         java.util.Date lastLogin = new java.util.Date(timestamp.getTime());
         listOfUsers.add(
-          new UserDTO(name, type, surname, nick, email, password, lastLogin)
+          new UserDTO(name, type, surname, nick, email, password, registerDate, lastLogin)
         );
       }
 
@@ -88,6 +90,7 @@ public class UserDAO {
     String nick,
     String email,
     String password,
+    Date registerDate,
     Date lastLogin
   ) {
     try {
@@ -114,6 +117,9 @@ public class UserDAO {
         "'",
         "'",
         password,
+        "'",
+        "'",
+        formatter.format(registerDate),
         "'",
         "'",
         formatter.format(lastLogin),

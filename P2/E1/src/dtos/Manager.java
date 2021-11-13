@@ -29,7 +29,7 @@ public class Manager {
   public String findSpectacles() {
     SpectacleDAO spectacles = new SpectacleDAO();
     String spectaclesInfo = "";
-    ArrayList<SpectacleDTO> listOfSpectacles = spectacles.requestSpectacles();
+    ArrayList<SpectacleDTO> listOfSpectacles = spectacles.getSpectacles();
     for (SpectacleDTO s : listOfSpectacles) {
       spectaclesInfo += s.toString() + "\n";
     }
@@ -49,7 +49,7 @@ public class Manager {
   public String findSesions() {
     SesionDAO sesions = new SesionDAO();
     String sesionsInfo = "";
-    ArrayList<SesionDTO> listOfSesions = sesions.requestSesions();
+    ArrayList<SesionDTO> listOfSesions = sesions.getSesions();
     for (SesionDTO s : listOfSesions) {
       sesionsInfo += s.toString() + "\n";
     }

@@ -1,6 +1,8 @@
 package utilities;
 
 import dtos.ReviewDTO;
+import dtos.SesionDTO;
+import dtos.SpectacleDTO;
 import dtos.UserDTO;
 import factories.SpectacleFactory;
 import factories.UserFactory;
@@ -562,7 +564,7 @@ public final class SystemFunctions {
     }
   }
 
-  /**TODO
+  /**
    * Imprime los espectáculos
    * @param none
    * @return none
@@ -572,7 +574,7 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
 
-    ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
+    ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
     System.out.println("SpectacleId | Título ");
     System.out.println("------------------");
     for (int i = 0; i < spectacles.size(); i++) {
@@ -868,7 +870,7 @@ public final class SystemFunctions {
     }
   }
 
-  /**TODO
+  /**
    * Función que lista las sesiones de un espectáculo
    * @param int spectacleId
    * @return none
@@ -878,7 +880,7 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     SesionManager sesionManager = SesionManager.getInstance();
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    ArrayList<Sesion> sesions = sesionManager.getSesions();
+    ArrayList<SesionDTO> sesions = sesionManager.getSesions();
     System.out.println("sesionId | Hora");
     System.out.println("------------------");
     for (int i = 0; i < sesions.size(); i++) {
@@ -983,7 +985,7 @@ public final class SystemFunctions {
     SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SesionManager sesionManager = SesionManager.getInstance();
-    ArrayList<Spectacle> spectacles = spectacleManager.getSpectacles();
+    ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
     System.out.println("Título | Fecha");
     System.out.println("------------------");
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");

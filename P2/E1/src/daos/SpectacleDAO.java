@@ -14,13 +14,13 @@ import managers.DataBaseManager;
 
 public class SpectacleDAO {
 
-  public ArrayList<SpectacleDTO> requestSpectacles() {
+  public ArrayList<SpectacleDTO> getSpectacles() {
     ArrayList<SpectacleDTO> listOfSpectacles = new ArrayList<SpectacleDTO>();
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
-      String query = "select * from Spectacle";
+      String query = dataBaseManager.getGetSpectaclesQuery();
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();

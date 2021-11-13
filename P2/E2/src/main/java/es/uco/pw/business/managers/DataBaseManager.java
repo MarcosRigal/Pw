@@ -1,10 +1,8 @@
-package managers;
+package es.uco.pw.business.managers;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,6 +27,8 @@ public class DataBaseManager {
   private String user;
 
   private String password;
+  
+  private InputStream properties;
 
   private String getUserQuery;
 
@@ -55,31 +55,14 @@ public class DataBaseManager {
    * @param none
    */
 
-  private DataBaseManager() {
-    Properties prop = new Properties();
-    String filename = "config.properties";
-    try {
-      BufferedReader reader = new BufferedReader(
-        new FileReader(new File(filename))
-      );
-      prop.load(reader);
-
-      url = prop.getProperty("url");
-      user = prop.getProperty("user");
-      password = prop.getProperty("password");
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    prop = new Properties();
-    filename = "sql.properties";
-    try {
-      BufferedReader reader = new BufferedReader(
-        new FileReader(new File(filename))
-      );
-      prop.load(reader);
+  private DataBaseManager(String url,String user,String password, InputStream properties) {
+	this.url = url;
+	this.user = user;
+	this.password = password;
+	this.properties = properties;
+	Properties prop = new Properties();
+	try{
+      prop.load(properties);
 
       getUserQuery = prop.getProperty("getUsers");
       updateLastLoginQuery = prop.getProperty("updateLastLogin");
@@ -106,12 +89,19 @@ public class DataBaseManager {
    * @return ReviewManager Instancia de la clase
    */
 
-  public static DataBaseManager getInstance() {
+  public static DataBaseManager getInstance(String url,String user,String password, InputStream properties) {
     if (instance == null) {
-      instance = new DataBaseManager();
+      instance = new DataBaseManager(url, user, password, properties);
     }
     return instance;
   }
+  
+  public static DataBaseManager getInstance() {
+	    if (instance == null) {
+	    	return null;
+	    }
+	    return instance;
+	  }
 
   private Connection connect() {
     try {
@@ -229,6 +219,14 @@ public String getGetSpectaclesQuery() {
 
 public void setGetSpectaclesQuery(String getSpectaclesQuery) {
 	this.getSpectaclesQuery = getSpectaclesQuery;
+}
+
+public InputStream getProperties() {
+	return properties;
+}
+
+public void setProperties(InputStream properties) {
+	this.properties = properties;
 }
 
 }

@@ -18,6 +18,8 @@
 	*/
 String nextPage = "../controller/loginController.jsp";
 String messageNextPage = request.getParameter("message");
+String paramEncoding = application.getInitParameter("PARAMETER_ENCODING");
+request.setCharacterEncoding(paramEncoding);
 if (messageNextPage == null) messageNextPage = "";
 
 if (customerBean != null && !customerBean.getEmailUser().equals("")) {
@@ -25,12 +27,22 @@ if (customerBean != null && !customerBean.getEmailUser().equals("")) {
 	nextPage = "../../index.jsp";
 } else {
 %>
-<%= messageNextPage %><br/><br/>
-<form method="post" action="../controller/loginController.jsp">
-	<label for="email">Email: </label>
-	<input type="text" name="email" value="">	
-	<label for="password">Password: </label>
-	<input type="text" name="password" value=""><br/>
+<%= messageNextPage %><br/>
+<form method="post" action="../controller/registerController.jsp">
+	<label for="name">Nombre: </label>
+	<input type="text" name="name" value="">
+	<br><br/>
+	<label for="email">Apellidos: </label>
+	<input type="text" name="surname" value="">
+	<br><br/>
+	<label for="name">Nick: </label>
+	<input type="text" name="nick" value="">
+	<br><br/>
+	<label for="name">Email: </label>
+	<input type="text" name="email" value="">
+	<br><br/>
+	<label for="name">Contraseña: </label>
+	<input type="text" name="password" value="">
 	<br><br/>
 	<input type="submit" value="Submit">
 </form>

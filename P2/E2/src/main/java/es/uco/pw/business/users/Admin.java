@@ -1,52 +1,43 @@
-package dtos;
+package es.uco.pw.business.users;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Clase que representa al usuario del sistema.
+ * Clase que representa al administrador del sistema.
+ * Este usuario puede acceder a todas las funciones
+ * del usuario base y además puede gestionar los espectáculos.
  * @author Antonio Moruno Gracia
  * @author David Pérez Dueñas
  * @author Marcos Rivera Gavilán
  * @version 1.0
  */
 
-public class UserDTO {
+public class Admin extends User {
 
+  private int userId;
   private String name;
-  private String type;
   private String surname;
   private String nick;
   private String email;
   private String password;
-  private Date registerDate;
   private Date lastLogin;
 
   /**
-   * Constructor de la clase usuario
-   * @param nick
-   * @param surname
-   * @param name
+   * Constructor de la clase administrador
+   * @param none
    */
 
-  public UserDTO(
-    String name,
-    String type,
-    String surname,
-    String nick,
-    String email,
-    String password,
-    Date registerDate,
-    Date lastLogin
-  ) {
-    this.name = name;
-    this.type = type;
-    this.surname = surname;
-    this.nick = nick;
-    this.email = email;
-    this.password = password;
-    this.registerDate = registerDate;
-    this.lastLogin = lastLogin;
+  public Admin() {}
+
+  /**
+   * Devuelve el identificador del usuario
+   * @param none
+   * @return int Identificador del usuario
+   */
+
+  @Override
+  public int getUserId() {
+    return userId;
   }
 
   /**
@@ -55,12 +46,9 @@ public class UserDTO {
    * @return String Nombre del usuario
    */
 
+  @Override
   public String getName() {
     return name;
-  }
-
-  public int getUserId() {
-    return 1;
   }
 
   /**
@@ -69,6 +57,7 @@ public class UserDTO {
    * @return String Apellidos del usuario
    */
 
+  @Override
   public String getSurname() {
     return surname;
   }
@@ -79,6 +68,7 @@ public class UserDTO {
    * @return String Nick del usuario
    */
 
+  @Override
   public String getNick() {
     return nick;
   }
@@ -89,6 +79,7 @@ public class UserDTO {
    * @return String Email del usuario
    */
 
+  @Override
   public String getEmail() {
     return email;
   }
@@ -99,8 +90,9 @@ public class UserDTO {
    * @return String Tipo del usuario
    */
 
+  @Override
   public String getType() {
-    return type;
+    return "Admin";
   }
 
   /**
@@ -109,6 +101,7 @@ public class UserDTO {
    * @return string contraseña del usuario
    */
 
+  @Override
   public String getPassword() {
     return password;
   }
@@ -124,11 +117,23 @@ public class UserDTO {
   }
 
   /**
+   * Cambia el identificador del usuario
+   * @param int Identificador del usuario
+   * @return none
+   */
+
+  @Override
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  /**
    * Cambia el nombre del usuario
    * @param String Nombre del usuario
    * @return none
    */
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }
@@ -139,6 +144,7 @@ public class UserDTO {
    * @return none
    */
 
+  @Override
   public void setSurname(String surname) {
     this.surname = surname;
   }
@@ -149,6 +155,7 @@ public class UserDTO {
    * @return none
    */
 
+  @Override
   public void setNick(String nick) {
     this.nick = nick;
   }
@@ -159,6 +166,7 @@ public class UserDTO {
    * @return none
    */
 
+  @Override
   public void setEmail(String email) {
     this.email = email;
   }
@@ -169,18 +177,9 @@ public class UserDTO {
    * @return none
    */
 
+  @Override
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  /**
-   * Permite asignar un rol al usuario
-   * @param String rol del usuario
-   * @return none
-   */
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   /**
@@ -192,26 +191,4 @@ public class UserDTO {
   public void setLastLogin(Date lastLogin) {
     this.lastLogin = lastLogin;
   }
-
-  public String toString() {
-    SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    String userInfo =
-      " Name: " +
-      this.name +
-      " Surname: " +
-      this.surname +
-      " Nick: " +
-      this.nick +
-      " Last Login: " +
-      formatter6.format(this.lastLogin);
-    return userInfo;
-  }
-
-public Date getRegisterDate() {
-	return registerDate;
-}
-
-public void setRegisterDate(Date registerDate) {
-	this.registerDate = registerDate;
-}
 }

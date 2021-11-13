@@ -14,13 +14,13 @@ import managers.DataBaseManager;
 
 public class SesionDAO {
 
-  public ArrayList<SesionDTO> requestSesions() {
+  public ArrayList<SesionDTO> getSesions() {
     ArrayList<SesionDTO> listOfSesions = new ArrayList<SesionDTO>();
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
-      String query = "select * from Sesion";
+      String query = "SELECT sesionId, Sesion.spectacleId, Spectacle.title, placesLeft, date FROM `Sesion` INNER JOIN Spectacle ON Sesion.spectacleId = Spectacle.spectacleId";
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();

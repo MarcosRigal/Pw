@@ -1,6 +1,9 @@
 package managers;
 
 import java.util.ArrayList;
+
+import daos.SpectacleDAO;
+import dtos.SpectacleDTO;
 import spectacles.Spectacle;
 import spectacles.Spectacle.category;
 
@@ -50,8 +53,9 @@ public class SpectacleManager {
    * @return ArrayList<Spectacle> Vector con los espectáculos
    */
 
-  public ArrayList<Spectacle> getSpectacles() {
-    return spectacles;
+  public ArrayList<SpectacleDTO> getSpectacles() {
+	    SpectacleDAO spectacles = new SpectacleDAO();
+	    return spectacles.getSpectacles();
   }
 
   /**

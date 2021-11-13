@@ -1,4 +1,4 @@
-package dtos;
+package es.uco.pw.data.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
