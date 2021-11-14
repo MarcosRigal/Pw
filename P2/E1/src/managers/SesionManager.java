@@ -2,8 +2,10 @@ package managers;
 
 import daos.SesionDAO;
 import dtos.SesionDTO;
+
 import java.util.ArrayList;
 import java.util.Date;
+
 import sesions.Sesion;
 
 /**
@@ -74,8 +76,8 @@ public class SesionManager {
    */
 
   public void registerSesion(Sesion sesion) {
-    this.sesions.add(sesion);
-    setSesionId(getSesionId() + 1);
+	  	SesionDAO sesionDAO = new SesionDAO();
+	    sesionDAO.registerSesion(sesion);
   }
 
   /**
@@ -115,7 +117,11 @@ public class SesionManager {
    */
 
   public boolean deleteSesion(int sesionId) {
-    return sesions.removeIf(n -> ((n.getSesionId() == sesionId)));
+	    if (existSesion(sesionId)) {
+	    	SesionDAO sesionDAO = new SesionDAO();
+	    	return sesionDAO.deleteSesion(sesionId);
+	    	}
+	    return false;
   }
 
   /**
@@ -163,10 +169,11 @@ public class SesionManager {
    */
 
   public int numberOfPlacesOfSpectacleByDay(int spectacleId, Date date) {
-    for (int i = 0; i < sesions.size(); i++) {
-      if ((sesions.get(i).getSpectacleId() == spectacleId)) {
-        if (sesions.get(i).getDate().equals(date)) {
-          return sesions.get(i).getPlacesLeft();
+	 ArrayList<SesionDTO> allSesions = getSesions();
+	 for (int i = 0; i < allSesions.size(); i++) {
+      if ((allSesions.get(i).getSpectacleId() == spectacleId)) {
+        if (allSesions.get(i).getDate().equals(date)) {
+          return allSesions.get(i).getPlacesLeft();
         }
       }
     }
@@ -179,12 +186,12 @@ public class SesionManager {
    * @return ArrayList<SesionDTO> Lista con las sesiones relativas a ese espectáculo
    */
 
-  public ArrayList<Sesion> searchSpectacleSesions(int SpectacleId) {
-    ArrayList<Sesion> spectacleSesions = new ArrayList<Sesion>();
-
-    for (int i = 0; i < sesions.size(); i++) {
-      if (sesions.get(i).getSpectacleId() == SpectacleId) {
-        spectacleSesions.add(sesions.get(i));
+  public ArrayList<SesionDTO> searchSpectacleSesions(int SpectacleId) {
+    ArrayList<SesionDTO> spectacleSesions = new ArrayList<SesionDTO>();
+    ArrayList<SesionDTO> allSesions = getSesions();
+    for (int i = 0; i < allSesions.size(); i++) {
+      if (allSesions.get(i).getSpectacleId() == SpectacleId) {
+        spectacleSesions.add(allSesions.get(i));
       }
     }
     return spectacleSesions;

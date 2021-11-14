@@ -79,7 +79,7 @@ public class E1 {
                 SystemFunctions.searchSpectacles();
               }
               if (choice == 11) {
-                SystemFunctions.spectaclesWithFreePlaces();
+                SystemFunctions.sesionsWithFreePlaces();
               }
               choice = SystemFunctions.printSpectatorMenuScreen();
             }
@@ -162,7 +162,11 @@ public class E1 {
                     SystemFunctions.deleteSpectacle();
                   }
                   if (choice == 3) {
-                    SystemFunctions.modifySpectacle();
+                      if (SystemFunctions.modifySpectacle()) {
+                          System.out.println("Modificación correcta");
+                        } else {
+                          System.out.println("Error al modificar");
+                        }
                   }
                   if (choice == 4) {
                     SystemFunctions.sesionPlacesLeft();
@@ -174,7 +178,7 @@ public class E1 {
                     SystemFunctions.searchSpectacles();
                   }
                   if (choice == 7) {
-                    SystemFunctions.spectaclesWithFreePlaces();
+                    SystemFunctions.sesionsWithFreePlaces();
                   }
                   choice = SystemFunctions.printAdminSpectaclesScreen();
                 }

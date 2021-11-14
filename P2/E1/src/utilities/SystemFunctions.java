@@ -1,16 +1,19 @@
 package utilities;
 
+import daos.SesionDAO;
 import dtos.ReviewDTO;
 import dtos.SesionDTO;
 import dtos.SpectacleDTO;
 import dtos.UserDTO;
 import factories.SpectacleFactory;
 import factories.UserFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -615,7 +618,7 @@ public final class SystemFunctions {
     return false;
   }
 
-  /**TODO
+  /**
    * Crea un espectáculo único
    * @param none
    * @return boolean True si se ha podido registrar
@@ -646,8 +649,8 @@ public final class SystemFunctions {
     scanner.nextLine();
     spectacle.setCategory(SystemFunctions.choiceCategory());
     spectacleManager.registerSpectacle(spectacle);
-
-    sesion.setSpectacleId(spectacle.getSpectacleId());
+    SesionDAO sesions = new SesionDAO();
+    sesion.setSpectacleId(sesions.getLastSpectacle());
     sesion.setSesionId(sesionManager.getSesionId());
     sesion.setPlacesLeft(spectacle.getPlaces());
     scanner.nextLine();
@@ -660,7 +663,7 @@ public final class SystemFunctions {
     return true;
   }
 
-  /**TODO
+  /**
    * Crea un espectáculo múltiple
    * @param none
    * @return boolean True si se ha podido registrar
@@ -698,9 +701,11 @@ public final class SystemFunctions {
       places = scanner.nextInt();
     }
     scanner.nextLine();
+    SesionDAO sesions = new SesionDAO();
+    int lastSpectacle = sesions.getLastSpectacle();
     for (int i = 0; i < nSesions; i++) {
       Sesion sesion = new Sesion();
-      sesion.setSpectacleId(spectacle.getSpectacleId());
+      sesion.setSpectacleId(lastSpectacle);
       sesion.setSesionId(sesionManager.getSesionId());
       sesion.setPlacesLeft(spectacle.getPlaces());
       SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -715,7 +720,7 @@ public final class SystemFunctions {
     return true;
   }
 
-  /**TODO
+  /**
    * Crea un espectáculo de temporada
    * @param none
    * @return boolean True si se ha podido registrar
@@ -745,7 +750,8 @@ public final class SystemFunctions {
     scanner.nextLine();
     spectacle.setCategory(SystemFunctions.choiceCategory());
     spectacleManager.registerSpectacle(spectacle);
-
+    SesionDAO sesions = new SesionDAO();
+    int lastSpectacle = sesions.getLastSpectacle();
     System.out.print(" - Nº de sesiones: ");
     int nSesions = scanner.nextInt();
     while (nSesions < 0) {
@@ -754,7 +760,7 @@ public final class SystemFunctions {
     }
     scanner.nextLine();
     Sesion sesion = new Sesion();
-    sesion.setSpectacleId(spectacle.getSpectacleId());
+    sesion.setSpectacleId(lastSpectacle);
     sesion.setSesionId(sesionManager.getSesionId());
     sesion.setPlacesLeft(spectacle.getPlaces());
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -767,7 +773,7 @@ public final class SystemFunctions {
     for (int i = 1; i < nSesions; i++) {
       cal.add(Calendar.DATE, 7);
       Sesion cloneSesion = new Sesion();
-      cloneSesion.setSpectacleId(sesion.getSpectacleId());
+      cloneSesion.setSpectacleId(lastSpectacle);
       cloneSesion.setSesionId(sesionManager.getSesionId());
       cloneSesion.setPlacesLeft(sesion.getPlacesLeft());
       cloneSesion.setDate(cal.getTime());
@@ -830,7 +836,7 @@ public final class SystemFunctions {
     return null;
   }
 
-  /**TODO
+  /**
    * Borra un espectáculo del sistema
    * @param none
    * @return none
@@ -889,13 +895,13 @@ public final class SystemFunctions {
     }
   }
 
-  /**TODO
+  /**
    * Función que modifica un espectáculo del sistema
    * @param none
    * @return none
    */
 
-  public static void modifySpectacle() {
+  public static boolean modifySpectacle() {
     SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SystemFunctions.listSpectacles();
@@ -904,15 +910,18 @@ public final class SystemFunctions {
 
     int spectacleId = scanner.nextInt();
     scanner.nextLine();
-    SpectacleDTO spectacle = spectacleManager.findSpectacle(spectacleId);
+    if (spectacleManager.existsSpectacle(spectacleId)) {
+        SpectacleDTO spectacle = spectacleManager.findSpectacle(spectacleId);
 
-    System.out.println("Introduzca los siguientes datos: ");
-    System.out.print(" - Título: ");
-    spectacle.setTitle(scanner.nextLine());
-    System.out.print(" - Descripción: ");
-    spectacle.setDescription(scanner.nextLine());
-    spectacle.setCategory(SystemFunctions.choiceCategory());
-    //spectacleManager.modifySpectacle(spectacle);
+        System.out.println("Introduzca los siguientes datos: ");
+        System.out.print(" - Título: ");
+        spectacle.setTitle(scanner.nextLine());
+        System.out.print(" - Descripción: ");
+        spectacle.setDescription(scanner.nextLine());
+        spectacle.setCategory(SystemFunctions.choiceCategory());
+        return spectacleManager.modifySpectacle(spectacle);
+	}
+    return false;
   }
 
   /**
@@ -941,7 +950,7 @@ public final class SystemFunctions {
     }
   }
 
-  /**TODO
+  /**
    * Función que muestra las plazas que faltan para una sesión según su fecha
    * @param none
    * @return none
@@ -960,10 +969,7 @@ public final class SystemFunctions {
     System.out.print(" - Fecha de la sesión (dd-MM-yyyy HH:mm): ");
     String date = scanner.nextLine();
 
-    int placesLeft = sesionManager.numberOfPlacesOfSpectacleByDay(
-      spectacleId,
-      formatter6.parse(date)
-    );
+    int placesLeft = sesionManager.numberOfPlacesOfSpectacleByDay(spectacleId,formatter6.parse(date));
 
     if (placesLeft > 0) {
       System.out.println(" - Quedan : " + placesLeft + " plazas libres");
@@ -972,38 +978,31 @@ public final class SystemFunctions {
     }
   }
 
-  /**TODO
+  /**
    * Función que muestra los espectáculos con plazas libres
    * @param none
    * @return none
    */
 
-  public static void spectaclesWithFreePlaces() {
+  public static void sesionsWithFreePlaces() {
     SystemFunctions.clearConsole();
     SpectacleManager spectacleManager = SpectacleManager.getInstance();
     SesionManager sesionManager = SesionManager.getInstance();
     ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
-    System.out.println("Título | Fecha");
-    System.out.println("------------------");
+    System.out.println("      Fecha        |   Título   ");
+    System.out.println("--------------------------------");
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     for (int i = 0; i < spectacles.size(); i++) {
-      ArrayList<Sesion> sesions = sesionManager.searchSpectacleSesions(
-        spectacles.get(i).getSpectacleId()
-      );
+      ArrayList<SesionDTO> sesions = sesionManager.searchSpectacleSesions(spectacles.get(i).getSpectacleId());
       for (int j = 0; j < sesions.size(); j++) {
         if (sesions.get(j).getPlacesLeft() > 0) {
-          System.out.println(
-            " " +
-            spectacles.get(i).getTitle() +
-            "  | " +
-            formatter6.format(sesions.get(j).getDate())
-          );
+          System.out.println(" " + formatter6.format(sesions.get(j).getDate()) + "  | " + spectacles.get(i).getTitle());
         }
       }
     }
   }
 
-  /**TODO
+  /**
    * Función que busca un espectáculo
    * @param none
    * @return none
@@ -1025,7 +1024,7 @@ public final class SystemFunctions {
     if (choice == 1) {
       System.out.print(" - Título: ");
       String title = scanner.nextLine();
-      ArrayList<Spectacle> spectacles = spectacleManager.searchByTitle(title);
+      ArrayList<SpectacleDTO> spectacles = spectacleManager.searchByTitle(title);
       System.out.println("SpectacleId | Título ");
       System.out.println("------------------");
       for (int i = 0; i < spectacles.size(); i++) {
@@ -1038,7 +1037,7 @@ public final class SystemFunctions {
       }
     }
     if (choice == 2) {
-      ArrayList<Spectacle> spectacles = spectacleManager.searchByCategory(
+      ArrayList<SpectacleDTO> spectacles = spectacleManager.searchByCategory(
         SystemFunctions.choiceCategory()
       );
       System.out.println("SpectacleId | Título ");

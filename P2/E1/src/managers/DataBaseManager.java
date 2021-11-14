@@ -67,7 +67,25 @@ public class DataBaseManager {
   private String likeQuery;
   
   private String dislikeQuery;
+  
+  private String modifySpectacleQuery;
+  
+  private String deleteSpectacleFromReviewQuery;
+  
+  private String deleteSpectacleFromUserReviewQuery;
 
+  private String deleteSpectacleQuery;
+  
+  private String deleteSpectacleFromSesions;
+  
+  private String deleteSesion;
+  
+  private String registerSesionQuery;
+  
+  private String registerSpectacleQuery;
+  
+  private String lastSpectacleQuery;
+  
   protected Connection connection = null;
 
   /**
@@ -121,7 +139,15 @@ public class DataBaseManager {
       getUserWhoCanVoteQuery = prop.getProperty("getUserWhoCanVote");
       likeQuery = prop.getProperty("like");
       dislikeQuery = prop.getProperty("dislike");
-
+      modifySpectacleQuery = prop.getProperty("modifySpectacle");
+      deleteSpectacleFromReviewQuery = prop.getProperty("deleteSpectacleFromReview");
+      deleteSpectacleFromUserReviewQuery = prop.getProperty("deleteSpectacleFromUserReview");
+      deleteSpectacleQuery = prop.getProperty("deleteSpectacle");
+      deleteSpectacleFromSesions = prop.getProperty("deleteSpectacleFromSesions");
+      deleteSesion = prop.getProperty("deleteSesion");
+      registerSpectacleQuery = prop.getProperty("registerSpectacle");
+      registerSesionQuery = prop.getProperty("registerSesion");
+      lastSpectacleQuery = prop.getProperty("getLastSpectacle");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -342,6 +368,80 @@ public String getDislikeQuery() {
 
 public void setDislikeQuery(String dislikeQuery) {
 	this.dislikeQuery = dislikeQuery;
+}
+
+public String getModifySpectacleQuery() {
+	return modifySpectacleQuery;
+}
+
+public void setModifySpectacleQuery(String modifySpectacleQuery) {
+	this.modifySpectacleQuery = modifySpectacleQuery;
+}
+
+public String getDeleteSpectacleFromReviewQuery() {
+	return deleteSpectacleFromReviewQuery;
+}
+
+public void setDeleteSpectacleFromReviewQuery(
+		String deleteSpectacleFromReviewQuery) {
+	this.deleteSpectacleFromReviewQuery = deleteSpectacleFromReviewQuery;
+}
+
+public String getDeleteSpectacleFromUserReviewQuery() {
+	return deleteSpectacleFromUserReviewQuery;
+}
+
+public void setDeleteSpectacleFromUserReviewQuery(
+		String deleteSpectacleFromUserReviewQuery) {
+	this.deleteSpectacleFromUserReviewQuery = deleteSpectacleFromUserReviewQuery;
+}
+
+public String getDeleteSpectacleQuery() {
+	return deleteSpectacleQuery;
+}
+
+public void setDeleteSpectacleQuery(String deleteSpectacleQuery) {
+	this.deleteSpectacleQuery = deleteSpectacleQuery;
+}
+
+public String getDeleteSpectacleFromSesions() {
+	return deleteSpectacleFromSesions;
+}
+
+public void setDeleteSpectacleFromSesions(String deleteSpectacleFromSesions) {
+	this.deleteSpectacleFromSesions = deleteSpectacleFromSesions;
+}
+
+public String getDeleteSesion() {
+	return deleteSesion;
+}
+
+public void setDeleteSesion(String deleteSesion) {
+	this.deleteSesion = deleteSesion;
+}
+
+public String getRegisterSesionQuery() {
+	return registerSesionQuery;
+}
+
+public void setRegisterSesionQuery(String registerSesionQuery) {
+	this.registerSesionQuery = registerSesionQuery;
+}
+
+public String getRegisterSpectacleQuery() {
+	return registerSpectacleQuery;
+}
+
+public void setRegisterSpectacleQuery(String registerSpectacleQuery) {
+	this.registerSpectacleQuery = registerSpectacleQuery;
+}
+
+public String getLastSpectacleQuery() {
+	return lastSpectacleQuery;
+}
+
+public void setLastSpectacleQuery(String lastSpectacleQuery) {
+	this.lastSpectacleQuery = lastSpectacleQuery;
 }
 
 }

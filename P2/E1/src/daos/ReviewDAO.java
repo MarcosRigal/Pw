@@ -208,9 +208,11 @@ public class ReviewDAO {
 	        ResultSet rs = (ResultSet) stmt.executeQuery(query);
 	        String email = "";
 	        int reviewId = 0;
+	        String spectacleId = "";
 	        while (rs.next()) {
 	        email = rs.getString("email");
 	        reviewId = rs.getInt("LastReview");
+	        spectacleId = rs.getString("spectacleId");
 	        }
 	        query = MessageFormat.format(
 	  	          dataBaseManager.getRegisterUserReviewQuery(),
@@ -219,7 +221,11 @@ public class ReviewDAO {
 	  	          "'",
 	  	          "'",
 	  	          reviewId,
-	  	          "'");
+	  	          "'",
+	  	          "'",
+	  	          spectacleId,
+	  	          "'"
+	  	          );
 	        
 	        stmt.executeUpdate(query);
 	        
@@ -252,6 +258,38 @@ public Boolean deleteReview(int deleteReviewId) {
     	        dataBaseManager.getDeleteReviewFromUserReviewQuery(),
     	        "'",
     	        deleteReviewId,
+    	        "'"
+    	      );
+        stmt.executeUpdate(query);
+        if (stmt != null) {
+          stmt.close();
+        }
+      } catch (Exception e) {
+        System.err.println(e);
+        e.printStackTrace();
+      }
+    return true;
+}
+
+public Boolean deleteSpectacle(int deleteSpectacleId) {
+    try {
+        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+        Connection connection = dataBaseManager.getConnected();
+        // Important: This query is hard-coded here for illustrative purposes only
+        String query = MessageFormat.format(
+          dataBaseManager.getDeleteSpectacleFromReviewQuery(),
+          "'",
+          deleteSpectacleId,
+          "'"
+        );
+
+        // Important: We can replace this direct invocation to CRUD operations in DBConnection
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(query);
+        query = MessageFormat.format(
+    	        dataBaseManager.getDeleteSpectacleFromUserReviewQuery(),
+    	        "'",
+    	        deleteSpectacleId,
     	        "'"
     	      );
         stmt.executeUpdate(query);
@@ -317,7 +355,11 @@ public boolean like(String voterEmail, ReviewDTO review) {
 	  	          "'",
 	  	          "'",
 	  	          review.getReviewId(),
-	  	          "'");
+	  	          "'",
+	  	          "'",
+	  	          review.getSpectacleId(),
+	  	          "'"
+        		);
 	        
 	        stmt.executeUpdate(query);
         if (stmt != null) {
@@ -351,6 +393,9 @@ public boolean dislike(String voterEmail, ReviewDTO review) {
 	  	          "'",
 	  	          "'",
 	  	          review.getReviewId(),
+	  	          "'",
+	  	          "'",
+	  	          review.getSpectacleId(),
 	  	          "'");
 	        
 	        stmt.executeUpdate(query);
