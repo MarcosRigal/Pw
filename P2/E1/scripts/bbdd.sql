@@ -88,13 +88,11 @@ INSERT INTO `Spectacle` VALUES (NULL,'Cars 2','Multiple','Más coches','obra',60
 
 INSERT INTO `Sesion` VALUES (NULL,1,50,'2021-11-10 16:00:00');
 INSERT INTO `Sesion` VALUES (NULL,2,60,'2021-11-11 15:00:00');
-INSERT INTO `Sesion` VALUES (NULL,2,0,'2021-11-12 16:00:00');
 INSERT INTO `Sesion` VALUES (NULL,2,60,'2021-11-13 17:00:00');
 
-INSERT INTO `Review` VALUES (NULL,'i92rigam@uco.es',1,'Cars',5,'Peliculon',1,0);
-INSERT INTO `Review` VALUES (NULL,'i92pedud@uco.es',2,'Cars2',5,'Peliculon',1,0);
-INSERT INTO `Review` VALUES (NULL,'i92rigam@uco.es',1,'Muy Buena',5,'Buenisima',0,0);
+INSERT INTO `Review` VALUES (NULL,'i92rigam@uco.es',1,'Peliculon',5,'Es muy buena peli',0,0);
+INSERT INTO `Review` VALUES (NULL,'i92pedud@uco.es',2,'Mi pelicula favorira',5,'Lo mejor de Disney',0,0);
 
 INSERT INTO `User-Review` VALUES ('i92rigam@uco.es',1);
-INSERT INTO `User-Review` VALUES ('i92rigam@uco.es',2);
+INSERT INTO `User-Review` VALUES ('i92pedud@uco.es',2);
 

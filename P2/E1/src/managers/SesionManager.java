@@ -1,10 +1,9 @@
 package managers;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import daos.SesionDAO;
 import dtos.SesionDTO;
+import java.util.ArrayList;
+import java.util.Date;
 import sesions.Sesion;
 
 /**
@@ -54,8 +53,8 @@ public class SesionManager {
    */
 
   public ArrayList<SesionDTO> getSesions() {
-	    SesionDAO sesions = new SesionDAO();
-	    return sesions.getSesions();
+    SesionDAO sesions = new SesionDAO();
+    return sesions.getSesions();
   }
 
   /**
@@ -135,13 +134,25 @@ public class SesionManager {
    * @return SesionDTO La sesión si la ha encontrado
    */
 
-  public Sesion findSesion(int sesionId) {
-    for (int i = 0; i < sesions.size(); i++) {
-      if (sesions.get(i).getSesionId() == sesionId) {
-        return sesions.get(i);
+  public SesionDTO findSesion(int sesionId) {
+    ArrayList<SesionDTO> allSesions = getSesions();
+
+    for (int i = 0; i < allSesions.size(); i++) {
+      if (allSesions.get(i).getSesionId() == sesionId) {
+        return allSesions.get(i);
       }
     }
     return null;
+  }
+
+  public boolean existSesion(int sesionId) {
+    ArrayList<SesionDTO> allSesions = getSesions();
+    for (int i = 0; i < allSesions.size(); i++) {
+      if (allSesions.get(i).getSesionId() == sesionId) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

@@ -53,6 +53,20 @@ public class DataBaseManager {
   private String getLastReviewQuery;
   
   private String registerUserReviewQuery;
+  
+  private String deleteReviewQuery;
+  
+  private String deleteUserFromUserReviewQuery;
+  
+  private String deleteReviewFromUserReviewQuery;
+  
+  private String deleteUserFromReviewQuery;
+  
+  private String getUserWhoCanVoteQuery;
+  
+  private String likeQuery;
+  
+  private String dislikeQuery;
 
   protected Connection connection = null;
 
@@ -91,6 +105,8 @@ public class DataBaseManager {
       updateLastLoginQuery = prop.getProperty("updateLastLogin");
       registerUserQuery = prop.getProperty("registerUser");
       deleteUserQuery = prop.getProperty("deleteUser");
+      deleteUserFromUserReviewQuery = prop.getProperty("deleteUserFromUserReview");
+      deleteUserFromReviewQuery = prop.getProperty("deleteUserFromReview");
       updateUserQuery = prop.getProperty("updateUser");
       getReviewsQuery = prop.getProperty("getReviews");
       getReviewsBySpectacleTitleQuery =
@@ -100,6 +116,11 @@ public class DataBaseManager {
       registerReviewQuery = prop.getProperty("registerReview");
       getLastReviewQuery = prop.getProperty("getLastReview");
       registerUserReviewQuery = prop.getProperty("registerUserReview");
+      deleteReviewQuery = prop.getProperty("deleteReview");
+      deleteReviewFromUserReviewQuery = prop.getProperty("deleteReviewFromUserReview");
+      getUserWhoCanVoteQuery = prop.getProperty("getUserWhoCanVote");
+      likeQuery = prop.getProperty("like");
+      dislikeQuery = prop.getProperty("dislike");
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -263,6 +284,64 @@ public String getRegisterUserReviewQuery() {
 
 public void setRegisterUserReviewQuery(String registerUserReviewQuery) {
 	this.registerUserReviewQuery = registerUserReviewQuery;
+}
+
+public String getDeleteReviewQuery() {
+	return deleteReviewQuery;
+}
+
+public void setDeleteReviewQuery(String deleteReviewQuery) {
+	this.deleteReviewQuery = deleteReviewQuery;
+}
+
+public String getDeleteUserFromUserReviewQuery() {
+	return deleteUserFromUserReviewQuery;
+}
+
+public void setDeleteUserFromUserReviewQuery(
+		String deleteUserFromUserReviewQuery) {
+	this.deleteUserFromUserReviewQuery = deleteUserFromUserReviewQuery;
+}
+
+public String getDeleteReviewFromUserReviewQuery() {
+	return deleteReviewFromUserReviewQuery;
+}
+
+public void setDeleteReviewFromUserReviewQuery(
+		String deleteReviewFromUserReviewQuery) {
+	this.deleteReviewFromUserReviewQuery = deleteReviewFromUserReviewQuery;
+}
+
+public String getDeleteUserFromReviewQuery() {
+	return deleteUserFromReviewQuery;
+}
+
+public void setDeleteUserFromReviewQuery(String deleteUserFromReviewQuery) {
+	this.deleteUserFromReviewQuery = deleteUserFromReviewQuery;
+}
+
+public String getGetUserWhoCanVoteQuery() {
+	return getUserWhoCanVoteQuery;
+}
+
+public void setGetUserWhoCanVoteQuery(String getUserWhoCanVoteQuery) {
+	this.getUserWhoCanVoteQuery = getUserWhoCanVoteQuery;
+}
+
+public String getLikeQuery() {
+	return likeQuery;
+}
+
+public void setLikeQuery(String likeQuery) {
+	this.likeQuery = likeQuery;
+}
+
+public String getDislikeQuery() {
+	return dislikeQuery;
+}
+
+public void setDislikeQuery(String dislikeQuery) {
+	this.dislikeQuery = dislikeQuery;
 }
 
 }

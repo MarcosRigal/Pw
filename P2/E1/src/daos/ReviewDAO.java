@@ -232,4 +232,135 @@ public class ReviewDAO {
 	      }
 	return true;
 	}
+
+public Boolean deleteReview(int deleteReviewId) {
+    try {
+        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+        Connection connection = dataBaseManager.getConnected();
+        // Important: This query is hard-coded here for illustrative purposes only
+        String query = MessageFormat.format(
+          dataBaseManager.getDeleteReviewQuery(),
+          "'",
+          deleteReviewId,
+          "'"
+        );
+
+        // Important: We can replace this direct invocation to CRUD operations in DBConnection
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(query);
+        query = MessageFormat.format(
+    	        dataBaseManager.getDeleteReviewFromUserReviewQuery(),
+    	        "'",
+    	        deleteReviewId,
+    	        "'"
+    	      );
+        stmt.executeUpdate(query);
+        if (stmt != null) {
+          stmt.close();
+        }
+      } catch (Exception e) {
+        System.err.println(e);
+        e.printStackTrace();
+      }
+    return true;
+}
+
+public boolean canUserVote(String email, int voteReviewId) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+              dataBaseManager.getGetUserWhoCanVoteQuery(),
+              "'",
+              email,
+              "'",
+              voteReviewId
+            );
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      ResultSet rs = (ResultSet) stmt.executeQuery(query);
+      int count = 0;
+      while (rs.next()) {
+        count = rs.getInt("Count");
+      }
+      if (stmt != null) {
+        stmt.close();
+      }
+      if (count==0) {
+    	  return true;
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+	return false;
+}
+
+public boolean like(String voterEmail, ReviewDTO review) {
+    try {
+        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+        Connection connection = dataBaseManager.getConnected();
+        // Important: This query is hard-coded here for illustrative purposes only
+        String query = MessageFormat.format(
+                dataBaseManager.getLikeQuery(),
+                review.getLike()+1,
+                review.getReviewId()
+              );
+        // Important: We can replace this direct invocation to CRUD operations in DBConnection
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(query);
+        query = MessageFormat.format(
+	  	          dataBaseManager.getRegisterUserReviewQuery(),
+	  	          "'",
+	  	          voterEmail,
+	  	          "'",
+	  	          "'",
+	  	          review.getReviewId(),
+	  	          "'");
+	        
+	        stmt.executeUpdate(query);
+        if (stmt != null) {
+          stmt.close();
+        }
+      } catch (Exception e) {
+        System.err.println(e);
+        e.printStackTrace();
+      }
+  	return false;
+	
+}
+
+public boolean dislike(String voterEmail, ReviewDTO review) {
+    try {
+        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+        Connection connection = dataBaseManager.getConnected();
+        // Important: This query is hard-coded here for illustrative purposes only
+        String query = MessageFormat.format(
+                dataBaseManager.getDislikeQuery(),
+                review.getDislike()+1,
+                review.getReviewId()
+              );
+        // Important: We can replace this direct invocation to CRUD operations in DBConnection
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(query);
+        query = MessageFormat.format(
+	  	          dataBaseManager.getRegisterUserReviewQuery(),
+	  	          "'",
+	  	          voterEmail,
+	  	          "'",
+	  	          "'",
+	  	          review.getReviewId(),
+	  	          "'");
+	        
+	        stmt.executeUpdate(query);
+        if (stmt != null) {
+          stmt.close();
+        }
+      } catch (Exception e) {
+        System.err.println(e);
+        e.printStackTrace();
+      }
+  	return false;
+}
 }

@@ -6,13 +6,11 @@ import dtos.SpectacleDTO;
 import dtos.UserDTO;
 import factories.SpectacleFactory;
 import factories.UserFactory;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
-
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -413,7 +411,7 @@ public final class SystemFunctions {
     scanner.nextLine();
     System.out.print(" - Review: ");
     review.setReview(scanner.nextLine());
-    
+
     return reviewManager.registerReview(review);
   }
 
@@ -447,7 +445,7 @@ public final class SystemFunctions {
     System.out.println("------------------");
   }
 
-  /**TODO
+  /**
    * Imprime el menú de borrar una review
    * @param none
    * @return boolean True si se ha podido borrar
@@ -504,7 +502,7 @@ public final class SystemFunctions {
     System.out.println("------------------");
   }
 
-  /**TODO
+  /**
    * Permite valorar una review
    * @param none
    * @return boolean True si se ha podido votar
@@ -917,7 +915,7 @@ public final class SystemFunctions {
     //spectacleManager.modifySpectacle(spectacle);
   }
 
-  /**TODO
+  /**
    * Función que muestra las plazas que faltan para una sesión
    * @param none
    * @return none
@@ -933,11 +931,14 @@ public final class SystemFunctions {
     SystemFunctions.listSpectacleSesions(spectacleId);
     System.out.print(" - Identificador de la sesión: ");
     int sesionId = scanner.nextInt();
-    System.out.println(
-      " - Quedan : " +
-      sesionManager.findSesion(sesionId).getPlacesLeft() +
-      " plazas libres para esta sesión"
-    );
+    if (sesionManager.existSesion(sesionId)) {
+      int placesLeft = sesionManager.findSesion(sesionId).getPlacesLeft();
+      if (placesLeft > 0) {
+        System.out.println(" - Quedan : " + placesLeft + " plazas libres");
+      } else {
+        System.out.println(" - No quedan plazas libres para esa fecha");
+      }
+    }
   }
 
   /**TODO
@@ -1104,8 +1105,6 @@ public final class SystemFunctions {
       } else {
         Runtime.getRuntime().exec("clear");
       }
-    } catch (final Exception e) {
-      //  Handle any exceptions.
-    }
+    } catch (final Exception e) {}
   }
 }

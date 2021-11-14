@@ -87,16 +87,14 @@ public class ReviewManager {
   public Boolean deleteReview(int deleteReviewId) {
     UserManager userManager = UserManager.getInstance();
 
-    return reviews.removeIf(
-      n ->
-        (
-          (n.getReviewId() == deleteReviewId) &&
-          (
-            (n.getEmail() == userManager.getActiveUser().getEmail()) ||
-            (userManager.getActiveUser().getType().equals("Admin"))
-          )
-        )
-    );
+    if(existsReview(deleteReviewId)){
+    	ReviewDTO review = findReview(deleteReviewId);
+    	if((review.getEmail() == userManager.getActiveUser().getEmail()) || (userManager.getActiveUser().getType().equals("Admin"))){
+    	    ReviewDAO reviewDAO = new ReviewDAO();
+    	    return reviewDAO.deleteReview(deleteReviewId);
+    	}
+    }
+    return false;
   }
 
   /**
@@ -108,32 +106,20 @@ public class ReviewManager {
 
   public boolean voteReview(int choice, int voteReviewId) {
     UserManager userManager = UserManager.getInstance();
-
-    for (int i = 0; i < reviews.size(); i++) {
-      if (
-        (reviews.get(i).getReviewId() == voteReviewId) &&
-        (
-          !reviews
-            .get(i)
-            .getUsersIdWhoVoted()
-            .contains(userManager.getActiveUser().getUserId())
-        )
-      ) {
-        if (choice == 1) {
-          reviews.get(i).like();
-          reviews
-            .get(i)
-            .addUserIdWhoVoted(userManager.getActiveUser().getUserId());
-          return true;
+    ReviewDAO reviewDAO = new ReviewDAO();
+    if(existsReview(voteReviewId)){
+        if(reviewDAO.canUserVote(userManager.getActiveUser().getEmail(), voteReviewId)){
+        	ReviewDTO review =  findReview(voteReviewId);
+        	if (choice == 1) {
+                reviewDAO.like(userManager.getActiveUser().getEmail(), review);
+                return true;
+        	}
+              if (choice == 2) {
+                reviewDAO.dislike(userManager.getActiveUser().getEmail(), review);
+                return true;
+              }
         }
-        if (choice == 2) {
-          reviews.get(i).dislike();
-          reviews
-            .get(i)
-            .addUserIdWhoVoted(userManager.getActiveUser().getUserId());
-          return true;
-        }
-      }
+        return false;
     }
     return false;
   }
@@ -210,5 +196,24 @@ public class ReviewManager {
   public ArrayList<ReviewDTO> getReviewsBySpectacleTitle(String title) {
     ReviewDAO reviews = new ReviewDAO();
     return reviews.getReviewsBySpectacleTitle(title);
+  }
+  
+  public boolean existsReview(int reviewId) {
+	ArrayList<ReviewDTO> allReviews = getReviews();
+    for (int i = 0; i < allReviews.size(); i++) {
+      if (allReviews.get(i).getSpectacleId() == reviewId) {
+        return true;
+      }
+    }
+    return false;
+  }
+  public ReviewDTO findReview(int reviewId) {
+	ArrayList<ReviewDTO> allReviews = getReviews();
+    for (int i = 0; i < allReviews.size(); i++) {
+      if (allReviews.get(i).getSpectacleId() == reviewId) {
+        return allReviews.get(i);
+      }
+    }
+    return null;
   }
 }

@@ -143,6 +143,7 @@ public class UserDAO {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
+      Statement stmt = connection.createStatement();
       String query = MessageFormat.format(
         dataBaseManager.getDeleteUserQuery(),
         "'",
@@ -151,8 +152,21 @@ public class UserDAO {
       );
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
-      Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
+      query = MessageFormat.format(
+    	        dataBaseManager.getDeleteUserFromUserReviewQuery(),
+    	        "'",
+    	        deleteUserMail,
+    	        "'"
+    	      );
+      stmt.executeUpdate(query);
+      query = MessageFormat.format(
+  	        dataBaseManager.getDeleteUserFromReviewQuery(),
+  	        "'",
+  	        deleteUserMail,
+  	        "'"
+  	      );
+    stmt.executeUpdate(query);
       if (stmt != null) {
         stmt.close();
       }
