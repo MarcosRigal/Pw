@@ -73,8 +73,6 @@ CREATE TABLE IF NOT EXISTS `User-Review` (
   FOREIGN KEY (`reviewId`) REFERENCES Review(reviewId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
-
 -- 
 -- Volcar la base de datos para la tabla `User`
 -- 
@@ -99,3 +97,4 @@ INSERT INTO `Review` VALUES (NULL,'i92rigam@uco.es',1,'Muy Buena',5,'Buenisima',
 
 INSERT INTO `User-Review` VALUES ('i92rigam@uco.es',1);
 INSERT INTO `User-Review` VALUES ('i92rigam@uco.es',2);
+

@@ -67,7 +67,7 @@ public class UserManager {
    * @return ArrayList<User> Vector con los usuarios
    */
 
-  public boolean loginUser(String email, String password) {
+  public Boolean loginUser(String email, String password) {
     ArrayList<UserDTO> users = getUsers();
     for (int i = 0; i < users.size(); i++) {
       if (
@@ -228,4 +228,16 @@ public class UserManager {
   public void setActiveUser(UserDTO activeUser) {
     this.activeUser = activeUser;
   }
+
+
+  public String listUsers() {
+    UserDAO userByAge = new UserDAO();
+    String usersInfo = "";
+    ArrayList<UserDTO> users = userByAge.getUsers();
+    for (UserDTO u : users) {
+      usersInfo += u.toString() + "\n";
+    }
+    return usersInfo;
+  }
+
 }

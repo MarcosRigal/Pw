@@ -2,7 +2,9 @@ package managers;
 
 import daos.ReviewDAO;
 import dtos.ReviewDTO;
+
 import java.util.ArrayList;
+
 import reviews.Review;
 
 /**
@@ -90,7 +92,7 @@ public class ReviewManager {
         (
           (n.getReviewId() == deleteReviewId) &&
           (
-            (n.getUserId() == userManager.getActiveUser().getUserId()) ||
+            (n.getEmail() == userManager.getActiveUser().getEmail()) ||
             (userManager.getActiveUser().getType().equals("Admin"))
           )
         )
@@ -173,11 +175,13 @@ public class ReviewManager {
    * @return none
    */
 
-  public void registerReview(Review review) {
-    UserManager userManager = UserManager.getInstance();
-    review.addUserIdWhoVoted(userManager.getActiveUser().getUserId());
-    this.reviews.add(review);
-    reviewId += 1;
+  public boolean registerReview(Review review) {
+	SpectacleManager spectacleManager = SpectacleManager.getInstance();
+	if ((spectacleManager.existsSpectacle(review.getSpectacleId())==false) || (review.getScore() < 0 || review.getScore() > 5)) {
+		return false;
+	}
+    ReviewDAO reviewDAO = new ReviewDAO();
+    return reviewDAO.registerReview(review);
   }
 
   /**

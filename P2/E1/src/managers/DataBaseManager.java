@@ -47,6 +47,12 @@ public class DataBaseManager {
   private String getUserReviewsQuery;
   
   private String getSpectaclesQuery;
+  
+  private String registerReviewQuery;
+  
+  private String getLastReviewQuery;
+  
+  private String registerUserReviewQuery;
 
   protected Connection connection = null;
 
@@ -91,6 +97,10 @@ public class DataBaseManager {
         prop.getProperty("getReviewsBySpectacleTitle");
       getUserReviewsQuery = prop.getProperty("getUserReviews");
       getSpectaclesQuery = prop.getProperty("getSpectacles");
+      registerReviewQuery = prop.getProperty("registerReview");
+      getLastReviewQuery = prop.getProperty("getLastReview");
+      registerUserReviewQuery = prop.getProperty("registerUserReview");
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -229,6 +239,30 @@ public String getGetSpectaclesQuery() {
 
 public void setGetSpectaclesQuery(String getSpectaclesQuery) {
 	this.getSpectaclesQuery = getSpectaclesQuery;
+}
+
+public String getRegisterReviewQuery() {
+	return registerReviewQuery;
+}
+
+public void setRegisterReviewQuery(String registerReviewQuery) {
+	this.registerReviewQuery = registerReviewQuery;
+}
+
+public String getGetLastReviewQuery() {
+	return getLastReviewQuery;
+}
+
+public void setGetLastReviewQuery(String getLastReviewQuery) {
+	this.getLastReviewQuery = getLastReviewQuery;
+}
+
+public String getRegisterUserReviewQuery() {
+	return registerUserReviewQuery;
+}
+
+public void setRegisterUserReviewQuery(String registerUserReviewQuery) {
+	this.registerUserReviewQuery = registerUserReviewQuery;
 }
 
 }

@@ -1,10 +1,14 @@
 package daos;
 
 import com.mysql.jdbc.ResultSet;
+
 import dtos.ReviewDTO;
+
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import reviews.Review;
 import managers.DataBaseManager;
 
 /**
@@ -165,4 +169,67 @@ public class ReviewDAO {
     }
     return listOfReviews;
   }
+
+  public boolean registerReview(Review review) {
+	    try {
+	        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+	        Connection connection = dataBaseManager.getConnected();
+	        // Important: This query is hard-coded here for illustrative purposes only
+	        String query = MessageFormat.format(
+	          dataBaseManager.getRegisterReviewQuery(),
+	          "'",
+	          review.getEmail(),
+	          "'",
+	          "'",
+	          review.getSpectacleId(),
+	          "'",
+	          "'",
+	          review.getTitle(),
+	          "'",
+	          "'",
+	          review.getScore(),
+	          "'",
+	          "'",
+	          review.getReview(),
+	          "'",
+	          "'",
+	          review.getLike(),
+	          "'",
+	          "'",
+	          review.getDislike(),
+	          "'"
+	        );
+
+	        // Important: We can replace this direct invocation to CRUD operations in DBConnection
+	        Statement stmt = connection.createStatement();
+	        stmt.executeUpdate(query);
+	        
+	        query = dataBaseManager.getGetLastReviewQuery();
+	        ResultSet rs = (ResultSet) stmt.executeQuery(query);
+	        String email = "";
+	        int reviewId = 0;
+	        while (rs.next()) {
+	        email = rs.getString("email");
+	        reviewId = rs.getInt("LastReview");
+	        }
+	        query = MessageFormat.format(
+	  	          dataBaseManager.getRegisterUserReviewQuery(),
+	  	          "'",
+	  	          email,
+	  	          "'",
+	  	          "'",
+	  	          reviewId,
+	  	          "'");
+	        
+	        stmt.executeUpdate(query);
+	        
+	        if (stmt != null) {
+	          stmt.close();
+	        }
+	      } catch (Exception e) {
+	        System.err.println(e);
+	        e.printStackTrace();
+	      }
+	return true;
+	}
 }

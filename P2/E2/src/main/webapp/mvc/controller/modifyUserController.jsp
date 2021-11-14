@@ -16,39 +16,28 @@ String paramEncoding = application.getInitParameter("PARAMETER_ENCODING");
 request.setCharacterEncoding(paramEncoding);
 //Caso 2
 UserManager userManager = UserManager.getInstance();
-if (customerBean == null || customerBean.getEmailUser().equals("")) {
+if (customerBean != null && !customerBean.getEmailUser().equals("")) {
 	String name = request.getParameter("name");
 	String surname = request.getParameter("surname");
 	String nick = request.getParameter("nick");
-	String email = request.getParameter("email");
 	String password = request.getParameter("password");
 
 	//Caso 2.a: Hay parámetros -> procede de la VISTA
-	if (name != null && surname != null && nick != null && email != null && password != null) {
+	if (name != null && surname != null && nick != null && password != null) {
 		//Se accede a bases de datos para obtener el usuario
-		User user = UserFactory.getUser("Spectator");
+		UserDTO user = userManager.findUser(customerBean.getEmailUser());
 		user.setName(name);
 		user.setSurname(surname);
 		user.setNick(nick);
-		user.setEmail(email);
 		user.setPassword(password);
 
 		//Se realizan todas las comprobaciones necesarias del dominio
 		//Aquí sólo comprobamos que exista el usuario
-		if (userManager.registerUser(user)) {
-			// Usuario válido		
-%>
-<jsp:setProperty property="emailUser" value="<%=email%>" name="customerBean"/>
-<jsp:setProperty property="typeUser" value='<%="Spectator"%>' name="customerBean"/>
-<%
-		} else {
-			// Usuario no válido
-			nextPage = "../view/registerView.jsp";
-			mensajeNextPage = "Error al registrar usuario, el correo introducido ya esta registrado";
-		}
-	//Caso 2.b -> se debe ir a la vista por primera vez
+		userManager.modifyUser(user);
+		nextPage = "../../index.jsp";
+		mensajeNextPage = "Cambios guardados correctamente";
 	} else {
-		nextPage = "../view/registerView.jsp";		
+		nextPage = "../view/modifyUserView.jsp";		
 	}
 }
 %>

@@ -145,13 +145,24 @@ public class SpectacleManager {
    * @return none
    */
 
-  public Spectacle findSpectacle(int spectacleId) {
-    for (int i = 0; i < spectacles.size(); i++) {
-      if (spectacles.get(i).getSpectacleId() == spectacleId) {
-        return spectacles.get(i);
+  public SpectacleDTO findSpectacle(int spectacleId) {
+	ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
+    for (int i = 0; i < allSpectacles.size(); i++) {
+      if (allSpectacles.get(i).getSpectacleId() == spectacleId) {
+        return allSpectacles.get(i);
       }
     }
     return null;
+  }
+  
+  public boolean existsSpectacle(int spectacleId) {
+	ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
+    for (int i = 0; i < allSpectacles.size(); i++) {
+      if (allSpectacles.get(i).getSpectacleId() == spectacleId) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

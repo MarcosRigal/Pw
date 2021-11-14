@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Desconectar usuario</title>
+<title>Log Out</title>
 </head>
 <body>
 <%

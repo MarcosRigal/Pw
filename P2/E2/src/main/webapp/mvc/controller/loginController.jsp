@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="es.uco.pw.data.dto.UserDTO,es.uco.pw.data.dao.UserDAO,java.util.ArrayList,es.uco.pw.business.managers.UserManager" %>
+<%@ page import ="es.uco.pw.business.users.User,es.uco.pw.data.dto.UserDTO,es.uco.pw.data.dao.UserDAO,java.util.ArrayList,es.uco.pw.business.managers.UserManager" %>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
 <%
 /* Posibles flujos:
@@ -23,18 +23,17 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 	//Caso 2.a: Hay parámetros -> procede de la VISTA
 	if (emailUser != null && passwordUser != null) {
 		//Se accede a bases de datos para obtener el usuario
-		UserDAO userDAO = new UserDAO();
-		ArrayList<UserDTO> user = userDAO.getUsers();
-
 		//Se realizan todas las comprobaciones necesarias del dominio
 		//Aquí sólo comprobamos que exista el usuario
 		if (userManager.loginUser(emailUser, passwordUser)) {
 			// Usuario válido		
-%>
-<jsp:setProperty property="emailUser" value="<%=emailUser%>" name="customerBean"/>
+			UserDTO user = userManager.findUser(emailUser);
+%> 			
+			<jsp:setProperty property="emailUser" value="<%=emailUser%>" name="customerBean"/>
+			<jsp:setProperty property="typeUser" value="<%=user.getType()%>" name="customerBean"/>
 <%
 		} else {
-			// Usuario no válido
+			// Usuario válido
 			nextPage = "../view/loginView.jsp";
 			mensajeNextPage = "El usuario que ha indicado no existe o no es v&aacute;lido";
 		}

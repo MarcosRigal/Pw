@@ -37,7 +37,11 @@ public class E1 {
             choice = SystemFunctions.printSpectatorMenuScreen();
             while (choice != 0) {
               if (choice == 1) {
-                SystemFunctions.registerReview();
+                  if (SystemFunctions.registerReview()) {
+                      System.out.println("Registro correcto");
+                    } else {
+                      System.out.println("Error en el registro");
+                    }
               }
               if (choice == 2) {
                 SystemFunctions.showReviews();
@@ -87,7 +91,11 @@ public class E1 {
                 choice = SystemFunctions.printAdminReviewsScreen();
                 while (choice != 0) {
                   if (choice == 1) {
-                    SystemFunctions.registerReview();
+                    if (SystemFunctions.registerReview()) {
+                        System.out.println("Registro correcto");
+                      } else {
+                        System.out.println("Error en el registro");
+                      }
                   }
                   if (choice == 2) {
                     SystemFunctions.showReviews();

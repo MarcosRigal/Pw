@@ -196,14 +196,12 @@ public class UserDTO {
   public String toString() {
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     String userInfo =
-      " Name: " +
-      this.name +
-      " Surname: " +
-      this.surname +
-      " Nick: " +
-      this.nick +
-      " Last Login: " +
-      formatter6.format(this.lastLogin);
+    		"Last Login: " +
+    				formatter6.format(this.lastLogin)+
+      " Rol: " +
+      this.type +
+      ", Nick: " +
+      this.nick;
     return userInfo;
   }
 

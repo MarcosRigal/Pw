@@ -6,11 +6,13 @@ import dtos.SpectacleDTO;
 import dtos.UserDTO;
 import factories.SpectacleFactory;
 import factories.UserFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -384,7 +386,7 @@ public final class SystemFunctions {
     return false;
   }
 
-  /**TODO
+  /**
    * Registra una review en el sistema
    * @param none
    * @return boolean True si se ha podido registrar
@@ -399,8 +401,7 @@ public final class SystemFunctions {
     UserManager userManager = UserManager.getInstance();
 
     SystemFunctions.listSpectacles();
-    review.setReviewId(reviewManager.getReviewId());
-    review.setUserId(userManager.getActiveUser().getUserId());
+    review.setEmail(userManager.getActiveUser().getEmail());
     System.out.println("Introduzca los siguientes datos: ");
     System.out.print(" - Identificador del espectáculo: ");
     review.setSpectacleId(scanner.nextInt());
@@ -408,17 +409,12 @@ public final class SystemFunctions {
     System.out.print(" - Título: ");
     review.setTitle(scanner.nextLine());
     System.out.print(" - Puntuación del (0-5): ");
-    int score = scanner.nextInt();
-    while (score < 0 || score > 5) {
-      System.out.print(" - Error introduzca una puntuación del (0-5): ");
-      score = scanner.nextInt();
-    }
-    review.setScore(score);
+    review.setScore(scanner.nextInt());
     scanner.nextLine();
     System.out.print(" - Review: ");
     review.setReview(scanner.nextLine());
-    reviewManager.registerReview(review);
-    return true;
+    
+    return reviewManager.registerReview(review);
   }
 
   /**
@@ -910,7 +906,7 @@ public final class SystemFunctions {
 
     int spectacleId = scanner.nextInt();
     scanner.nextLine();
-    Spectacle spectacle = spectacleManager.findSpectacle(spectacleId);
+    SpectacleDTO spectacle = spectacleManager.findSpectacle(spectacleId);
 
     System.out.println("Introduzca los siguientes datos: ");
     System.out.print(" - Título: ");
@@ -918,7 +914,7 @@ public final class SystemFunctions {
     System.out.print(" - Descripción: ");
     spectacle.setDescription(scanner.nextLine());
     spectacle.setCategory(SystemFunctions.choiceCategory());
-    spectacleManager.modifySpectacle(spectacle);
+    //spectacleManager.modifySpectacle(spectacle);
   }
 
   /**TODO

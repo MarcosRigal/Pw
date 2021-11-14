@@ -5,6 +5,7 @@ public class CustomerBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String emailUser = "";
+	private String typeUser = "";
 
 	public String getEmailUser() {
 		return emailUser;
@@ -12,6 +13,14 @@ public class CustomerBean implements java.io.Serializable {
 
 	public void setEmailUser(String emailUser) {
 		this.emailUser = emailUser;
+	}
+
+	public String getTypeUser() {
+		return typeUser;
+	}
+
+	public void setTypeUser(String typeUser) {
+		this.typeUser = typeUser;
 	}
 	
 }

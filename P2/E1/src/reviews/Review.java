@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Review {
 
   private int reviewId;
-  private int userId;
+  private String email;
   private int spectacleId;
   private String title;
   private int score;
@@ -49,8 +49,8 @@ public class Review {
    * @return int Identificador del usuario que ha realizado la crítica
    */
 
-  public int getUserId() {
-    return userId;
+  public String getEmail() {
+    return email;
   }
 
   /**
@@ -139,8 +139,8 @@ public class Review {
    * @return none
    */
 
-  public void setUserId(int userId) {
-    this.userId = userId;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   /**
