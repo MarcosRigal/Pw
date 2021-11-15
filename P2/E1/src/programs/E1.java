@@ -37,11 +37,11 @@ public class E1 {
             choice = SystemFunctions.printSpectatorMenuScreen();
             while (choice != 0) {
               if (choice == 1) {
-                  if (SystemFunctions.registerReview()) {
-                      System.out.println("Registro correcto");
-                    } else {
-                      System.out.println("Error en el registro");
-                    }
+                if (SystemFunctions.registerReview()) {
+                  System.out.println("Registro correcto");
+                } else {
+                  System.out.println("Error en el registro");
+                }
               }
               if (choice == 2) {
                 SystemFunctions.showReviews();
@@ -92,10 +92,10 @@ public class E1 {
                 while (choice != 0) {
                   if (choice == 1) {
                     if (SystemFunctions.registerReview()) {
-                        System.out.println("Registro correcto");
-                      } else {
-                        System.out.println("Error en el registro");
-                      }
+                      System.out.println("Registro correcto");
+                    } else {
+                      System.out.println("Error en el registro");
+                    }
                   }
                   if (choice == 2) {
                     SystemFunctions.showReviews();
@@ -162,11 +162,11 @@ public class E1 {
                     SystemFunctions.deleteSpectacle();
                   }
                   if (choice == 3) {
-                      if (SystemFunctions.modifySpectacle()) {
-                          System.out.println("Modificación correcta");
-                        } else {
-                          System.out.println("Error al modificar");
-                        }
+                    if (SystemFunctions.modifySpectacle()) {
+                      System.out.println("Modificación correcta");
+                    } else {
+                      System.out.println("Error al modificar");
+                    }
                   }
                   if (choice == 4) {
                     SystemFunctions.sesionPlacesLeft();

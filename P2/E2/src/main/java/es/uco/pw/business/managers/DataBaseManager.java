@@ -27,7 +27,7 @@ public class DataBaseManager {
   private String user;
 
   private String password;
-  
+
   private InputStream properties;
 
   private String getUserQuery;
@@ -45,7 +45,7 @@ public class DataBaseManager {
   private String getReviewsBySpectacleTitleQuery;
 
   private String getUserReviewsQuery;
-  
+
   private String getSpectaclesQuery;
 
   protected Connection connection = null;
@@ -55,13 +55,18 @@ public class DataBaseManager {
    * @param none
    */
 
-  private DataBaseManager(String url,String user,String password, InputStream properties) {
-	this.url = url;
-	this.user = user;
-	this.password = password;
-	this.properties = properties;
-	Properties prop = new Properties();
-	try{
+  private DataBaseManager(
+    String url,
+    String user,
+    String password,
+    InputStream properties
+  ) {
+    this.url = url;
+    this.user = user;
+    this.password = password;
+    this.properties = properties;
+    Properties prop = new Properties();
+    try {
       prop.load(properties);
 
       getUserQuery = prop.getProperty("getUsers");
@@ -77,7 +82,6 @@ public class DataBaseManager {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -89,19 +93,24 @@ public class DataBaseManager {
    * @return ReviewManager Instancia de la clase
    */
 
-  public static DataBaseManager getInstance(String url,String user,String password, InputStream properties) {
+  public static DataBaseManager getInstance(
+    String url,
+    String user,
+    String password,
+    InputStream properties
+  ) {
     if (instance == null) {
       instance = new DataBaseManager(url, user, password, properties);
     }
     return instance;
   }
-  
+
   public static DataBaseManager getInstance() {
-	    if (instance == null) {
-	    	return null;
-	    }
-	    return instance;
-	  }
+    if (instance == null) {
+      return null;
+    }
+    return instance;
+  }
 
   private Connection connect() {
     try {
@@ -213,20 +222,19 @@ public class DataBaseManager {
     this.getUserReviewsQuery = getUserReviewsQuery;
   }
 
-public String getGetSpectaclesQuery() {
-	return getSpectaclesQuery;
-}
+  public String getGetSpectaclesQuery() {
+    return getSpectaclesQuery;
+  }
 
-public void setGetSpectaclesQuery(String getSpectaclesQuery) {
-	this.getSpectaclesQuery = getSpectaclesQuery;
-}
+  public void setGetSpectaclesQuery(String getSpectaclesQuery) {
+    this.getSpectaclesQuery = getSpectaclesQuery;
+  }
 
-public InputStream getProperties() {
-	return properties;
-}
+  public InputStream getProperties() {
+    return properties;
+  }
 
-public void setProperties(InputStream properties) {
-	this.properties = properties;
-}
-
+  public void setProperties(InputStream properties) {
+    this.properties = properties;
+  }
 }

@@ -2,10 +2,8 @@ package managers;
 
 import daos.SesionDAO;
 import dtos.SesionDTO;
-
 import java.util.ArrayList;
 import java.util.Date;
-
 import sesions.Sesion;
 
 /**
@@ -76,8 +74,8 @@ public class SesionManager {
    */
 
   public void registerSesion(Sesion sesion) {
-	  	SesionDAO sesionDAO = new SesionDAO();
-	    sesionDAO.registerSesion(sesion);
+    SesionDAO sesionDAO = new SesionDAO();
+    sesionDAO.registerSesion(sesion);
   }
 
   /**
@@ -117,11 +115,11 @@ public class SesionManager {
    */
 
   public boolean deleteSesion(int sesionId) {
-	    if (existSesion(sesionId)) {
-	    	SesionDAO sesionDAO = new SesionDAO();
-	    	return sesionDAO.deleteSesion(sesionId);
-	    	}
-	    return false;
+    if (existSesion(sesionId)) {
+      SesionDAO sesionDAO = new SesionDAO();
+      return sesionDAO.deleteSesion(sesionId);
+    }
+    return false;
   }
 
   /**
@@ -169,8 +167,8 @@ public class SesionManager {
    */
 
   public int numberOfPlacesOfSpectacleByDay(int spectacleId, Date date) {
-	 ArrayList<SesionDTO> allSesions = getSesions();
-	 for (int i = 0; i < allSesions.size(); i++) {
+    ArrayList<SesionDTO> allSesions = getSesions();
+    for (int i = 0; i < allSesions.size(); i++) {
       if ((allSesions.get(i).getSpectacleId() == spectacleId)) {
         if (allSesions.get(i).getDate().equals(date)) {
           return allSesions.get(i).getPlacesLeft();

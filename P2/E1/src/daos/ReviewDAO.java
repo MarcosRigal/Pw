@@ -1,15 +1,12 @@
 package daos;
 
 import com.mysql.jdbc.ResultSet;
-
 import dtos.ReviewDTO;
-
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-
-import reviews.Review;
 import managers.DataBaseManager;
+import reviews.Review;
 
 /**
  * A DAO for reviews which makes use of a MySQL database connection via JDBC.
@@ -171,150 +168,153 @@ public class ReviewDAO {
   }
 
   public boolean registerReview(Review review) {
-	    try {
-	        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-	        Connection connection = dataBaseManager.getConnected();
-	        // Important: This query is hard-coded here for illustrative purposes only
-	        String query = MessageFormat.format(
-	          dataBaseManager.getRegisterReviewQuery(),
-	          "'",
-	          review.getEmail(),
-	          "'",
-	          "'",
-	          review.getSpectacleId(),
-	          "'",
-	          "'",
-	          review.getTitle(),
-	          "'",
-	          "'",
-	          review.getScore(),
-	          "'",
-	          "'",
-	          review.getReview(),
-	          "'",
-	          "'",
-	          review.getLike(),
-	          "'",
-	          "'",
-	          review.getDislike(),
-	          "'"
-	        );
-
-	        // Important: We can replace this direct invocation to CRUD operations in DBConnection
-	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate(query);
-	        
-	        query = dataBaseManager.getGetLastReviewQuery();
-	        ResultSet rs = (ResultSet) stmt.executeQuery(query);
-	        String email = "";
-	        int reviewId = 0;
-	        String spectacleId = "";
-	        while (rs.next()) {
-	        email = rs.getString("email");
-	        reviewId = rs.getInt("LastReview");
-	        spectacleId = rs.getString("spectacleId");
-	        }
-	        query = MessageFormat.format(
-	  	          dataBaseManager.getRegisterUserReviewQuery(),
-	  	          "'",
-	  	          email,
-	  	          "'",
-	  	          "'",
-	  	          reviewId,
-	  	          "'",
-	  	          "'",
-	  	          spectacleId,
-	  	          "'"
-	  	          );
-	        
-	        stmt.executeUpdate(query);
-	        
-	        if (stmt != null) {
-	          stmt.close();
-	        }
-	      } catch (Exception e) {
-	        System.err.println(e);
-	        e.printStackTrace();
-	      }
-	return true;
-	}
-
-public Boolean deleteReview(int deleteReviewId) {
-    try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
-        // Important: This query is hard-coded here for illustrative purposes only
-        String query = MessageFormat.format(
-          dataBaseManager.getDeleteReviewQuery(),
-          "'",
-          deleteReviewId,
-          "'"
-        );
-
-        // Important: We can replace this direct invocation to CRUD operations in DBConnection
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(query);
-        query = MessageFormat.format(
-    	        dataBaseManager.getDeleteReviewFromUserReviewQuery(),
-    	        "'",
-    	        deleteReviewId,
-    	        "'"
-    	      );
-        stmt.executeUpdate(query);
-        if (stmt != null) {
-          stmt.close();
-        }
-      } catch (Exception e) {
-        System.err.println(e);
-        e.printStackTrace();
-      }
-    return true;
-}
-
-public Boolean deleteSpectacle(int deleteSpectacleId) {
-    try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
-        // Important: This query is hard-coded here for illustrative purposes only
-        String query = MessageFormat.format(
-          dataBaseManager.getDeleteSpectacleFromReviewQuery(),
-          "'",
-          deleteSpectacleId,
-          "'"
-        );
-
-        // Important: We can replace this direct invocation to CRUD operations in DBConnection
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(query);
-        query = MessageFormat.format(
-    	        dataBaseManager.getDeleteSpectacleFromUserReviewQuery(),
-    	        "'",
-    	        deleteSpectacleId,
-    	        "'"
-    	      );
-        stmt.executeUpdate(query);
-        if (stmt != null) {
-          stmt.close();
-        }
-      } catch (Exception e) {
-        System.err.println(e);
-        e.printStackTrace();
-      }
-    return true;
-}
-
-public boolean canUserVote(String email, int voteReviewId) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
       // Important: This query is hard-coded here for illustrative purposes only
       String query = MessageFormat.format(
-              dataBaseManager.getGetUserWhoCanVoteQuery(),
-              "'",
-              email,
-              "'",
-              voteReviewId
-            );
+        dataBaseManager.getRegisterReviewQuery(),
+        "'",
+        review.getEmail(),
+        "'",
+        "'",
+        review.getSpectacleId(),
+        "'",
+        "'",
+        review.getTitle(),
+        "'",
+        "'",
+        review.getScore(),
+        "'",
+        "'",
+        review.getReview(),
+        "'",
+        "'",
+        review.getLike(),
+        "'",
+        "'",
+        review.getDislike(),
+        "'"
+      );
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+
+      query = dataBaseManager.getGetLastReviewQuery();
+      ResultSet rs = (ResultSet) stmt.executeQuery(query);
+      String email = "";
+      int reviewId = 0;
+      String spectacleId = "";
+      while (rs.next()) {
+        email = rs.getString("email");
+        reviewId = rs.getInt("LastReview");
+        spectacleId = rs.getString("spectacleId");
+      }
+      query =
+        MessageFormat.format(
+          dataBaseManager.getRegisterUserReviewQuery(),
+          "'",
+          email,
+          "'",
+          "'",
+          reviewId,
+          "'",
+          "'",
+          spectacleId,
+          "'"
+        );
+
+      stmt.executeUpdate(query);
+
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+    return true;
+  }
+
+  public Boolean deleteReview(int deleteReviewId) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+        dataBaseManager.getDeleteReviewQuery(),
+        "'",
+        deleteReviewId,
+        "'"
+      );
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      query =
+        MessageFormat.format(
+          dataBaseManager.getDeleteReviewFromUserReviewQuery(),
+          "'",
+          deleteReviewId,
+          "'"
+        );
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+    return true;
+  }
+
+  public Boolean deleteSpectacle(int deleteSpectacleId) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+        dataBaseManager.getDeleteSpectacleFromReviewQuery(),
+        "'",
+        deleteSpectacleId,
+        "'"
+      );
+
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      query =
+        MessageFormat.format(
+          dataBaseManager.getDeleteSpectacleFromUserReviewQuery(),
+          "'",
+          deleteSpectacleId,
+          "'"
+        );
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+    return true;
+  }
+
+  public boolean canUserVote(String email, int voteReviewId) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+        dataBaseManager.getGetUserWhoCanVoteQuery(),
+        "'",
+        email,
+        "'",
+        voteReviewId
+      );
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
@@ -325,87 +325,89 @@ public boolean canUserVote(String email, int voteReviewId) {
       if (stmt != null) {
         stmt.close();
       }
-      if (count==0) {
-    	  return true;
+      if (count == 0) {
+        return true;
       }
     } catch (Exception e) {
       System.err.println(e);
       e.printStackTrace();
     }
-	return false;
-}
+    return false;
+  }
 
-public boolean like(String voterEmail, ReviewDTO review) {
+  public boolean like(String voterEmail, ReviewDTO review) {
     try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
-        // Important: This query is hard-coded here for illustrative purposes only
-        String query = MessageFormat.format(
-                dataBaseManager.getLikeQuery(),
-                review.getLike()+1,
-                review.getReviewId()
-              );
-        // Important: We can replace this direct invocation to CRUD operations in DBConnection
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(query);
-        query = MessageFormat.format(
-	  	          dataBaseManager.getRegisterUserReviewQuery(),
-	  	          "'",
-	  	          voterEmail,
-	  	          "'",
-	  	          "'",
-	  	          review.getReviewId(),
-	  	          "'",
-	  	          "'",
-	  	          review.getSpectacleId(),
-	  	          "'"
-        		);
-	        
-	        stmt.executeUpdate(query);
-        if (stmt != null) {
-          stmt.close();
-        }
-      } catch (Exception e) {
-        System.err.println(e);
-        e.printStackTrace();
-      }
-  	return false;
-	
-}
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+        dataBaseManager.getLikeQuery(),
+        review.getLike() + 1,
+        review.getReviewId()
+      );
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      query =
+        MessageFormat.format(
+          dataBaseManager.getRegisterUserReviewQuery(),
+          "'",
+          voterEmail,
+          "'",
+          "'",
+          review.getReviewId(),
+          "'",
+          "'",
+          review.getSpectacleId(),
+          "'"
+        );
 
-public boolean dislike(String voterEmail, ReviewDTO review) {
-    try {
-        DataBaseManager dataBaseManager = DataBaseManager.getInstance();
-        Connection connection = dataBaseManager.getConnected();
-        // Important: This query is hard-coded here for illustrative purposes only
-        String query = MessageFormat.format(
-                dataBaseManager.getDislikeQuery(),
-                review.getDislike()+1,
-                review.getReviewId()
-              );
-        // Important: We can replace this direct invocation to CRUD operations in DBConnection
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(query);
-        query = MessageFormat.format(
-	  	          dataBaseManager.getRegisterUserReviewQuery(),
-	  	          "'",
-	  	          voterEmail,
-	  	          "'",
-	  	          "'",
-	  	          review.getReviewId(),
-	  	          "'",
-	  	          "'",
-	  	          review.getSpectacleId(),
-	  	          "'");
-	        
-	        stmt.executeUpdate(query);
-        if (stmt != null) {
-          stmt.close();
-        }
-      } catch (Exception e) {
-        System.err.println(e);
-        e.printStackTrace();
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
       }
-  	return false;
-}
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  public boolean dislike(String voterEmail, ReviewDTO review) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+      // Important: This query is hard-coded here for illustrative purposes only
+      String query = MessageFormat.format(
+        dataBaseManager.getDislikeQuery(),
+        review.getDislike() + 1,
+        review.getReviewId()
+      );
+      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      query =
+        MessageFormat.format(
+          dataBaseManager.getRegisterUserReviewQuery(),
+          "'",
+          voterEmail,
+          "'",
+          "'",
+          review.getReviewId(),
+          "'",
+          "'",
+          review.getSpectacleId(),
+          "'"
+        );
+
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+    return false;
+  }
 }

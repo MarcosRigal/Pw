@@ -7,13 +7,11 @@ import dtos.SpectacleDTO;
 import dtos.UserDTO;
 import factories.SpectacleFactory;
 import factories.UserFactory;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
-
 import managers.ReviewManager;
 import managers.SesionManager;
 import managers.SpectacleManager;
@@ -911,16 +909,16 @@ public final class SystemFunctions {
     int spectacleId = scanner.nextInt();
     scanner.nextLine();
     if (spectacleManager.existsSpectacle(spectacleId)) {
-        SpectacleDTO spectacle = spectacleManager.findSpectacle(spectacleId);
+      SpectacleDTO spectacle = spectacleManager.findSpectacle(spectacleId);
 
-        System.out.println("Introduzca los siguientes datos: ");
-        System.out.print(" - Título: ");
-        spectacle.setTitle(scanner.nextLine());
-        System.out.print(" - Descripción: ");
-        spectacle.setDescription(scanner.nextLine());
-        spectacle.setCategory(SystemFunctions.choiceCategory());
-        return spectacleManager.modifySpectacle(spectacle);
-	}
+      System.out.println("Introduzca los siguientes datos: ");
+      System.out.print(" - Título: ");
+      spectacle.setTitle(scanner.nextLine());
+      System.out.print(" - Descripción: ");
+      spectacle.setDescription(scanner.nextLine());
+      spectacle.setCategory(SystemFunctions.choiceCategory());
+      return spectacleManager.modifySpectacle(spectacle);
+    }
     return false;
   }
 
@@ -969,7 +967,10 @@ public final class SystemFunctions {
     System.out.print(" - Fecha de la sesión (dd-MM-yyyy HH:mm): ");
     String date = scanner.nextLine();
 
-    int placesLeft = sesionManager.numberOfPlacesOfSpectacleByDay(spectacleId,formatter6.parse(date));
+    int placesLeft = sesionManager.numberOfPlacesOfSpectacleByDay(
+      spectacleId,
+      formatter6.parse(date)
+    );
 
     if (placesLeft > 0) {
       System.out.println(" - Quedan : " + placesLeft + " plazas libres");
@@ -993,10 +994,17 @@ public final class SystemFunctions {
     System.out.println("--------------------------------");
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     for (int i = 0; i < spectacles.size(); i++) {
-      ArrayList<SesionDTO> sesions = sesionManager.searchSpectacleSesions(spectacles.get(i).getSpectacleId());
+      ArrayList<SesionDTO> sesions = sesionManager.searchSpectacleSesions(
+        spectacles.get(i).getSpectacleId()
+      );
       for (int j = 0; j < sesions.size(); j++) {
         if (sesions.get(j).getPlacesLeft() > 0) {
-          System.out.println(" " + formatter6.format(sesions.get(j).getDate()) + "  | " + spectacles.get(i).getTitle());
+          System.out.println(
+            " " +
+            formatter6.format(sesions.get(j).getDate()) +
+            "  | " +
+            spectacles.get(i).getTitle()
+          );
         }
       }
     }
@@ -1024,7 +1032,9 @@ public final class SystemFunctions {
     if (choice == 1) {
       System.out.print(" - Título: ");
       String title = scanner.nextLine();
-      ArrayList<SpectacleDTO> spectacles = spectacleManager.searchByTitle(title);
+      ArrayList<SpectacleDTO> spectacles = spectacleManager.searchByTitle(
+        title
+      );
       System.out.println("SpectacleId | Título ");
       System.out.println("------------------");
       for (int i = 0; i < spectacles.size(); i++) {

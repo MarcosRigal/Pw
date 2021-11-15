@@ -1,9 +1,8 @@
 package managers;
 
-import java.util.ArrayList;
-
 import daos.SpectacleDAO;
 import dtos.SpectacleDTO;
+import java.util.ArrayList;
 import spectacles.Spectacle;
 import spectacles.Spectacle.category;
 
@@ -54,8 +53,8 @@ public class SpectacleManager {
    */
 
   public ArrayList<SpectacleDTO> getSpectacles() {
-	    SpectacleDAO spectacles = new SpectacleDAO();
-	    return spectacles.getSpectacles();
+    SpectacleDAO spectacles = new SpectacleDAO();
+    return spectacles.getSpectacles();
   }
 
   /**
@@ -75,8 +74,8 @@ public class SpectacleManager {
    */
 
   public void registerSpectacle(Spectacle spectacle) {
-	  SpectacleDAO spectacleDAO = new SpectacleDAO();
-	  spectacleDAO.registerSpectacle(spectacle);
+    SpectacleDAO spectacleDAO = new SpectacleDAO();
+    spectacleDAO.registerSpectacle(spectacle);
   }
 
   /**
@@ -99,9 +98,9 @@ public class SpectacleManager {
     SesionManager sesionManager = SesionManager.getInstance();
     sesionManager.deleteAllSesions(spectacleId);
     if (existsSpectacle(spectacleId)) {
-    	SpectacleDAO spectacleDAO = new SpectacleDAO();
-    	return spectacleDAO.deleteSpectacle(spectacleId);
-    	}
+      SpectacleDAO spectacleDAO = new SpectacleDAO();
+      return spectacleDAO.deleteSpectacle(spectacleId);
+    }
     return false;
   }
 
@@ -132,8 +131,8 @@ public class SpectacleManager {
    */
 
   public boolean modifySpectacle(SpectacleDTO spectacle) {
-	    SpectacleDAO spectacleDAO = new SpectacleDAO();
-	    return spectacleDAO.modifySpectacle(spectacle);
+    SpectacleDAO spectacleDAO = new SpectacleDAO();
+    return spectacleDAO.modifySpectacle(spectacle);
   }
 
   /**
@@ -143,7 +142,7 @@ public class SpectacleManager {
    */
 
   public SpectacleDTO findSpectacle(int spectacleId) {
-	ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
+    ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
     for (int i = 0; i < allSpectacles.size(); i++) {
       if (allSpectacles.get(i).getSpectacleId() == spectacleId) {
         return allSpectacles.get(i);
@@ -151,9 +150,9 @@ public class SpectacleManager {
     }
     return null;
   }
-  
+
   public boolean existsSpectacle(int spectacleId) {
-	ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
+    ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
     for (int i = 0; i < allSpectacles.size(); i++) {
       if (allSpectacles.get(i).getSpectacleId() == spectacleId) {
         return true;
@@ -169,8 +168,8 @@ public class SpectacleManager {
    */
 
   public ArrayList<SpectacleDTO> searchByCategory(category choiceCategory) {
-	ArrayList<SpectacleDTO> searchedSpectacles = new ArrayList<SpectacleDTO>();
-	ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
+    ArrayList<SpectacleDTO> searchedSpectacles = new ArrayList<SpectacleDTO>();
+    ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
     for (int i = 0; i < allSpectacles.size(); i++) {
       if (allSpectacles.get(i).getCategory().equals(choiceCategory)) {
         searchedSpectacles.add(allSpectacles.get(i));
@@ -187,7 +186,7 @@ public class SpectacleManager {
 
   public ArrayList<SpectacleDTO> searchByTitle(String title) {
     ArrayList<SpectacleDTO> searchedSpectacles = new ArrayList<SpectacleDTO>();
-	ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
+    ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
     for (int i = 0; i < allSpectacles.size(); i++) {
       if (allSpectacles.get(i).getTitle().equals(title)) {
         searchedSpectacles.add(allSpectacles.get(i));

@@ -207,11 +207,11 @@ public class UserDTO {
     return userInfo;
   }
 
-public Date getRegisterDate() {
-	return registerDate;
-}
+  public Date getRegisterDate() {
+    return registerDate;
+  }
 
-public void setRegisterDate(Date registerDate) {
-	this.registerDate = registerDate;
-}
+  public void setRegisterDate(Date registerDate) {
+    this.registerDate = registerDate;
+  }
 }

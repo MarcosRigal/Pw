@@ -41,7 +41,16 @@ public class UserDAO {
         java.sql.Timestamp timestamp = rs.getTimestamp("lastLogin"); // O/P: DD:MM:YYYY HH:mm:ss
         java.util.Date lastLogin = new java.util.Date(timestamp.getTime());
         listOfUsers.add(
-          new UserDTO(name, type, surname, nick, email, password, registerDate, lastLogin)
+          new UserDTO(
+            name,
+            type,
+            surname,
+            nick,
+            email,
+            password,
+            registerDate,
+            lastLogin
+          )
         );
       }
 
@@ -153,20 +162,22 @@ public class UserDAO {
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       stmt.executeUpdate(query);
-      query = MessageFormat.format(
-    	        dataBaseManager.getDeleteUserFromUserReviewQuery(),
-    	        "'",
-    	        deleteUserMail,
-    	        "'"
-    	      );
+      query =
+        MessageFormat.format(
+          dataBaseManager.getDeleteUserFromUserReviewQuery(),
+          "'",
+          deleteUserMail,
+          "'"
+        );
       stmt.executeUpdate(query);
-      query = MessageFormat.format(
-  	        dataBaseManager.getDeleteUserFromReviewQuery(),
-  	        "'",
-  	        deleteUserMail,
-  	        "'"
-  	      );
-    stmt.executeUpdate(query);
+      query =
+        MessageFormat.format(
+          dataBaseManager.getDeleteUserFromReviewQuery(),
+          "'",
+          deleteUserMail,
+          "'"
+        );
+      stmt.executeUpdate(query);
       if (stmt != null) {
         stmt.close();
       }
