@@ -4,7 +4,6 @@ import es.uco.pw.business.users.Admin;
 import es.uco.pw.business.users.Spectator;
 import es.uco.pw.business.users.User;
 
-
 /**
  * Clase que implementa el patrón de diseño
  * factoría para crear los usuarios.

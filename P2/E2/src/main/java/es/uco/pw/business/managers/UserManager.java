@@ -1,11 +1,11 @@
 package es.uco.pw.business.managers;
 
+import es.uco.pw.business.users.User;
 import es.uco.pw.data.dao.UserDAO;
 import es.uco.pw.data.dto.UserDTO;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import es.uco.pw.business.users.User;
 
 /**
  * Clase que implementa el patrón de diseño
@@ -229,7 +229,6 @@ public class UserManager {
     this.activeUser = activeUser;
   }
 
-
   public String listUsers() {
     UserDAO userByAge = new UserDAO();
     String usersInfo = "";
@@ -239,5 +238,4 @@ public class UserManager {
     }
     return usersInfo;
   }
-
 }

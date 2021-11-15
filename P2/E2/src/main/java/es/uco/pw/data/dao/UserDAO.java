@@ -1,13 +1,13 @@
 package es.uco.pw.data.dao;
 
 import com.mysql.jdbc.ResultSet;
+import es.uco.pw.business.managers.DataBaseManager;
 import es.uco.pw.data.dto.UserDTO;
 import java.sql.*;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import es.uco.pw.business.managers.DataBaseManager;
 
 /**
  * A DAO for users which makes use of a MySQL database connection via JDBC.
@@ -41,7 +41,16 @@ public class UserDAO {
         java.sql.Timestamp timestamp = rs.getTimestamp("lastLogin"); // O/P: DD:MM:YYYY HH:mm:ss
         java.util.Date lastLogin = new java.util.Date(timestamp.getTime());
         listOfUsers.add(
-          new UserDTO(name, type, surname, nick, email, password, registerDate, lastLogin)
+          new UserDTO(
+            name,
+            type,
+            surname,
+            nick,
+            email,
+            password,
+            registerDate,
+            lastLogin
+          )
         );
       }
 
@@ -128,11 +137,11 @@ public class UserDAO {
 
       // Important: We can replace this direct invocation to CRUD operations in DBConnection
       if (!email.equals("")) {
-          Statement stmt = connection.createStatement();
-          stmt.executeUpdate(query);
-          if (stmt != null) {
-        	  stmt.close();
-          }
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(query);
+        if (stmt != null) {
+          stmt.close();
+        }
       }
     } catch (Exception e) {
       System.err.println(e);

@@ -196,8 +196,8 @@ public class UserDTO {
   public String toString() {
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     String userInfo =
-    		"Last Login: " +
-    				formatter6.format(this.lastLogin)+
+      "Last Login: " +
+      formatter6.format(this.lastLogin) +
       " Rol: " +
       this.type +
       ", Nick: " +
@@ -205,11 +205,11 @@ public class UserDTO {
     return userInfo;
   }
 
-public Date getRegisterDate() {
-	return registerDate;
-}
+  public Date getRegisterDate() {
+    return registerDate;
+  }
 
-public void setRegisterDate(Date registerDate) {
-	this.registerDate = registerDate;
-}
+  public void setRegisterDate(Date registerDate) {
+    this.registerDate = registerDate;
+  }
 }
