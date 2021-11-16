@@ -59,6 +59,12 @@ public class UserDTO {
     return name;
   }
 
+  /**
+   * Devuelve el identificador del usuario
+   * @param none
+   * @return int Id del usuario
+   */
+
   public int getUserId() {
     return 1;
   }
@@ -121,6 +127,16 @@ public class UserDTO {
 
   public Date getLastLogin() {
     return lastLogin;
+  }
+
+  /**
+   * Devuelve la fecha de registro de un usuario
+   * @param none
+   * @return Date Fecha de registro del usuario
+   */
+
+  public Date getRegisterDate() {
+    return registerDate;
   }
 
   /**
@@ -193,6 +209,22 @@ public class UserDTO {
     this.lastLogin = lastLogin;
   }
 
+  /**
+   * Establece la fecha de registro de un usuario
+   * @param Date Fecha de registro del usuario
+   * @return none
+   */
+
+  public void setRegisterDate(Date registerDate) {
+    this.registerDate = registerDate;
+  }
+
+  /**
+   * Serializa un usuario y lo convierte en una cadena
+   * @param none
+   * @return String Usuario serializado
+   */
+
   public String toString() {
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     String userInfo =
@@ -205,13 +237,5 @@ public class UserDTO {
       " Last Login: " +
       formatter6.format(this.lastLogin);
     return userInfo;
-  }
-
-  public Date getRegisterDate() {
-    return registerDate;
-  }
-
-  public void setRegisterDate(Date registerDate) {
-    this.registerDate = registerDate;
   }
 }

@@ -198,6 +198,12 @@ public class ReviewManager {
     return reviews.getReviewsBySpectacleTitle(title);
   }
   
+  /**
+   * Comprueba que exista una review
+   * @param int Identificador de la review
+   * @return boolean True si la ha encontrado false si no
+   */
+
   public boolean existsReview(int reviewId) {
 	ArrayList<ReviewDTO> allReviews = getReviews();
     for (int i = 0; i < allReviews.size(); i++) {
@@ -207,6 +213,14 @@ public class ReviewManager {
     }
     return false;
   }
+
+  /**
+   * Busca una review en concreto
+   * @param int Identificador de la review
+   * @return ReviewDTO Review buscada
+   * @return null Si o encuentra la review
+   */
+
   public ReviewDTO findReview(int reviewId) {
 	ArrayList<ReviewDTO> allReviews = getReviews();
     for (int i = 0; i < allReviews.size(); i++) {

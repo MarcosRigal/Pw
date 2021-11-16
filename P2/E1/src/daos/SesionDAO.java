@@ -10,23 +10,29 @@ import managers.DataBaseManager;
 import sesions.Sesion;
 
 /**
- * A DAO for sesions which makes use of a MySQL database connection via JDBC.
- * @author Aurora Ramirez
- * @author Jose Raul Romero
- * */
+ * Clase DAO para extraer sesiones de la BDD
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
 
 public class SesionDAO {
+
+  /**
+   * Devuelve todos las sesiones de la base de datos
+   * @param none
+   * @return ArrayList<SesionsDTO> Vector con las sesiones de la base de datos
+   */
 
   public ArrayList<SesionDTO> getSesions() {
     ArrayList<SesionDTO> listOfSesions = new ArrayList<SesionDTO>();
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
-      String query =
-        "SELECT sesionId, Sesion.spectacleId, Spectacle.title, placesLeft, date FROM `Sesion` INNER JOIN Spectacle ON Sesion.spectacleId = Spectacle.spectacleId";
 
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+      String query = dataBaseManager.getGetSesionsQuery();
+
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
 
@@ -51,11 +57,17 @@ public class SesionDAO {
     return listOfSesions;
   }
 
+  /**
+   * Borra todos las sesiones de un espectáculo de la base de datos
+   * @param int spectacleId Identificador del espectáculo a borrar
+   * @return Boolean True si se ha podido borrar False si no
+   */
+
   public boolean deleteAllSesionsOfAnSpectacle(int spectacleId) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       Statement stmt = connection.createStatement();
       String query = MessageFormat.format(
         dataBaseManager.getDeleteSpectacleFromSesions(),
@@ -75,11 +87,16 @@ public class SesionDAO {
     return false;
   }
 
+  /**
+   * Borra todos una sesion en concreto de un espectáculo de la base de datos
+   * @param int sesionId Identificador de la sesión a borrar
+   * @return Boolean True si se ha podido borrar False si no
+   */
+
   public boolean deleteSesion(int sesionId) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
       Statement stmt = connection.createStatement();
       String query = MessageFormat.format(
         dataBaseManager.getDeleteSesion(),
@@ -99,11 +116,16 @@ public class SesionDAO {
     return false;
   }
 
+  /**
+   * Registra una sesión en el sistem
+   * @param Sesion sesión que se va a añadir
+   * @return none
+   */
+
   public void registerSesion(Sesion sesion) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
       Statement stmt = connection.createStatement();
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
       String query = MessageFormat.format(
@@ -127,6 +149,12 @@ public class SesionDAO {
       e.printStackTrace();
     }
   }
+
+  /**
+   * Devuelve el identificador del último espectáculo
+   * @param none
+   * @return int Identificador del último espectáculo
+   */
 
   public int getLastSpectacle() {
     try {

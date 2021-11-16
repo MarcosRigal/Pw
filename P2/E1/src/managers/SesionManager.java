@@ -149,6 +149,12 @@ public class SesionManager {
     return null;
   }
 
+  /**
+   * Comprueba que exista una sesión en concreto
+   * @param int Identificador de la sesión que se desea buscar
+   * @return boolean True si existe false si no
+   */
+
   public boolean existSesion(int sesionId) {
     ArrayList<SesionDTO> allSesions = getSesions();
     for (int i = 0; i < allSesions.size(); i++) {

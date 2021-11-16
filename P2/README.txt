@@ -43,6 +43,9 @@ Para ejecutar el ejercicio 2 debemos de descargar Apache Tomcat Standalone en el
     
 Una vez descargado, lo descomprimimos y guardamos el archivo JSPMVC.war en la carpeta webapps.
 
+Acto seguido, debemos de copiar la librería mysql-connector.jar proporcionada, por el profesorado de 
+la asignatura, dentro de la carpeta lib de nuestro Apache Tomcat para poder conectar con la base de datos.
+
 Lo siguiente es que nos movamos a la carpeta bin y ejecutemos el script startup.sh.
 
 Cuando se ejecute abrimos el navegador y visitamos el siguiente enlace: 

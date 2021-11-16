@@ -3,7 +3,7 @@ package dtos;
 import utilities.SystemFunctions;
 
 /**
- * Clase que representa los espectáculos multiples
+ * Clase que representa los espectáculos
  * author Antonio Moruno Gracia
  * author David Pérez Dueñas
  * author Marcos Rivera Gavilán
@@ -20,7 +20,6 @@ public class SpectacleDTO {
 
   /**
    * Constructor de la clase multiple spectacle
-   * param none
    * @param places2
    * @param category2
    * @param description2
@@ -46,8 +45,8 @@ public class SpectacleDTO {
 
   /**
    * Devuelve el identificador del espectáculo
-   * param none
-   * return int Identificador del espectáculo
+   * @param none
+   * @return int Identificador del espectáculo
    */
 
   public int getSpectacleId() {
@@ -56,8 +55,8 @@ public class SpectacleDTO {
 
   /**
    * Devuelve el título del espectáculo
-   * param none
-   * return String Título del espectáculo
+   * @param none
+   * @return String Título del espectáculo
    */
 
   public String getTitle() {
@@ -66,8 +65,8 @@ public class SpectacleDTO {
 
   /**
    * Devuelve la descripción del espectáculo
-   * param none
-   * return String Descripción del espectáculo
+   * @param none
+   * @return String Descripción del espectáculo
    */
 
   public String getDescription() {
@@ -76,8 +75,8 @@ public class SpectacleDTO {
 
   /**
    * Devuelve la categoría del espectáculo
-   * param none
-   * return category Categoría del espectáculo
+   * @param none
+   * @return category Categoría del espectáculo
    */
 
   public spectacles.Spectacle.category getCategory() {
@@ -86,8 +85,8 @@ public class SpectacleDTO {
 
   /**
    * Devuelve el número de plazas del espectáculo
-   * param none
-   * return int Numero de plazas del espectáculo
+   * @param none
+   * @return int Numero de plazas del espectáculo
    */
 
   public int getPlaces() {
@@ -96,8 +95,8 @@ public class SpectacleDTO {
 
   /**
    * Devuelve el tipo de espectáculo
-   * param none
-   * return String Tipo de espectáculo
+   * @param none
+   * @return String Tipo de espectáculo
    */
 
   public String getType() {
@@ -106,8 +105,8 @@ public class SpectacleDTO {
 
   /**
    * Cambia el identificador del espectáculo
-   * param int Identificador del espectáculo
-   * return none
+   * @param int Identificador del espectáculo
+   * @return none
    */
 
   public void setSpectacleId(int spectacleId) {
@@ -116,8 +115,8 @@ public class SpectacleDTO {
 
   /**
    * Cambia el título del espectáculo
-   * param int Título del espectáculo
-   * return none
+   * @param int Título del espectáculo
+   * @return none
    */
 
   public void setTitle(String title) {
@@ -126,8 +125,8 @@ public class SpectacleDTO {
 
   /**
    * Cambia la descripción del espectáculo
-   * param String Descripición del espectáculo
-   * return none
+   * @param String Descripición del espectáculo
+   * @return none
    */
 
   public void setDescription(String description) {
@@ -136,8 +135,8 @@ public class SpectacleDTO {
 
   /**
    * Cambia la categoría del espectáculo
-   * param category Tipo del espectáculo
-   * return none
+   * @param category Tipo del espectáculo
+   * @return none
    */
 
   public void setCategory(spectacles.Spectacle.category category) {
@@ -146,13 +145,19 @@ public class SpectacleDTO {
 
   /**
    * Cambia el número de plazas del espectáculo
-   * param int Número de plazas del espectáculo
-   * return none
+   * @param int Número de plazas del espectáculo
+   * @return none
    */
 
   public void setPlaces(int places) {
     this.places = places;
   }
+
+  /**
+   * Serializa un objeto de tipo espectáculo
+   * @param none
+   * @return String Espectáculo serializado
+   */
 
   public String toString() {
     String spectacleInfo =

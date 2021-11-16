@@ -151,6 +151,12 @@ public class SpectacleManager {
     return null;
   }
 
+    /**
+   * Comprueba si existe un espectáculo dado su identificador
+   * @param int Identificador del espectáculo que se desea buscar
+   * @return none
+   */
+
   public boolean existsSpectacle(int spectacleId) {
     ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
     for (int i = 0; i < allSpectacles.size(); i++) {

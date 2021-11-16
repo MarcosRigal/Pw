@@ -12,7 +12,7 @@
 -- --------------------------------------------------------
 
 -- 
--- Estructura de tabla para la tabla `User`
+-- Estructura de tabla para las tablas
 -- 
 DROP TABLE IF EXISTS `User` ;
 DROP TABLE IF EXISTS `Spectacle`;
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `User-Review` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- 
--- Volcar la base de datos para la tabla `User`
+-- Rellenando la base de datos con información
 -- 
 
 INSERT INTO `User` VALUES ('Marcos','Admin','Rivera Gavilán','i92rigam','i92rigam@uco.es','1234', '2021-11-11 17:07:09', '2021-11-11 17:07:09');

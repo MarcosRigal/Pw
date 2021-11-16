@@ -9,22 +9,29 @@ import managers.DataBaseManager;
 import reviews.Review;
 
 /**
- * A DAO for reviews which makes use of a MySQL database connection via JDBC.
- * @author Aurora Ramirez
- * @author Jose Raul Romero
- * */
+ * Clase DAO para extraer las reviews de la BDD
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
 
 public class ReviewDAO {
+
+  /**
+   * Devuelve todas las reviews de la base de datos
+   * @param none
+   * @return ArrayList<ReviewDTO> Vector con las reviews de la base de datos
+   */
 
   public ArrayList<ReviewDTO> getReviews() {
     ArrayList<ReviewDTO> listOfReviews = new ArrayList<ReviewDTO>();
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = dataBaseManager.getGetReviewsQuery();
 
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
 
@@ -62,6 +69,12 @@ public class ReviewDAO {
     }
     return listOfReviews;
   }
+
+  /**
+   * Devuelve todas las reviews de la base de datos que coincidan con el título
+   * @param String Titulo de la review que buscamos
+   * @return ArrayList<ReviewDTO> Vector con las reviews de la base de datos
+   */
 
   public ArrayList<ReviewDTO> getReviewsBySpectacleTitle(
     String searchedSpectacleTitle
@@ -70,14 +83,14 @@ public class ReviewDAO {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getGetReviewsBySpectacleTitleQuery(),
         "'",
         searchedSpectacleTitle,
         "'"
       );
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
 
@@ -115,20 +128,26 @@ public class ReviewDAO {
     }
     return listOfReviews;
   }
+
+  /**
+   * Devuelve todas las reviews de la base de datos que tienen un mismo autor
+   * @param String email del autor
+   * @return ArrayList<ReviewDTO> Vector con las reviews de la base de datos
+   */
 
   public ArrayList<ReviewDTO> getUserReviews(String searchedEmail) {
     ArrayList<ReviewDTO> listOfReviews = new ArrayList<ReviewDTO>();
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getGetUserReviewsQuery(),
         "'",
         searchedEmail,
         "'"
       );
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
 
@@ -167,11 +186,17 @@ public class ReviewDAO {
     return listOfReviews;
   }
 
+  /**
+   * Devuelve todas las reviews de la base de datos que tienen un mismo autor
+   * @param Review Review que queremos registrar en el sistema
+   * @return Boolean True si se ha podido registrar false si no
+   */
+
   public boolean registerReview(Review review) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getRegisterReviewQuery(),
         "'",
@@ -197,7 +222,6 @@ public class ReviewDAO {
         "'"
       );
 
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
 
@@ -237,11 +261,17 @@ public class ReviewDAO {
     return true;
   }
 
+  /**
+   * Borra una review del sistema
+   * @param int Identificador de la review a borrar
+   * @return Boolean True si se ha podido borrar False si no
+   */
+
   public Boolean deleteReview(int deleteReviewId) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getDeleteReviewQuery(),
         "'",
@@ -249,7 +279,6 @@ public class ReviewDAO {
         "'"
       );
 
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
       query =
@@ -270,11 +299,17 @@ public class ReviewDAO {
     return true;
   }
 
+  /**
+   * Borra las review del sistema asociadas a un espectáculo
+   * @param int Identificador del espectáculo a borrar
+   * @return Boolean True si se ha podido borrar False si no
+   */
+
   public Boolean deleteSpectacle(int deleteSpectacleId) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getDeleteSpectacleFromReviewQuery(),
         "'",
@@ -282,7 +317,6 @@ public class ReviewDAO {
         "'"
       );
 
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
       query =
@@ -303,11 +337,18 @@ public class ReviewDAO {
     return true;
   }
 
+  /**
+   * Indica si un usuario puede votar una review
+   * @param String Identificador del usuario que queire votar
+   * @param int Identificador de la review a votar
+   * @return Boolean True si puede votar False si no
+   */
+
   public boolean canUserVote(String email, int voteReviewId) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getGetUserWhoCanVoteQuery(),
         "'",
@@ -315,7 +356,7 @@ public class ReviewDAO {
         "'",
         voteReviewId
       );
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
       int count = 0;
@@ -335,17 +376,24 @@ public class ReviewDAO {
     return false;
   }
 
+  /**
+   * Le da un like a una review
+   * @param String Identificador del usuario que queire votar
+   * @param int Identificador de la review a votar
+   * @return Boolean True si se ha podido votar False si no
+   */
+
   public boolean like(String voterEmail, ReviewDTO review) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getLikeQuery(),
         review.getLike() + 1,
         review.getReviewId()
       );
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
       query =
@@ -373,17 +421,24 @@ public class ReviewDAO {
     return false;
   }
 
+  /**
+   * Le da un dislike a una review
+   * @param String Identificador del usuario que queire votar
+   * @param int Identificador de la review a votar
+   * @return Boolean True si se ha podido votar False si no
+   */
+
   public boolean dislike(String voterEmail, ReviewDTO review) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-      // Important: This query is hard-coded here for illustrative purposes only
+
       String query = MessageFormat.format(
         dataBaseManager.getDislikeQuery(),
         review.getDislike() + 1,
         review.getReviewId()
       );
-      // Important: We can replace this direct invocation to CRUD operations in DBConnection
+
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
       query =

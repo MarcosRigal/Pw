@@ -86,10 +86,12 @@ public class DataBaseManager {
 
   private String lastSpectacleQuery;
 
+  private String getSesionsQuery;
+
   protected Connection connection = null;
 
   /**
-   * Constructor del review manager
+   * Constructor del dataBase manager
    * @param none
    */
 
@@ -152,6 +154,7 @@ public class DataBaseManager {
       registerSpectacleQuery = prop.getProperty("registerSpectacle");
       registerSesionQuery = prop.getProperty("registerSesion");
       lastSpectacleQuery = prop.getProperty("getLastSpectacle");
+      getSesionsQuery = prop.getProperty("getSesions");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -163,7 +166,7 @@ public class DataBaseManager {
    * Método público encargado de devolver
    * la única instancia de la clase
    * @param none
-   * @return ReviewManager Instancia de la clase
+   * @return DataBaseManager Instancia de la clase
    */
 
   public static DataBaseManager getInstance() {
@@ -172,6 +175,13 @@ public class DataBaseManager {
     }
     return instance;
   }
+
+  /**
+   * Método privado para establecer
+   * la conexión de la base de datos
+   * @param none
+   * @return Connection Conexión a la base de datos
+   */
 
   private Connection connect() {
     try {
@@ -189,12 +199,26 @@ public class DataBaseManager {
     return this.connection;
   }
 
+  /**
+   * Método público para obtener
+   * la conexión de la base de datos
+   * @param none
+   * @return Connection Conexión a la base de datos
+   */
+
   public Connection getConnected() {
     if (connection == null) {
       connection = connect();
     }
     return connection;
   }
+
+  /**
+   * Método privado para establecer
+   * la desconexión de la base de datos
+   * @param none
+   * @return none
+   */
 
   private void disconnect() {
     try {
@@ -208,6 +232,13 @@ public class DataBaseManager {
     }
   }
 
+  /**
+   * Método público para establecer
+   * la desconexión de la base de datos
+   * @param none
+   * @return Connection Conexión a la base de datos
+   */
+
   public boolean getDisconnected() {
     boolean status = false;
     if (connection != null) {
@@ -217,57 +248,141 @@ public class DataBaseManager {
     return status;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetUserQuery() {
     return getUserQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetUserQuery(String getUserQuery) {
     this.getUserQuery = getUserQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getUpdateLastLoginQuery() {
     return updateLastLoginQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setUpdateLastLoginQuery(String updateLastLoginQuery) {
     this.updateLastLoginQuery = updateLastLoginQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getRegisterUserQuery() {
     return registerUserQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setRegisterUserQuery(String registerUserQuery) {
     this.registerUserQuery = registerUserQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteUserQuery() {
     return deleteUserQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteUserQuery(String deleteUserQuery) {
     this.deleteUserQuery = deleteUserQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getUpdateUserQuery() {
     return updateUserQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setUpdateUserQuery(String updateUserQuery) {
     this.updateUserQuery = updateUserQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetReviewsQuery() {
     return getReviewsQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetReviewsQuery(String getReviewsQuery) {
     this.getReviewsQuery = getReviewsQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetReviewsBySpectacleTitleQuery() {
     return getReviewsBySpectacleTitleQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetReviewsBySpectacleTitleQuery(
     String getReviewsBySpectacleTitleQuery
@@ -275,57 +390,141 @@ public class DataBaseManager {
     this.getReviewsBySpectacleTitleQuery = getReviewsBySpectacleTitleQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetUserReviewsQuery() {
     return getUserReviewsQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetUserReviewsQuery(String getUserReviewsQuery) {
     this.getUserReviewsQuery = getUserReviewsQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetSpectaclesQuery() {
     return getSpectaclesQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetSpectaclesQuery(String getSpectaclesQuery) {
     this.getSpectaclesQuery = getSpectaclesQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getRegisterReviewQuery() {
     return registerReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setRegisterReviewQuery(String registerReviewQuery) {
     this.registerReviewQuery = registerReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetLastReviewQuery() {
     return getLastReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetLastReviewQuery(String getLastReviewQuery) {
     this.getLastReviewQuery = getLastReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getRegisterUserReviewQuery() {
     return registerUserReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setRegisterUserReviewQuery(String registerUserReviewQuery) {
     this.registerUserReviewQuery = registerUserReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteReviewQuery() {
     return deleteReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteReviewQuery(String deleteReviewQuery) {
     this.deleteReviewQuery = deleteReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteUserFromUserReviewQuery() {
     return deleteUserFromUserReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteUserFromUserReviewQuery(
     String deleteUserFromUserReviewQuery
@@ -333,9 +532,21 @@ public class DataBaseManager {
     this.deleteUserFromUserReviewQuery = deleteUserFromUserReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteReviewFromUserReviewQuery() {
     return deleteReviewFromUserReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteReviewFromUserReviewQuery(
     String deleteReviewFromUserReviewQuery
@@ -343,49 +554,121 @@ public class DataBaseManager {
     this.deleteReviewFromUserReviewQuery = deleteReviewFromUserReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteUserFromReviewQuery() {
     return deleteUserFromReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteUserFromReviewQuery(String deleteUserFromReviewQuery) {
     this.deleteUserFromReviewQuery = deleteUserFromReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetUserWhoCanVoteQuery() {
     return getUserWhoCanVoteQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetUserWhoCanVoteQuery(String getUserWhoCanVoteQuery) {
     this.getUserWhoCanVoteQuery = getUserWhoCanVoteQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getLikeQuery() {
     return likeQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setLikeQuery(String likeQuery) {
     this.likeQuery = likeQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDislikeQuery() {
     return dislikeQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDislikeQuery(String dislikeQuery) {
     this.dislikeQuery = dislikeQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getModifySpectacleQuery() {
     return modifySpectacleQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setModifySpectacleQuery(String modifySpectacleQuery) {
     this.modifySpectacleQuery = modifySpectacleQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteSpectacleFromReviewQuery() {
     return deleteSpectacleFromReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteSpectacleFromReviewQuery(
     String deleteSpectacleFromReviewQuery
@@ -393,9 +676,21 @@ public class DataBaseManager {
     this.deleteSpectacleFromReviewQuery = deleteSpectacleFromReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteSpectacleFromUserReviewQuery() {
     return deleteSpectacleFromUserReviewQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteSpectacleFromUserReviewQuery(
     String deleteSpectacleFromUserReviewQuery
@@ -404,51 +699,143 @@ public class DataBaseManager {
       deleteSpectacleFromUserReviewQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteSpectacleQuery() {
     return deleteSpectacleQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteSpectacleQuery(String deleteSpectacleQuery) {
     this.deleteSpectacleQuery = deleteSpectacleQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteSpectacleFromSesions() {
     return deleteSpectacleFromSesions;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteSpectacleFromSesions(String deleteSpectacleFromSesions) {
     this.deleteSpectacleFromSesions = deleteSpectacleFromSesions;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getDeleteSesion() {
     return deleteSesion;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setDeleteSesion(String deleteSesion) {
     this.deleteSesion = deleteSesion;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getRegisterSesionQuery() {
     return registerSesionQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setRegisterSesionQuery(String registerSesionQuery) {
     this.registerSesionQuery = registerSesionQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getRegisterSpectacleQuery() {
     return registerSpectacleQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setRegisterSpectacleQuery(String registerSpectacleQuery) {
     this.registerSpectacleQuery = registerSpectacleQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getLastSpectacleQuery() {
     return lastSpectacleQuery;
   }
 
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
+
   public void setLastSpectacleQuery(String lastSpectacleQuery) {
     this.lastSpectacleQuery = lastSpectacleQuery;
+  }
+
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
+  public String getGetSesionsQuery() {
+    return getSesionsQuery;
+  }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
+
+  public void setGetSesionsQuery(String getSesionsQuery) {
+    this.getSesionsQuery = getSesionsQuery;
   }
 }

@@ -20,7 +20,10 @@ public class SesionDTO {
 
   /**
    * Constructor de la clase
-   * @param none
+   * @param int Identificador del espectáculo
+   * @param int Identificador de la sesión
+   * @param int Plazas restantes
+   * @param Date Fecha de la sesión
    */
 
   public SesionDTO(int spectacleId, int sesionId, int placesLeft, Date date) {
@@ -109,6 +112,12 @@ public class SesionDTO {
   public void setSesionId(int sesionId) {
     this.sesionId = sesionId;
   }
+
+  /**
+   * Serializa una sesión
+   * @param none
+   * @return String sesión serialziada
+   */
 
   public String toString() {
     SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");

@@ -23,7 +23,12 @@ public class ReviewDTO {
 
   /**
    * Constructor de la clase review
-   * @param none
+   * @param int Identificador de la review
+   * @param String Email del usuario que creó la review
+   * @param int Indentificador del espectáculo
+   * @param String Título de la review
+   * @param int Puntuación de la review
+   * @param String Cuerpo de la review
    */
 
   public ReviewDTO(
@@ -43,6 +48,18 @@ public class ReviewDTO {
     setLike(0);
     setDislike(0);
   }
+
+  /**
+   * Constructor de la clase review
+   * @param int Identificador de la review
+   * @param String Email del usuario que creó la review
+   * @param int Indentificador del espectáculo
+   * @param String Título de la review
+   * @param int Puntuación de la review
+   * @param String Cuerpo de la review
+   * @param int Numero de likes
+   * @param int Numero de dislikes
+   */
 
   public ReviewDTO(
     int reviewId,
@@ -64,6 +81,17 @@ public class ReviewDTO {
     this.dislike = dislike;
   }
 
+  /**
+   * Constructor de la clase review
+   * @param int Identificador de la review
+   * @param String Email del usuario que creó la review
+   * @param int Indentificador del espectáculo
+   * @param String Título del espectáculo
+   * @param String Título de la review
+   * @param int Puntuación de la review
+   * @param String Cuerpo de la review
+   */
+
   public ReviewDTO(
     int reviewId,
     String email,
@@ -83,6 +111,19 @@ public class ReviewDTO {
     setLike(0);
     setDislike(0);
   }
+
+  /**
+   * Constructor de la clase review
+   * @param int Identificador de la review
+   * @param String Email del usuario que creó la review
+   * @param int Indentificador del espectáculo
+   * @param String Título del espectáculo
+   * @param String Título de la review
+   * @param int Puntuación de la review
+   * @param String Cuerpo de la review
+   * @param int Numero de likes
+   * @param int Numero de dislikes
+   */
 
   public ReviewDTO(
     int reviewId,
@@ -187,6 +228,16 @@ public class ReviewDTO {
   }
 
   /**
+   * Devuelve el título del espectáculo al que se refiere la crítica
+   * @param none
+   * @return String Título del espectáculo
+   */
+
+  public String getSpectacleTitle() {
+    return spectacleTitle;
+  }
+
+  /**
    * Cambia el identificador de la review
    * @param int Nuevo identificador de la review
    * @return none
@@ -286,6 +337,22 @@ public class ReviewDTO {
     this.dislike = this.dislike + 1;
   }
 
+  /**
+   * Asigna un título a la review
+   * @param String Título del espectáculo
+   * @return none
+   */
+
+  public void setSpectacleTitle(String spectacleTitle) {
+    this.spectacleTitle = spectacleTitle;
+  }
+
+  /**
+   * Serializa una review y lo convierte en una cadena
+   * @param none
+   * @return String Review serializado
+   */
+
   public String toString() {
     String reviewInfo =
       "ReviewId: " +
@@ -305,13 +372,5 @@ public class ReviewDTO {
       " Dislike: " +
       this.dislike;
     return reviewInfo;
-  }
-
-  public String getSpectacleTitle() {
-    return spectacleTitle;
-  }
-
-  public void setSpectacleTitle(String spectacleTitle) {
-    this.spectacleTitle = spectacleTitle;
   }
 }
