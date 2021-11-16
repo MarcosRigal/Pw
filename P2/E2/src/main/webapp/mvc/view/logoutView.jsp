@@ -13,7 +13,6 @@
 String nextPage = "../controller/loginController.jsp";
 String messageNextPage = request.getParameter("message");
 if (messageNextPage == null) messageNextPage = "";
-//Se comprueba primero que el usuario no está logado
 if (messageNextPage.equals("loggedOut")){%>	
 	Desconectando usuario... <br/>
 <%

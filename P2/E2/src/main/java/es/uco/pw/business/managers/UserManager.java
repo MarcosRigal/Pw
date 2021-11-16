@@ -229,6 +229,12 @@ public class UserManager {
     this.activeUser = activeUser;
   }
 
+  /**
+   * Devuelve una lista con los usuarios en forma de cadena
+   * @param none
+   * @return String Lista de usuarios
+   */
+
   public String listUsers() {
     UserDAO userByAge = new UserDAO();
     String usersInfo = "";

@@ -12,7 +12,7 @@
 <body>
 <% 
 String messageNextPage = request.getParameter("message");
-//Este código de reset es únicamente para poder probar múltiples veces el MVC
+
 String properties = application.getInitParameter("properties");
 SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 java.io.InputStream myIO = application.getResourceAsStream(properties);
@@ -26,7 +26,6 @@ if (request.getParameter("reset") != null) {
 <%
 }
 if (customerBean == null || customerBean.getEmailUser().equals("")) {
-	// Usuario no logado -> Se invoca al controlador de la funcionalidad
 %>
 <a href="/JSPMVC/mvc/controller/registerController.jsp">Registrarse</a>
 <a href="/JSPMVC/mvc/controller/loginController.jsp">Acceder</a>
