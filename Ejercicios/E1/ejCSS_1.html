@@ -1,0 +1,40 @@
+<!-- Ejercicio 1 
+En el documento siguiente, posicione el texto en el interior de la imagen: 
+centrado respecto a la ventana, a 20px del borde superior.
+Pista = Utilice la medida "vw".
+vh = view port heigh -> se usa en aplicaciones responsive
+vw = view port width -> se usa en aplicaciones responsive
+em/rem -> (rem = root em) el tamaño de la M lo toma del contenedor
+--> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+.container {
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  top: 20px;
+  left: calc(50% - 7em);
+  font-size: 1.2rem;
+}
+img {
+  width: 100%;
+  height: auto;
+  opacity: 0.3;
+}
+        </style>
+    </head>
+<body>
+
+    <div class="container">
+        <img src="https://uploads8.wikiart.org/temp/fa513579-de60-41c0-ae1e-145ee2b1af3b.jpg!Portrait.jpg" alt="Cuadro de siglo XII" width="1000" height="300">
+        <div class="title">
+            T&iacute;tulo: Song Huizong
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!-- Ejercicio 3
+En el documento siguiente: 
+a) posicione el elemento div de clase "derecha" a 20px del margen derecho sin que el resto se solape.
+b) Utilizando pseudoclases, todo párrafo iniciado con "Lorem ipsum" debe estar en letra de color azul; 
+   el párrafo que empieza por "Esperamos" se resaltaránen amarillo utilizando ":last-child", 
+   y la palabra "disfrutado" se resaltará con un círculo que lo rodea
+c) La primera letra del párrafo señalado con un ID único, debe tener un mayor tamaño. Todo el texto de contenedores 
+y párrafos debe tener la fuente de Google "Open Sans"
+--> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+        div,p{
+            font-family: 'Open Sans',serif;
+        }
+        div.derecha {
+            width: 300px;
+            background-color: #b0e0e6;
+            float: right;
+            margin-right: 20px;
+        }
+
+        p:first-child{
+            color: blue; 
+        }
+
+        p:last-child{
+            background-color: yellow;
+        }
+        #primeraletra::first-letter{
+            font-size: 1.25em;
+            font-weight: bold;
+        }
+
+        </style>
+    </head>
+    <body>     
+        <p class="title">Lorem ipsum dolor a continuaci&oacute;n:</p>
+        <div class="derecha">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas interdum libero at urna lacinia lacinia. Praesent sed ex purus. In cursus ipsum porta, facilisis sem non, aliquet dolor. Duis vitae nisi sit amet sapien semper tempor. Suspendisse volutpat eros nec ipsum convallis vulputate.</p>
+            <p></p>
+        </div>
+        <div>
+            Nunc eget est rhoncus orci auctor vulputate et blandit odio. Phasellus sit amet auctor magna. Sed velit urna, porttitor at laoreet a, interdum at ligula. Praesent ut ipsum velit. Integer vitae neque eget diam ullamcorper pretium. Donec ultricies accumsan consectetur. Aenean aliquam pulvinar semper.
+        </div>
+        <div id="primeraletra">       
+            Phasellus faucibus risus ac sapien consectetur blandit. Donec gravida, arcu et malesuada tincidunt, neque nisi viverra leo, vitae iaculis mi sem et est. Curabitur in turpis sed nisi lacinia pharetra id quis tellus. Integer congue laoreet diam, eu dignissim ante aliquet at. Nam ornare, lorem a porttitor vehicula, mi nisi euismod leo, a pellentesque felis est id urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque nec elementum ipsum. Aliquam mattis vitae diam et volutpat. Donec felis tortor, ultrices nec nisl nec, volutpat gravida est. Pellentesque eu odio id mauris consequat pharetra. Suspendisse eu enim ac urna vehicula vestibulum. Nullam ut nisl sed justo sodales dignissim.
+        </div>
+        <p>Esperemos que lo haya disfrutado</p>
+    </body>
+</html>

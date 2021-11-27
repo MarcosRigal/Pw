@@ -1,0 +1,20 @@
+/* Ejercicio 4 
+Reformula el CSS de forma que sea eficiente y con mínima repetición
+*/
+header{
+    color: red;
+    font-size: 2em;
+    text-decoration: underline;
+} 
+
+section article{
+    font-weight: 200;
+    font-size: 1.1em;
+    color: red;
+}
+
+footer{
+    font-size: 0.8em;
+    font-weight: 200;
+    color: red;
+}

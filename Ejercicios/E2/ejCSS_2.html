@@ -1,0 +1,31 @@
+<!-- Ejercicio 2 
+En el documento siguiente, las dos capas deben ocupar el 100% de la visión de la pantalla, 
+y verticalmente quedar adyacentes ocupando cada una la mitad de la altura de la pantalla.
+Puede completar las propiedades no definidas o añadir nuevas reglas/propiedades, si se necesitaran.
+Pista = Utilice las medidas "%", "vh", "vw" según necesite.
+--> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+*{
+    margin: 0;
+    padding: 0;
+}
+.capa{
+    width: 100vw;
+    height: 50vh;
+    line-height: 50vh;
+    color:#ffffff;
+    text-align:center;
+    font-size:3em;
+}
+        </style>
+    </head>
+<body>
+  <div id="contenedor">
+    <div id="capa1" class="capa" style="background-color: red;">CAPA 1</div>
+    <div id="capa2" class="capa" style="background-color: green;">CAPA 2</div>
+  </div>
+</body>
+</html>
