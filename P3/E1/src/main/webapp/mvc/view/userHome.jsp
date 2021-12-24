@@ -1,17 +1,17 @@
+<%@page import="es.uco.pw.data.dtos.SesionDTO"%>
+<%@page import="es.uco.pw.business.managers.SesionManager"%>
+<%@page import="es.uco.pw.data.dtos.SpectacleDTO"%>
+<%@page import="es.uco.pw.business.managers.SpectacleManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
 <%@ page import ="java.text.SimpleDateFormat,es.uco.pw.data.dtos.UserDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
-<!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7 no-js" lang="en-US">
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8 no-js" lang="en-US">
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en" class="no-js">
-<%SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy");%>
+<html>
+<%SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy");
+request.setCharacterEncoding("UTF-8");
+SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+SesionManager sesionManager = SesionManager.getInstance();
+SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 <!-- moviegridfw07:38-->
 <head>
 	<!-- Basic need -->
@@ -59,7 +59,7 @@
 							<span></span>
 						</div>
 				    </div>
-				    <a href="index-2.html"><img class="logo" src="/JSPMVC/images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="index-2.html"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -69,67 +69,38 @@
 						</li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Home <i class="fa fa-angle-down" aria-hidden="true"></i>
+							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Home 01</a></li>
-								<li><a href="homev2.html">Home 02</a></li>
-								<li><a href="homev3.html">Home 03</a></li>
+								<li><a href="homev2.html">Próximos espectáculos</a></li>
+							</ul>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="homev3.html">Ver entradas disponibles</a></li>
 							</ul>
 						</li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							movies<i class="fa fa-angle-down" aria-hidden="true"></i>
+							Cr&iacute;ticas<i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
-							<ul class="dropdown-menu level1">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" >Movie grid<i class="ion-ios-arrow-forward"></i></a>
-									<ul class="dropdown-menu level2">
-										<li><a href="moviegrid.html">Movie grid</a></li>
-										<li><a href="moviegridfw.html">movie grid full width</a></li>
-									</ul>
-								</li>			
-								<li><a href="movielist.html">Movie list</a></li>
-								<li><a href="moviesingle.html">Movie single</a></li>
+							<ul class="dropdown-menu level1">	
+								<li><a href="movielist.html">Añadir crítica</a></li>
+								<li><a href="moviesingle.html">Listar críticas</a></li>
+								<li><a href="moviesingle.html">Valorar críticas</a></li>
+								<li><a href="moviesingle.html">Eliminar críticas</a></li>
 								<li class="it-last"><a href="seriessingle.html">Series single</a></li>
 							</ul>
 						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							celebrities <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="celebritygrid01.html">celebrity grid 01</a></li>
-								<li><a href="celebritygrid02.html">celebrity grid 02 </a></li>
-								<li><a href="celebritylist.html">celebrity list</a></li>
-								<li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
-							</ul>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							news <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="bloglist.html">blog List</a></li>
-								<li><a href="bloggrid.html">blog Grid</a></li>
-								<li class="it-last"><a href="blogdetail.html">blog Detail</a></li>
-							</ul>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							community <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="userfavoritegrid.html">user favorite grid</a></li>
-								<li><a href="userfavoritelist.html">user favorite list</a></li>
-								<li><a href="userprofile.html">user profile</a></li>
-								<li class="it-last"><a href="userrate.html">user rate</a></li>
-							</ul>
-						</li>
 					</ul>
-					<ul class="nav navbar-nav flex-child-menu menu-right">            
-						<li><a><%= formatter6.format(new java.util.Date())%></a></li>
-					</ul>
+					<form method="get" autocomplete="off" action="logout">
+						<ul class="nav navbar-nav flex-child-menu menu-right">
+				             <li><button class="redbtn" style="border: none" type="submit">Cerrar sesión</button></li>
+						</ul>
+					</form>
 				</div>
 			<!-- /.navbar-collapse -->
 	    </nav>
@@ -137,201 +108,153 @@
 	    <!-- top search form -->
 	    <div class="top-search">
 	    	<select>
-				<option value="united">TV show</option>
-				<option value="saab">Others</option>
+				<option value="saab">T&iacute;tulo</option>
+				<option value="united">Categor&iacute;a</option>
 			</select>
-			<input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+			<input type="text" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
 	    </div>
 	</div>
 </header>
 <!-- END | Header -->
 
-<div class="hero user-hero">
+<div class="hero common-hero">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="hero-ct">
-					<h1>User: <jsp:getProperty property="emailUser" name="customerBean"/></h1>
+					<h1>Bienvenido de nuevo: <jsp:getProperty property="nickUser" name="customerBean"/></h1>
+					<ul class="breadcumb">
+						<li class="active"><a href="#">Hoy es: </a></li>
+						<li><%= formatter6.format(new java.util.Date())%></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="page-single userfav_list">
+<!-- celebrity list section-->
+<div class="page-single">
 	<div class="container">
 		<div class="row ipad-width2">
-			<div class="col-md-3 col-sm-12 col-xs-12">
-				<div class="user-information">
-					<div class="user-img">
-						<a href="#"><img src="/JSPMVC/images/uploads/user-img.png" alt=""><br></a>
-						<a href="#" class="redbtn">Change avatar</a>
-					</div>
-					<div class="user-fav">
-						<p>Account Details</p>
-						<ul>
-							<li><a href="userprofile.html">Profile</a></li>
-							<li class="active"><a href="userfavoritelist.html">Favorite movies</a></li>
-							<li><a href="userrate.html">Rated movies</a></li>
-						</ul>
-					</div>
-					<div class="user-fav">
-						<p>Others</p>
-						<ul>
-							<li><a href="#">Change password</a></li>
-							<li><a href="#">Log out</a></li>
-						</ul>
-					</div>
+			<div class="col-md-9 col-sm-12 col-xs-12">
+				<h1 style="color:white">Próximas sesiones</h1>
+				<br></br>
+				<%ArrayList<SesionDTO> sesions = sesionManager.getSesions();
+				SpectacleDTO spectacle = null;
+				ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
+				<div class="row">
+					<%for (int i = 0; i < sesions.size(); i++) {
+						if(sesions.get(i).getPlacesLeft() > 0 && (sesions.get(i).getDate().compareTo(new java.util.Date()))>0){
+						for(int j = 0; j < spectacles.size(); j++){
+							if(spectacles.get(j).getSpectacleId()==sesions.get(i).getSpectacleId()){
+								spectacle = spectacles.get(j);
+								break;
+							}
+						}%>
+						<div class="col-md-12">
+							<div class="ceb-item-style-2">
+								<div class="ceb-infor">
+									<h2><a href="#"><%= spectacle.getTitle()%></a></h2>
+									<p/>
+									<p><%="Fecha: " + formatter5.format(sesions.get(i).getDate())%></p>
+									<p><%="Plazas libres: " + sesions.get(i).getPlacesLeft()%></p>
+								</div>
+							</div>
+						</div>
+					<%}}%>
 				</div>
 			</div>
-			<div class="col-md-9 col-sm-12 col-xs-12">
-				<div class="topbar-filter user">
-					<p>Found <span>1,608 movies</span> in total</p>
-					<label>Sort by:</label>
-					<select>
-						<option value="range">-- Choose option --</option>
-						<option value="saab">-- Choose option 2--</option>
-					</select>
-					<a href="userfavoritelist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
-					<a  href="userfavoritegrid.html" class="grid"><i class="ion-grid "></i></a>
-				</div>
-				<div class="flex-wrap-movielist user-fav-list">
-					<div class="movie-item-style-2">
-						<img src="/JSPMVC/images/uploads/mv1.jpg" alt="">
-						<div class="mv-item-infor">
-							<h6><a href="#">oblivion <span>(2012)</span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-							<p class="describe">Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-							<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-							<p>Director: <a href="#">Joss Whedon</a></p>
-							<p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
-						</div>
-					</div>
-					<div class="movie-item-style-2">
-						<img src="/JSPMVC/images/uploads/mv2.jpg" alt="">
-						<div class="mv-item-infor">
-							<h6><a href="#">into the wild <span>(2014)</span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-							<p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-							<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-							<p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-							<p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-						</div>
-					</div>
-					<div class="movie-item-style-2">
-						<img src="/JSPMVC/images/uploads/mv3.jpg" alt="">
-						<div class="mv-item-infor">
-							<h6><a href="#">blade runner  <span>(2015)</span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
-							<p class="describe">Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help...</p>
-							<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-							<p>Director: <a href="#">Peyton Reed</a></p>
-							<p>Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael Douglas</a></p>
-						</div>
-					</div>
-					<div class="movie-item-style-2">
-						<img src="/JSPMVC/images/uploads/mv4.jpg" alt="">
-						<div class="mv-item-infor">
-							<h6><a href="#">Mulholland pride<span> (2013)  </span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
-							<p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-							<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-							<p>Director: <a href="#">Shane Black</a></p>
-							<p>Stars: <a href="#">Robert Downey Jr., </a> <a href="#">  Guy Pearce,</a><a href="#">Don Cheadle</a></p>
-						</div>
-					</div>
-					<div class="movie-item-style-2">
-						<img src="/JSPMVC/images/uploads/mv5.jpg" alt="">
-						<div class="mv-item-infor">
-							<h6><a href="#">skyfall: evil of boss<span> (2013)  </span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
-							<p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-							<p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-							<p>Director: <a href="#">Alan Taylor</a></p>
-							<p>Stars: <a href="#">Chris Hemsworth,  </a> <a href="#">  Natalie Portman,</a><a href="#">Tom Hiddleston</a></p>
-						</div>
-					</div>
-				</div>		
-				<div class="topbar-filter">
-					<label>Movies per page:</label>
-					<select>
-						<option value="range">5 Movies</option>
-						<option value="saab">10 Movies</option>
-					</select>
-					
-					<div class="pagination2">
-						<span>Page 1 of 2:</span>
-						<a class="active" href="#">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#">...</a>
-						<a href="#">78</a>
-						<a href="#">79</a>
-						<a href="#"><i class="ion-arrow-right-b"></i></a>
+			<div class="col-md-3 col-xs-12 col-sm-12">
+				<div class="sidebar">
+						<div class="searh-form">
+						<h4 class="sb-title">Registrar crítica</h4>
+						<form class="form-style-1 celebrity-form" method="post" autocomplete="off" action="registerReview">
+							<div class="row">
+								<div class="col-md-12 form-it">
+									<label>Espectáculo</label>
+									<select>
+									<%for(int i = 0; i<spectacles.size(); i++){%>
+									  <option value=<%= spectacles.get(i).getSpectacleId() %>><%= spectacles.get(i).getTitle() %></option>
+									  <%} %>
+									</select>
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Nombre</label>
+                    				<input type="text" name="name" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Apellidos</label>
+									<input type="text" name="surname" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Nick</label>
+                    				<input type="text" name="nick" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Email</label>
+				                    <input type="text" name="email" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Contraseña</label>
+                    				<input type="password" name="password" required="required" />
+								</div>
+								<div class="col-md-12 ">
+									<input class="submit" type="submit" value="registrar">
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<!-- end of celebrity list section-->
 <!-- footer section-->
 <footer class="ht-footer">
+<br></br>
 	<div class="container">
 		<div class="flex-parent-ft">
-			<div class="flex-child-ft item1">
-				 <a href="index-2.html"><img class="logo" src="/JSPMVC/images/logo1.png" alt=""></a>
-				 <p>5th Avenue st, manhattan<br>
-				New York, NY 10001</p>
-				<p>Call us: <a href="#">(+01) 202 342 6789</a></p>
-			</div>
+			<a><img class="logo" src="/JSPMVC/images/logo1.png" alt=""></a>
 			<div class="flex-child-ft item2">
-				<h4>Resources</h4>
+			<br></br>
+				<h4>Recursos</h4>
 				<ul>
-					<li><a href="#">About</a></li> 
-					<li><a href="#">Blockbuster</a></li>
-					<li><a href="#">Contact Us</a></li>
-					<li><a href="#">Forums</a></li>
+					<li><a href="#">Acerca de</a></li> 
+					<li><a href="#">Foros</a></li>
 					<li><a href="#">Blog</a></li>
-					<li><a href="#">Help Center</a></li>
+					<li><a href="#">Centro de ayuda</a></li>
 				</ul>
 			</div>
 			<div class="flex-child-ft item3">
+				<br></br>
 				<h4>Legal</h4>
 				<ul>
-					<li><a href="#">Terms of Use</a></li> 
-					<li><a href="#">Privacy Policy</a></li>	
-					<li><a href="#">Security</a></li>
+					<li><a href="#">Terminos de uso</a></li> 
+					<li><a href="#">Pol&iacute;tica de privacidad</a></li>	
+					<li><a href="#">Seguridad</a></li>
 				</ul>
 			</div>
 			<div class="flex-child-ft item4">
-				<h4>Account</h4>
+			<br></br>
+				<h4>Cuenta</h4>
 				<ul>
-					<li><a href="#">My Account</a></li> 
-					<li><a href="#">Watchlist</a></li>	
-					<li><a href="#">Collections</a></li>
-					<li><a href="#">User Guide</a></li>
+					<li><a href="#">Mi cuenta</a></li> 
+					<li><a href="#">Lista de seguimiento</a></li>	
+					<li><a href="#">Colecciones</a></li>
+					<li><a href="#">Gu&iacute;a del usuario</a></li>
 				</ul>
 			</div>
 			<div class="flex-child-ft item5">
-				<h4>Newsletter</h4>
-				<p>Subscribe to our newsletter system now <br> to get latest news from us.</p>
-				<form action="#">
-					<input type="text" placeholder="Enter your email...">
-				</form>
-				<a href="#" class="btn">Subscribe now <i class="ion-ios-arrow-forward"></i></a>
+			<br></br>
+				<h4>Contacto</h4>
+				 <p>Av. de Medina Azahara, 5,<br>14071 C&oacute;rdoba</p>
+				<p>Ll&aacute;manos: <a href="#">(+34) 957 218 000</a></p>
 			</div>
-		</div>
-	</div>
-	<div class="ft-copyright">
-		<div class="ft-left">
-			<p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
-		</div>
-		<div class="backtotop">
-			<p><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
 		</div>
 	</div>
 </footer>
 <!-- end of footer section-->
-
 <script src="/JSPMVC/js/jquery.js"></script>
 <script src="/JSPMVC/js/plugins.js"></script>
 <script src="/JSPMVC/js/plugins2.js"></script>

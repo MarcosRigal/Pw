@@ -67,32 +67,41 @@ UserManager userManager = UserManager.getInstance();%>
 							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Home 01</a></li>
-								<li><a href="homev2.html">Home 02</a></li>
-								<li><a href="homev3.html">Home 03</a></li>
+								<li><a href="index-2.html">Añadir espectáculo</a></li>
+								<li><a href="homev2.html">Cancelar espectáculo</a></li>
+								<li><a href="homev2.html">Próximos espectáculos</a></li>
+							</ul>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="index-2.html">Añadir sesión</a></li>
+								<li><a href="homev2.html">Cancelar sesión</a></li>
+								<li><a href="homev3.html">Modificar sesión</a></li>
+								<li><a href="homev3.html">Ver entradas disponibles</a></li>
+								<li><a href="homev3.html">Vender entradas</a></li>
 							</ul>
 						</li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
 							Cr&iacute;ticas<i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
-							<ul class="dropdown-menu level1">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" >Movie grid<i class="ion-ios-arrow-forward"></i></a>
-									<ul class="dropdown-menu level2">
-										<li><a href="moviegrid.html">Movie grid</a></li>
-										<li><a href="moviegridfw.html">movie grid full width</a></li>
-									</ul>
-								</li>			
-								<li><a href="movielist.html">Movie list</a></li>
-								<li><a href="moviesingle.html">Movie single</a></li>
+							<ul class="dropdown-menu level1">	
+								<li><a href="movielist.html">Añadir crítica</a></li>
+								<li><a href="moviesingle.html">Listar críticas</a></li>
+								<li><a href="moviesingle.html">Eliminar críticas</a></li>
+								<li><a href="moviesingle.html">Valorar críticas</a></li>
 								<li class="it-last"><a href="seriessingle.html">Series single</a></li>
 							</ul>
 						</li>
 					</ul>
-					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="loginLink"><a href="#">Cerrar sesi&oacute;n</a></li>
-					</ul>
+					<form method="get" autocomplete="off" action="logout">
+						<ul class="nav navbar-nav flex-child-menu menu-right">
+				             <li><button class="redbtn" style="border: none" type="submit">Cerrar sesión</button></li>
+						</ul>
+					</form>
 				</div>
 			<!-- /.navbar-collapse -->
 	    </nav>
@@ -129,9 +138,8 @@ UserManager userManager = UserManager.getInstance();%>
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-9 col-sm-12 col-xs-12">
-				<div class="topbar-filter">
-					<p class="pad-change">Usuarios del sistema</p>
-				</div>
+				<h1 style="color:white">Usuarios del sistema</h1>
+				<br></br>
 				<%ArrayList<UserDTO> users = userManager.getUsers(); %>
 				<div class="row">
 					<%for (int i = 0; i < users.size(); i++) {%>
@@ -139,9 +147,10 @@ UserManager userManager = UserManager.getInstance();%>
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
 									<h2><a href="#"><%= users.get(i).getName() + " " + users.get(i).getSurname()%></a></h2>
-									<span><%= users.get(i).getType()%></span>
-									<p><%= formatter5.format(users.get(i).getRegisterDate())%></p>
-									<p><%= formatter5.format(users.get(i).getLastLogin())%></p>
+									<p/>
+									<p><%="Rol: " + users.get(i).getType()%></p>
+									<p><%="Fecha de registro: " + formatter5.format(users.get(i).getRegisterDate())%></p>
+									<p><%="Último inicio de sesión: " + formatter5.format(users.get(i).getLastLogin())%></p>
 								</div>
 							</div>
 						</div>
@@ -151,46 +160,38 @@ UserManager userManager = UserManager.getInstance();%>
 			<div class="col-md-3 col-xs-12 col-sm-12">
 				<div class="sidebar">
 						<div class="searh-form">
-						<h4 class="sb-title">Search celebrity</h4>
-						<form class="form-style-1 celebrity-form" action="#">
+						<h4 class="sb-title">Registrar usuario</h4>
+						<form class="form-style-1 celebrity-form" method="post" autocomplete="off" action="register">
 							<div class="row">
 								<div class="col-md-12 form-it">
-									<label>Celebrity name</label>
-									<input type="text" placeholder="Enter keywords">
+									<label>Nombre</label>
+                    				<input type="text" name="name" required="required" />
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Celebrity Letter</label>
+									<label>Apellidos</label>
+									<input type="text" name="surname" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Nick</label>
+                    				<input type="text" name="nick" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Rol</label>
 									<select>
-									  <option value="range">A</option>
-									  <option value="saab">B</option>
+									  <option value="Admin">Administrador</option>
+									  <option value="Spectator">Espectador</option>
 									</select>
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Category</label>
-									<select>
-									  <option value="range">Actress</option>
-									  <option value="saab">Others</option>
-									</select>
+									<label>Email</label>
+				                    <input type="text" name="email" required="required" />
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Year of birth</label>
-									<div class="row">
-										<div class="col-md-6">
-											<select>
-											  <option value="range">1970</option>
-											  <option value="number">Other</option>
-											</select>
-										</div>
-										<div class="col-md-6">
-											<select>
-											  <option value="range">1990</option>
-											  <option value="number">others</option>
-											</select>
-										</div>
-									</div>
+									<label>Contraseña</label>
+                    				<input type="password" name="password" required="required" />
 								</div>
 								<div class="col-md-12 ">
-									<input class="submit" type="submit" value="submit">
+									<input class="submit" type="submit" value="registrar">
 								</div>
 							</div>
 						</form>

@@ -43,10 +43,13 @@
         <span></span>
     </div>
     <%
+    String nextPage = "";
+    String mensajeNextPage = "";
     String properties = application.getInitParameter("properties");
     java.io.InputStream myIO = application.getResourceAsStream(properties);
     DataBaseManager dataBaseManager = DataBaseManager.getInstance(application.getInitParameter("url"),application.getInitParameter("user"),application.getInitParameter("password"), myIO);
     dataBaseManager.getConnected();
+    if(customerBean == null || customerBean.getEmailUser().equals("")){
     %>
 </div>
 <!--end of preloading-->
@@ -192,6 +195,19 @@
 <script src="/JSPMVC/js/plugins.js"></script>
 <script src="/JSPMVC/js/plugins2.js"></script>
 <script src="/JSPMVC/js/custom.js"></script>
+<%}else {
+	if (customerBean.getTypeUser().equals("Spectator")) {
+		nextPage = "/mvc/view/userHome.jsp";%>
+		<jsp:forward page="<%=nextPage%>">
+		<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+		</jsp:forward>
+<%	} else {
+		nextPage = "/mvc/view/adminHome.jsp";%>
+		<jsp:forward page="<%=nextPage%>">
+			<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+		</jsp:forward>
+<%	}
+}%>
 </body>
 
 <!-- landing14:38-->
