@@ -42,6 +42,12 @@
         <span></span>
         <span></span>
     </div>
+    <%
+    String properties = application.getInitParameter("properties");
+    java.io.InputStream myIO = application.getResourceAsStream(properties);
+    DataBaseManager dataBaseManager = DataBaseManager.getInstance(application.getInitParameter("url"),application.getInitParameter("user"),application.getInitParameter("password"), myIO);
+    dataBaseManager.getConnected();
+    %>
 </div>
 <!--end of preloading-->
 <!--login form popup-->
@@ -138,6 +144,7 @@
 </div>
 <!-- footer section-->
 <footer class="ht-footer">
+<br></br>
 	<div class="container">
 		<div class="flex-parent-ft">
 			<a><img class="logo" src="/JSPMVC/images/logo1.png" alt=""></a>

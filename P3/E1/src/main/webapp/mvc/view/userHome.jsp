@@ -151,7 +151,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="hero-ct">
-					<h1>Edward kennedy’s profile</h1>
+					<h1>User: <jsp:getProperty property="emailUser" name="customerBean"/></h1>
 				</div>
 			</div>
 		</div>
