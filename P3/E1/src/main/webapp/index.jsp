@@ -57,7 +57,7 @@
 <div class="login-wrapper" id="login-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
-        <h3>Login</h3>
+        <h3>Inicie sesión</h3>
         <form autocomplete="off" method="post" action="login">
     		<input autocomplete="off" name="hidden" type="text" style="display:none;">
         	<div class="row">
@@ -92,9 +92,10 @@
 <div class="login-wrapper"  id="signup-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
-        <h3>sign up</h3>
+        <h3>Regístrese</h3>
         <form method="post" autocomplete="off" action="register">
             <input autocomplete="off" name="hidden" type="text" style="display:none;">
+			<input autocomplete="off" name="type" type="text" value="Spectator" style="display:none;">
             <div class="row">
                  <label for="name">
                     Nombre:

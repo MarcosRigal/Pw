@@ -38,6 +38,11 @@ UserManager userManager = UserManager.getInstance();%>
         <span></span>
         <span></span>
     </div>
+    <%    
+    String nextPage = "";
+    String mensajeNextPage = "";
+    if(customerBean != null && customerBean.getTypeUser().equals("Admin")){
+    %>
 </div>
 <!--end of preloading-->
 <!-- BEGIN | Header -->
@@ -54,7 +59,7 @@ UserManager userManager = UserManager.getInstance();%>
 							<span></span>
 						</div>
 				    </div>
-				    <a href="index-2.html"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="../../index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -107,13 +112,16 @@ UserManager userManager = UserManager.getInstance();%>
 	    </nav>
 	    
 	    <!-- top search form -->
-	    <div class="top-search">
-	    	<select>
-				<option value="saab">T&iacute;tulo</option>
-				<option value="united">Categor&iacute;a</option>
-			</select>
-			<input type="text" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
-	    </div>
+    	<form method="post" autocomplete="off" action="searchSpectacle">
+	    	<div class="top-search">
+	    		<select>
+					<option value="title">T&iacute;tulo</option>
+					<option value="category">Categor&iacute;a</option>
+				</select>
+				<input type="text" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
+    			<input name="hidden" type="submit" style="display:none;">
+		    </div>
+   		</form>
 	</div>
 </header>
 <!-- END | Header -->
@@ -177,7 +185,7 @@ UserManager userManager = UserManager.getInstance();%>
 								</div>
 								<div class="col-md-12 form-it">
 									<label>Rol</label>
-									<select>
+									<select name="type">
 									  <option value="Admin">Administrador</option>
 									  <option value="Spectator">Espectador</option>
 									</select>
@@ -251,6 +259,19 @@ UserManager userManager = UserManager.getInstance();%>
 <script src="/JSPMVC/js/plugins.js"></script>
 <script src="/JSPMVC/js/plugins2.js"></script>
 <script src="/JSPMVC/js/custom.js"></script>
+<%}else {
+	if (customerBean.getTypeUser().equals("Spectator")) {
+		nextPage = "/mvc/view/userHome.jsp";%>
+		<jsp:forward page="<%=nextPage%>">
+		<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+		</jsp:forward>
+<%	} else {
+		nextPage = "../../index.jsp";%>
+		<jsp:forward page="<%=nextPage%>">
+			<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+		</jsp:forward>
+<%	}
+}%>
 </body>
 
 <!-- userfavoritelist14:04-->

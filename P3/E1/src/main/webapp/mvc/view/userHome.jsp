@@ -43,6 +43,11 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
         <span></span>
         <span></span>
     </div>
+    <%    
+    String nextPage = "";
+    String mensajeNextPage = "";
+    if(customerBean != null && customerBean.getTypeUser().equals("Spectator")){
+    %>
 </div>
 <!--end of preloading-->
 <!-- BEGIN | Header -->
@@ -59,7 +64,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 							<span></span>
 						</div>
 				    </div>
-				    <a href="index-2.html"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -92,7 +97,6 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 								<li><a href="moviesingle.html">Listar críticas</a></li>
 								<li><a href="moviesingle.html">Valorar críticas</a></li>
 								<li><a href="moviesingle.html">Eliminar críticas</a></li>
-								<li class="it-last"><a href="seriessingle.html">Series single</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -106,13 +110,16 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 	    </nav>
 	    
 	    <!-- top search form -->
-	    <div class="top-search">
-	    	<select>
-				<option value="saab">T&iacute;tulo</option>
-				<option value="united">Categor&iacute;a</option>
-			</select>
-			<input type="text" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
-	    </div>
+    	<form method="post" autocomplete="off" action="searchSpectacle">
+	    	<div class="top-search">
+	    		<select>
+					<option value="title">T&iacute;tulo</option>
+					<option value="category">Categor&iacute;a</option>
+				</select>
+				<input type="text" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
+    			<input name="hidden" type="submit" style="display:none;">
+		    </div>
+   		</form>
 	</div>
 </header>
 <!-- END | Header -->
@@ -179,24 +186,22 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 									</select>
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Nombre</label>
-                    				<input type="text" name="name" required="required" />
+									<label>Título</label>
+                    				<input type="text" name="title" required="required" />
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Apellidos</label>
-									<input type="text" name="surname" required="required" />
+									<label>Review</label>
+									<input type="text" name="review" required="required" />
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Nick</label>
-                    				<input type="text" name="nick" required="required" />
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Email</label>
-				                    <input type="text" name="email" required="required" />
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Contraseña</label>
-                    				<input type="password" name="password" required="required" />
+									<label>Puntuación </label>
+									<select>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>									
+									</select>
 								</div>
 								<div class="col-md-12 ">
 									<input class="submit" type="submit" value="registrar">
@@ -259,6 +264,19 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 <script src="/JSPMVC/js/plugins.js"></script>
 <script src="/JSPMVC/js/plugins2.js"></script>
 <script src="/JSPMVC/js/custom.js"></script>
+<%}else {
+	if (customerBean.getTypeUser().equals("Admin")) {
+		nextPage = "/mvc/view/adminHome.jsp";%>
+		<jsp:forward page="<%=nextPage%>">
+		<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+		</jsp:forward>
+<%	} else {
+		nextPage = "../../index.jsp";%>
+		<jsp:forward page="<%=nextPage%>">
+			<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+		</jsp:forward>
+<%	}
+}%>
 </body>
 
 <!-- userfavoritelist14:04-->
