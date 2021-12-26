@@ -72,14 +72,9 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 						<li class="hidden">
 							<a href="#page-top"></a>
 						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="homev2.html">Próximos espectáculos</a></li>
-							</ul>
-						</li>
+						<li><a style="color:#DCF836" href="index.jsp">Inicio</a></li>
+						<li><a href="userProfile">Perfil</a></li>
+						<li><a href="searchSpectacle">Espectáculos</a></li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
 							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -88,17 +83,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 								<li><a href="homev3.html">Ver entradas disponibles</a></li>
 							</ul>
 						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Cr&iacute;ticas<i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">	
-								<li><a href="movielist.html">Añadir crítica</a></li>
-								<li><a href="moviesingle.html">Listar críticas</a></li>
-								<li><a href="moviesingle.html">Valorar críticas</a></li>
-								<li><a href="moviesingle.html">Eliminar críticas</a></li>
-							</ul>
-						</li>
+						<li><a href="userReviews">Mis críticas</a></li>
 					</ul>
 					<form method="get" autocomplete="off" action="logout">
 						<ul class="nav navbar-nav flex-child-menu menu-right">
@@ -112,11 +97,11 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 	    <!-- top search form -->
     	<form method="post" autocomplete="off" action="searchSpectacle">
 	    	<div class="top-search">
-	    		<select>
+	    		<select name="filter">
 					<option value="title">T&iacute;tulo</option>
 					<option value="category">Categor&iacute;a</option>
 				</select>
-				<input type="text" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
+				<input type="text" name="search" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
     			<input name="hidden" type="submit" style="display:none;">
 		    </div>
    		</form>
@@ -179,7 +164,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 							<div class="row">
 								<div class="col-md-12 form-it">
 									<label>Espectáculo</label>
-									<select>
+									<select name="spectacleId">
 									<%for(int i = 0; i<spectacles.size(); i++){%>
 									  <option value=<%= spectacles.get(i).getSpectacleId() %>><%= spectacles.get(i).getTitle() %></option>
 									  <%} %>
@@ -194,8 +179,8 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 									<input type="text" name="review" required="required" />
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Puntuación </label>
-									<select>
+									<label>Puntuación</label>
+									<select name="score">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>

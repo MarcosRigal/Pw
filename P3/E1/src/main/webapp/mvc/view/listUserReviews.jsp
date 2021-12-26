@@ -1,12 +1,23 @@
+<%@page import="es.uco.pw.data.dtos.SesionDTO"%>
+<%@page import="es.uco.pw.business.managers.SesionManager"%>
+<%@page import="es.uco.pw.data.dtos.SpectacleDTO"%>
+<%@page import="es.uco.pw.business.managers.SpectacleManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
-<%@ page import ="java.text.SimpleDateFormat,es.uco.pw.data.dtos.UserDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
+<%@ page import ="java.text.SimpleDateFormat,es.uco.pw.data.dtos.UserDTO,es.uco.pw.data.dtos.ReviewDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.managers.ReviewManager,es.uco.pw.business.utilities.SystemFunctions,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
 <html>
 <%SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy");
 request.setCharacterEncoding("UTF-8");
 SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-UserManager userManager = UserManager.getInstance();%>
+ReviewManager reviewManager = ReviewManager.getInstance();
+ArrayList<ReviewDTO> reviews = reviewManager.getReviews();
+SpectacleManager spectacleManager = SpectacleManager.getInstance();
+ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
+SesionManager sesionManager = SesionManager.getInstance();
+ArrayList<SesionDTO> sesions = sesionManager.getSesions();
+SpectacleDTO spectacle = null;
+%>
 <!-- moviegridfw07:38-->
 <head>
 	<!-- Basic need -->
@@ -41,10 +52,16 @@ UserManager userManager = UserManager.getInstance();%>
     <%    
     String nextPage = "";
     String mensajeNextPage = "";
-    if(customerBean != null && customerBean.getTypeUser().equals("Admin")){
+    if(customerBean != null){
+		String search = customerBean.getSearch();
+		String filter = customerBean.getFilter();
     %>
+	<jsp:setProperty property="search" value="" name="customerBean"/>
+	<jsp:setProperty property="filter" value="" name="customerBean"/>
 </div>
 <!--end of preloading-->
+<!-- BEGIN | Header -->
+<%if(customerBean.getTypeUser().equals("Spectator")){%>
 <!-- BEGIN | Header -->
 <header class="ht-header">
 	<div class="container">
@@ -59,7 +76,7 @@ UserManager userManager = UserManager.getInstance();%>
 							<span></span>
 						</div>
 				    </div>
-				    <a href="../../index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -67,31 +84,18 @@ UserManager userManager = UserManager.getInstance();%>
 						<li class="hidden">
 							<a href="#page-top"></a>
 						</li>
-						<li><a style="color:#DCF836" href="index.jsp">Inicio</a></li>
+						<li><a href="index.jsp">Inicio</a></li>
 						<li><a href="userProfile">Perfil</a></li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir espectáculo</a></li>
-								<li><a href="homev2.html">Cancelar espectáculo</a></li>
-								<li><a href="searchSpectacle">Ver espectáculos</a></li>
-							</ul>
-						</li>
+						<li><a href="searchSpectacle">Espectáculos</a></li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
 							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir sesión</a></li>
-								<li><a href="homev2.html">Cancelar sesión</a></li>
-								<li><a href="homev3.html">Modificar sesión</a></li>
 								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-								<li><a href="homev3.html">Vender entradas</a></li>
 							</ul>
 						</li>
-						<li><a href="userReviews">Mis críticas</a></li>
+						<li><a style="color:#DCF836" href="userReviews">Mis críticas</a></li>
 					</ul>
 					<form method="get" autocomplete="off" action="logout">
 						<ul class="nav navbar-nav flex-child-menu menu-right">
@@ -116,6 +120,80 @@ UserManager userManager = UserManager.getInstance();%>
 	</div>
 </header>
 <!-- END | Header -->
+<%}else{%>
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="../../index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li><a href="index.jsp">Inicio</a></li>
+						<li><a href="userProfile">Perfil</a></li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="index-2.html">Añadir espectáculo</a></li>
+								<li><a href="homev2.html">Cancelar espectáculo</a></li>
+								<li><a href="searchSpectacle">Ver espectáculos</a></li>
+							</ul>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="index-2.html">Añadir sesión</a></li>
+								<li><a href="homev2.html">Cancelar sesión</a></li>
+								<li><a href="homev3.html">Modificar sesión</a></li>
+								<li><a href="homev3.html">Ver entradas disponibles</a></li>
+								<li><a href="homev3.html">Vender entradas</a></li>
+							</ul>
+						</li>
+						<li><a style="color:#DCF836" href="userReviews">Mis críticas</a></li>
+					</ul>
+					<form method="get" autocomplete="off" action="logout">
+						<ul class="nav navbar-nav flex-child-menu menu-right">
+				             <li><button class="redbtn" style="border: none" type="submit">Cerrar sesión</button></li>
+						</ul>
+					</form>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+	    
+	    <!-- top search form -->
+    	<form method="post" autocomplete="off" action="searchSpectacle">
+	    	<div class="top-search">
+	    		<select name="filter">
+					<option value="title">T&iacute;tulo</option>
+					<option value="category">Categor&iacute;a</option>
+				</select>
+				<input type="text" name="search" placeholder="Busque un espect&aacute;culo por t&iacute;tulo o por categor&iacute;a">
+    			<input name="hidden" type="submit" style="display:none;">
+		    </div>
+   		</form>
+	</div>
+</header>
+<!-- END | Header -->
+<%} %>
+<!-- END | Header -->
 
 <div class="hero common-hero">
 	<div class="container">
@@ -137,57 +215,72 @@ UserManager userManager = UserManager.getInstance();%>
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-9 col-sm-12 col-xs-12">
-				<h1 style="color:white">Usuarios del sistema</h1>
+				<h1 style="color:white">Mis reviews</h1>
 				<br></br>
-				<%ArrayList<UserDTO> users = userManager.getUsers(); %>
 				<div class="row">
-					<%for (int i = 0; i < users.size(); i++) {%>
+					<%for (int i = 0; i < reviews.size(); i++) {
+						if(reviews.get(i).getEmail().equals(customerBean.getEmailUser())){
+						for(int j = 0; j < spectacles.size(); j++){
+							if(spectacles.get(j).getSpectacleId()==reviews.get(i).getSpectacleId()){
+								spectacle = spectacles.get(j);
+								break;
+								}
+							}%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%= users.get(i).getName() + " " + users.get(i).getSurname()%></a></h2>
+									<h2><a href="#"><%=reviews.get(i).getTitle()%></a></h2>
 									<p/>
-									<p><%="Rol: " + users.get(i).getType()%></p>
-									<p><%="Fecha de registro: " + formatter5.format(users.get(i).getRegisterDate())%></p>
-									<p><%="Último inicio de sesión: " + formatter5.format(users.get(i).getLastLogin())%></p>
+									<p><%="Espectáculo: " + spectacle.getTitle() + " | Puntuación: " + reviews.get(i).getScore()+"/5"%></p>
+									<p><%="Review: " + reviews.get(i).getReview()%></p>
+								    <button class="btn" style="background-color: #091A2C; color: white; border: none">
+      								<i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+								    </button>
+                    				<span><%=reviews.get(i).getLike()%></span>
+					                &nbsp;
+    								<button class="btn" style="background-color: #091A2C; color: white; border: none">
+      								<i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+								    </button>
+                    				<span><%=reviews.get(i).getDislike()%></span>
+									&nbsp;
+                    				<button class="redbtn" style="border: none" type="submit">Borrar</button>
 								</div>
 							</div>
 						</div>
-					<%}%>
+					<%}}%>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-12 col-sm-12">
 				<div class="sidebar">
 						<div class="searh-form">
-						<h4 class="sb-title">Registrar usuario</h4>
-						<form class="form-style-1 celebrity-form" method="post" autocomplete="off" action="register">
+						<h4 class="sb-title">Registrar crítica</h4>
+						<form class="form-style-1 celebrity-form" method="post" autocomplete="off" action="registerReview">
 							<div class="row">
 								<div class="col-md-12 form-it">
-									<label>Nombre</label>
-                    				<input type="text" name="name" required="required" />
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Apellidos</label>
-									<input type="text" name="surname" required="required" />
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Nick</label>
-                    				<input type="text" name="nick" required="required" />
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Rol</label>
-									<select name="type">
-									  <option value="Admin">Administrador</option>
-									  <option value="Spectator">Espectador</option>
+									<label>Espectáculo</label>
+									<select name="spectacleId">
+									<%for(int i = 0; i<spectacles.size(); i++){%>
+									  <option value=<%= spectacles.get(i).getSpectacleId() %>><%= spectacles.get(i).getTitle() %></option>
+									  <%} %>
 									</select>
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Email</label>
-				                    <input type="text" name="email" required="required" />
+									<label>Título</label>
+                    				<input type="text" name="title" required="required" />
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Contraseña</label>
-                    				<input type="password" name="password" required="required" />
+									<label>Review</label>
+									<input type="text" name="review" required="required" />
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Puntuación</label>
+									<select name="score">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>									
+									</select>
 								</div>
 								<div class="col-md-12 ">
 									<input class="submit" type="submit" value="registrar">
@@ -250,19 +343,7 @@ UserManager userManager = UserManager.getInstance();%>
 <script src="/JSPMVC/js/plugins.js"></script>
 <script src="/JSPMVC/js/plugins2.js"></script>
 <script src="/JSPMVC/js/custom.js"></script>
-<%}else {
-	if (customerBean.getTypeUser().equals("Spectator")) {
-		nextPage = "/mvc/view/userHome.jsp";%>
-		<jsp:forward page="<%=nextPage%>">
-		<jsp:param value="<%=mensajeNextPage%>" name="message"/>
-		</jsp:forward>
-<%	} else {
-		nextPage = "../../index.jsp";%>
-		<jsp:forward page="<%=nextPage%>">
-			<jsp:param value="<%=mensajeNextPage%>" name="message"/>
-		</jsp:forward>
-<%	}
-}%>
+<%}%>
 </body>
 
 <!-- userfavoritelist14:04-->

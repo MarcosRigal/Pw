@@ -225,15 +225,16 @@ public class ReviewDAO {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);
 
-      query = dataBaseManager.getGetLastReviewQuery();
-      ResultSet rs = (ResultSet) stmt.executeQuery(query);
       String email = "";
       int reviewId = 0;
-      String spectacleId = "";
+      int spectacleId = 0;
+      query = dataBaseManager.getGetLastReviewQuery();
+      ResultSet rs = (ResultSet) stmt.executeQuery(query);
+      rs = (ResultSet) stmt.executeQuery(query);
       while (rs.next()) {
         email = rs.getString("email");
         reviewId = rs.getInt("LastReview");
-        spectacleId = rs.getString("spectacleId");
+        spectacleId = rs.getInt("spectacleId");
       }
       query =
         MessageFormat.format(

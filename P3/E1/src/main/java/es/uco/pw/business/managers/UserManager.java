@@ -22,8 +22,6 @@ public class UserManager {
 
   private ArrayList<User> users = new ArrayList<User>();
 
-  private UserDTO activeUser;
-
   private int userId;
 
   /**
@@ -74,10 +72,9 @@ public class UserManager {
         (users.get(i).getEmail().equals(email)) &&
         (users.get(i).getPassword().equals(password))
       ) {
-        setActiveUser(users.get(i));
         new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date lastLogin = new Date(System.currentTimeMillis());
-        activeUser.setLastLogin(lastLogin);
+        users.get(i).setLastLogin(lastLogin);
         UserDAO user = new UserDAO();
         user.updateLastLogin(lastLogin, email);
         return true;
@@ -144,9 +141,6 @@ public class UserManager {
    */
 
   public boolean deleteUser(String deleteUserMail) {
-    if (activeUser.getEmail().equals(deleteUserMail)) {
-      return false;
-    }
     ArrayList<UserDTO> users = getUsers();
     for (int i = 0; i < users.size(); i++) {
       if (users.get(i).getEmail().equals(deleteUserMail)) {
@@ -167,9 +161,6 @@ public class UserManager {
   public boolean modifyUser(UserDTO user) {
     UserDAO userDAO = new UserDAO();
     userDAO.modifyUser(user);
-    if (activeUser.getEmail().equals(user.getEmail())) {
-      setActiveUser(user);
-    }
     return true;
   }
 
@@ -207,25 +198,5 @@ public class UserManager {
 
   public void setUserId(int userId) {
     this.userId = userId;
-  }
-
-  /**
-   * Devuelve el usuario que ha iniciado sesión
-   * @param none
-   * @return User usuario logeado
-   */
-
-  public UserDTO getActiveUser() {
-    return activeUser;
-  }
-
-  /**
-   * Permite indicar que usuario ha iniciado sesión
-   * @param User usuario logeado
-   * @return none
-   */
-
-  public void setActiveUser(UserDTO activeUser) {
-    this.activeUser = activeUser;
   }
 }

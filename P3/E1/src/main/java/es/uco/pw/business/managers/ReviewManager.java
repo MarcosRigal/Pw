@@ -84,12 +84,11 @@ public class ReviewManager {
    * @return Boolean True si se ha podido borrar false si no
    */
 
-  public Boolean deleteReview(int deleteReviewId) {
-    UserManager userManager = UserManager.getInstance();
+  public Boolean deleteReview(int deleteReviewId, String email, String type) {
 
     if(existsReview(deleteReviewId)){
     	ReviewDTO review = findReview(deleteReviewId);
-    	if((review.getEmail() == userManager.getActiveUser().getEmail()) || (userManager.getActiveUser().getType().equals("Admin"))){
+    	if((review.getEmail() == email) || (type.equals("Admin"))){
     	    ReviewDAO reviewDAO = new ReviewDAO();
     	    return reviewDAO.deleteReview(deleteReviewId);
     	}
@@ -104,18 +103,17 @@ public class ReviewManager {
    * @return Boolean True si se ha podido asignar false si no
    */
 
-  public boolean voteReview(int choice, int voteReviewId) {
-    UserManager userManager = UserManager.getInstance();
+  public boolean voteReview(int choice, int voteReviewId, String email) {
     ReviewDAO reviewDAO = new ReviewDAO();
     if(existsReview(voteReviewId)){
-        if(reviewDAO.canUserVote(userManager.getActiveUser().getEmail(), voteReviewId)){
+        if(reviewDAO.canUserVote(email, voteReviewId)){
         	ReviewDTO review =  findReview(voteReviewId);
         	if (choice == 1) {
-                reviewDAO.like(userManager.getActiveUser().getEmail(), review);
+                reviewDAO.like(email, review);
                 return true;
         	}
               if (choice == 2) {
-                reviewDAO.dislike(userManager.getActiveUser().getEmail(), review);
+                reviewDAO.dislike(email, review);
                 return true;
               }
         }

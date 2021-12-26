@@ -63,8 +63,8 @@ public final class SystemFunctions {
   public static int printAdminReviewsScreen() {
     SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
-    UserManager userManager = UserManager.getInstance();
-    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+    //UserManager userManager = UserManager.getInstance();
+    //System.out.println("Bienvenido " + userManager.getActiveUser().getName());
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para crear una crítica");
     System.out.println(
@@ -91,8 +91,8 @@ public final class SystemFunctions {
   public static int printSpectatorMenuScreen() {
     SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
-    UserManager userManager = UserManager.getInstance();
-    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+    //UserManager userManager = UserManager.getInstance();
+    //System.out.println("Bienvenido " + userManager.getActiveUser().getName());
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para crear una crítica");
     System.out.println(
@@ -131,8 +131,8 @@ public final class SystemFunctions {
   public static int printAdminMenuScreen() {
     SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
-    UserManager userManager = UserManager.getInstance();
-    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+    //UserManager userManager = UserManager.getInstance();
+    //System.out.println("Bienvenido " + userManager.getActiveUser().getName());
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para acceder a la gestión de críticas");
     System.out.println(" - Pulse 2 para acceder a la gestión de usuarios");
@@ -151,8 +151,8 @@ public final class SystemFunctions {
   public static int printAdminUsersScreen() {
     SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
-    UserManager userManager = UserManager.getInstance();
-    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+    //UserManager userManager = UserManager.getInstance();
+    //System.out.println("Bienvenido " + userManager.getActiveUser().getName());
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para dar de alta un usuario");
     System.out.println(" - Pulse 2 para dar de baja un usuario");
@@ -172,8 +172,8 @@ public final class SystemFunctions {
   public static int printAdminSpectaclesScreen() {
     SystemFunctions.clearConsole();
     scanner = new Scanner(System.in);
-    UserManager userManager = UserManager.getInstance();
-    System.out.println("Bienvenido " + userManager.getActiveUser().getName());
+    //UserManager userManager = UserManager.getInstance();
+    //System.out.println("Bienvenido " + userManager.getActiveUser().getName());
     System.out.println("¿Qué desea hacer?");
     System.out.println(" - Pulse 1 para dar de alta un espectáculo");
     System.out.println(" - Pulse 2 para cancelar un espectáculo");
@@ -399,10 +399,10 @@ public final class SystemFunctions {
     scanner = new Scanner(System.in);
 
     ReviewManager reviewManager = ReviewManager.getInstance();
-    UserManager userManager = UserManager.getInstance();
+    //UserManager userManager = UserManager.getInstance();
 
     SystemFunctions.listSpectacles();
-    review.setEmail(userManager.getActiveUser().getEmail());
+    //review.setEmail(userManager.getActiveUser().getEmail());
     System.out.println("Introduzca los siguientes datos: ");
     System.out.print(" - Identificador del espectáculo: ");
     review.setSpectacleId(scanner.nextInt());
@@ -464,7 +464,7 @@ public final class SystemFunctions {
       "Introduzca el identificador de la crítica que desea borrar: "
     );
     int deleteReviewId = scanner.nextInt();
-    return reviewManager.deleteReview(deleteReviewId);
+    return reviewManager.deleteReview(deleteReviewId, "mail", "Admin");
   }
 
   /**
@@ -533,7 +533,7 @@ public final class SystemFunctions {
     }
 
     if (choice != 0) {
-      return reviewManager.voteReview(choice, voteReviewId);
+      return reviewManager.voteReview(choice, voteReviewId, "mail");
     }
     return false;
   }
@@ -824,13 +824,13 @@ public final class SystemFunctions {
   public static Spectacle.category convertStringToCategory(
     String categoria
   ) {
-    if (categoria.equals("obra")) {
+    if (categoria.equalsIgnoreCase("obra")) {
       return category.obra;
     }
-    if (categoria.equals("concierto")) {
+    if (categoria.equalsIgnoreCase("concierto")) {
       return category.concierto;
     }
-    if (categoria.equals("monologo")) {
+    if (categoria.equalsIgnoreCase("monologo")) {
       return category.monologo;
     }
     return null;

@@ -33,12 +33,6 @@ public class registerServlet extends HttpServlet{
 		String emailUser = request.getParameter("email");
 		String passwordUser = request.getParameter("password");
 		
-		System.out.println(typeUser); 
-		System.out.println(nameUser); 
-		System.out.println(surnameUser); 
-		System.out.println(nickUser); 
-		System.out.println(emailUser);
-		System.out.println(passwordUser);
 		CustomerBean customerBean = (CustomerBean)session.getAttribute("customerBean");
 		if (!userManager.loginUser(emailUser, passwordUser)) {
 

@@ -16,6 +16,8 @@ public class CustomerBean implements java.io.Serializable {
   private String emailUser = "";
   private String typeUser = "";  
   private String nickUser = "";
+  private String filter = "";
+  private String search = "";
 
   /**
    * Devuelve el correo del usuario
@@ -63,5 +65,21 @@ public String getNickUser() {
 
 public void setNickUser(String nickUser) {
 	this.nickUser = nickUser;
+}
+
+public String getFilter() {
+	return filter;
+}
+
+public void setFilter(String filter) {
+	this.filter = filter;
+}
+
+public String getSearch() {
+	return search;
+}
+
+public void setSearch(String search) {
+	this.search = search;
 }
 }

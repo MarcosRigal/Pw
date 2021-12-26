@@ -196,7 +196,7 @@ public class SpectacleManager {
     ArrayList<SpectacleDTO> searchedSpectacles = new ArrayList<SpectacleDTO>();
     ArrayList<SpectacleDTO> allSpectacles = getSpectacles();
     for (int i = 0; i < allSpectacles.size(); i++) {
-      if (allSpectacles.get(i).getTitle().equals(title)) {
+      if (allSpectacles.get(i).getTitle().equalsIgnoreCase(title)) {
         searchedSpectacles.add(allSpectacles.get(i));
       }
     }
