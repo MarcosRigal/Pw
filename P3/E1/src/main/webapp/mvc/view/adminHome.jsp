@@ -74,7 +74,7 @@ UserManager userManager = UserManager.getInstance();%>
 							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir espectáculo</a></li>
+								<li><a href="addSpectacle">Añadir espectáculo</a></li>
 								<li><a href="homev2.html">Cancelar espectáculo</a></li>
 								<li><a href="searchSpectacle">Ver espectáculos</a></li>
 							</ul>

@@ -1,10 +1,13 @@
 package es.uco.pw.data.daos;
 
 import com.mysql.jdbc.ResultSet;
+
 import es.uco.pw.data.dtos.ReviewDTO;
+
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
 import es.uco.pw.business.managers.DataBaseManager;
 import es.uco.pw.business.reviews.Review;
 
@@ -272,7 +275,6 @@ public class ReviewDAO {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
-
       String query = MessageFormat.format(
         dataBaseManager.getDeleteReviewQuery(),
         "'",

@@ -20,8 +20,6 @@ public class ReviewManager {
 
   private static ReviewManager instance = null;
 
-  private ArrayList<Review> reviews = new ArrayList<Review>();
-
   private int reviewId;
 
   /**
@@ -59,26 +57,6 @@ public class ReviewManager {
   }
 
   /**
-   * Modifica la lista de las reviews
-   * @param ArrayList<ReviewDTO> La nueva lista de reviews
-   * @return none
-   */
-
-  public void setReviews(ArrayList<Review> reviews) {
-    this.reviews = reviews;
-  }
-
-  /**
-   * Añade una review al listado de reviews
-   * @param ReviewDTO ReviewDTO que se desea añadir
-   * @return none
-   */
-
-  public void addReview(Review review) {
-    this.reviews.add(review);
-  }
-
-  /**
    * Elimina una review en concreto
    * @param int Identificador de la review que se desea eliminar
    * @return Boolean True si se ha podido borrar false si no
@@ -88,7 +66,7 @@ public class ReviewManager {
 
     if(existsReview(deleteReviewId)){
     	ReviewDTO review = findReview(deleteReviewId);
-    	if((review.getEmail() == email) || (type.equals("Admin"))){
+    	if((review.getEmail().equals(email)) || (type.equals("Admin"))){
     	    ReviewDAO reviewDAO = new ReviewDAO();
     	    return reviewDAO.deleteReview(deleteReviewId);
     	}
@@ -174,9 +152,9 @@ public class ReviewManager {
    * @return ArrayList<ReviewDTO> Array con todas las reviews que pertenecen a ese espectáculo
    */
 
-  public ArrayList<Review> searchSpectaclesReview(int spectacleId) {
-    ArrayList<Review> spectaclesReviews = new ArrayList<Review>();
-
+  public ArrayList<ReviewDTO> searchSpectaclesReview(int spectacleId) {
+    ArrayList<ReviewDTO> spectaclesReviews = new ArrayList<ReviewDTO>();
+    ArrayList<ReviewDTO> reviews = getReviews();
     for (int i = 0; i < reviews.size(); i++) {
       if (reviews.get(i).getSpectacleId() == spectacleId) {
         spectaclesReviews.add(reviews.get(i));
@@ -205,7 +183,7 @@ public class ReviewManager {
   public boolean existsReview(int reviewId) {
 	ArrayList<ReviewDTO> allReviews = getReviews();
     for (int i = 0; i < allReviews.size(); i++) {
-      if (allReviews.get(i).getSpectacleId() == reviewId) {
+      if (allReviews.get(i).getReviewId() == reviewId) {
         return true;
       }
     }
@@ -222,7 +200,7 @@ public class ReviewManager {
   public ReviewDTO findReview(int reviewId) {
 	ArrayList<ReviewDTO> allReviews = getReviews();
     for (int i = 0; i < allReviews.size(); i++) {
-      if (allReviews.get(i).getSpectacleId() == reviewId) {
+      if (allReviews.get(i).getReviewId() == reviewId) {
         return allReviews.get(i);
       }
     }

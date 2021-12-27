@@ -218,7 +218,7 @@ ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%=spectacles.get(i).getTitle()%></a></h2>
+									<h2><a href=<%="listSpectacleReviews?spectacleId="+spectacles.get(i).getSpectacleId()%>><%=spectacles.get(i).getTitle()%></a></h2>
 									<p/>
 									<p><%="Categoría: " + spectacles.get(i).getCategory() + " | Tipo: " + spectacles.get(i).getType()%></p>
 									<p><%="Descripción: " + spectacles.get(i).getDescription()%></p>
@@ -240,7 +240,7 @@ ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%= spectaclesFilteredByCategory.get(i).getTitle()%></a></h2>
+									<h2><a href=<%="listSpectacleReviews?spectacleId="+spectaclesFilteredByCategory.get(i).getSpectacleId()%>><%= spectaclesFilteredByCategory.get(i).getTitle()%></a></h2>
 									<p/>
 									<p><%="Categoría: " + spectaclesFilteredByCategory.get(i).getCategory() + " | Tipo: " + spectaclesFilteredByCategory.get(i).getType()%></p>
 									<p><%="Descripción: " + spectaclesFilteredByCategory.get(i).getDescription()%></p>
@@ -262,7 +262,7 @@ ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%= spectaclesFilteredByTitle.get(i).getTitle()%></a></h2>
+									<h2><a href=<%="listSpectacleReviews?spectacleId="+spectaclesFilteredByTitle.get(i).getSpectacleId()%>><%= spectaclesFilteredByTitle.get(i).getTitle()%></a></h2>
 									<p/>
 									<p><%="Categoría: " + spectaclesFilteredByTitle.get(i).getCategory() + " | Tipo: " + spectaclesFilteredByTitle.get(i).getType()%></p>
 									<p><%="Descripción: " + spectaclesFilteredByTitle.get(i).getDescription()%></p>

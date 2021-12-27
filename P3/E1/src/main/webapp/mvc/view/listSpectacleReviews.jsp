@@ -5,14 +5,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
-<%@ page import ="java.text.SimpleDateFormat,es.uco.pw.data.dtos.UserDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.utilities.SystemFunctions,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
+<%@ page import ="java.text.SimpleDateFormat,es.uco.pw.business.reviews.Review,es.uco.pw.data.dtos.UserDTO,es.uco.pw.data.dtos.ReviewDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.managers.ReviewManager,es.uco.pw.business.utilities.SystemFunctions,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
 <html>
 <%SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy");
 request.setCharacterEncoding("UTF-8");
 SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-SesionManager sesionManager = SesionManager.getInstance();
+ReviewManager reviewManager = ReviewManager.getInstance();
 SpectacleManager spectacleManager = SpectacleManager.getInstance();
-ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
+ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
+SesionManager sesionManager = SesionManager.getInstance();
+ArrayList<SesionDTO> sesions = sesionManager.getSesions();
+%>
 <!-- moviegridfw07:38-->
 <head>
 	<!-- Basic need -->
@@ -50,6 +53,8 @@ ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
     if(customerBean != null){
 		String search = customerBean.getSearch();
 		String filter = customerBean.getFilter();
+		SpectacleDTO spectacle = spectacleManager.findSpectacle(Integer.parseInt(search));
+		ArrayList<ReviewDTO> reviews = reviewManager.searchSpectaclesReview(spectacle.getSpectacleId());
     %>
 	<jsp:setProperty property="search" value="" name="customerBean"/>
 	<jsp:setProperty property="filter" value="" name="customerBean"/>
@@ -81,14 +86,7 @@ ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
 						</li>
 						<li><a href="index.jsp">Inicio</a></li>
 						<li><a href="userProfile">Perfil</a></li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="searchSpectacle">Ver espectáculos</a></li>
-							</ul>
-						</li>
+						<li><a href="searchSpectacle">Espectáculos</a></li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
 							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -217,68 +215,71 @@ ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();%>
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-9 col-sm-12 col-xs-12">
-				<%if(search.equals("")){%>
-				<h1 style="color:white">Próximos espectáculos</h1>
+				<h1 style="color:white">Reviews de <%=spectacle.getTitle()%></h1>
 				<br></br>
 				<div class="row">
-					<%for(int i = 0; i < spectacles.size(); i++){%>	
+					<%for (int i = 0; i < reviews.size(); i++) {
+						if(reviews.get(i).getEmail().equals(customerBean.getEmailUser())){
+						for(int j = 0; j < spectacles.size(); j++){
+							if(spectacles.get(j).getSpectacleId()==reviews.get(i).getSpectacleId()){
+								spectacle = spectacles.get(j);
+								break;
+								}
+							}%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%=spectacles.get(i).getTitle()%></a></h2>
+									<h2><a href="#"><%=reviews.get(i).getTitle()%></a></h2>
 									<p/>
-									<p><%="Categoría: " + spectacles.get(i).getCategory() + " | Tipo: " + spectacles.get(i).getType()%></p>
-									<p><%="Descripción: " + spectacles.get(i).getDescription()%></p>
+									<p><%="Espectáculo: " + spectacle.getTitle() + " | Puntuación: " + reviews.get(i).getScore()+"/5"%></p>
+									<p><%="Autor: " + reviews.get(i).getEmail()%></p>
+									<p><%="Review: " + reviews.get(i).getReview()%></p>
+									<hr>
+								    <a class="btn" style="background-color: #091A2C; color: white; border: none">
+      								<i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+								    </a>
+                    				<span><%=reviews.get(i).getLike()%></span>
+					                &nbsp;
+    								<a class="btn" style="background-color: #091A2C; color: white; border: none">
+      								<i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+								    </a>
+                    				<span><%=reviews.get(i).getDislike()%></span>
+									&nbsp;
+                    				<a class="redbtn" href=<%="deleteReview?reviewId="+reviews.get(i).getReviewId()%> style="border: none" type="submit">Borrar</a>
+                    				<br></br>
 								</div>
 							</div>
 						</div>
-					<%}%>
-				</div>
-				<%}else if(filter.equals("category")){%>
-				<h1 style="color:white">Filtrando espectáculos por categoría: <%=search%></h1>
-				<br></br>
-				<%ArrayList<SpectacleDTO> spectaclesFilteredByCategory = spectacleManager.searchByCategory(SystemFunctions.convertStringToCategory(search));
-				if(spectaclesFilteredByCategory.size()==0){%>
-					<h1 style="color:white">Error no se han encontrado espectáculos</h1>
-					<h1 style="color:white">que coincidan con esa categoría</h1>
-				<%}else{%>
-				<div class="row">
-					<%for(int i = 0; i < spectaclesFilteredByCategory.size(); i++){%>	
+					<%}else{
+						for(int j = 0; j < spectacles.size(); j++){
+							if(spectacles.get(j).getSpectacleId()==reviews.get(i).getSpectacleId()){
+								spectacle = spectacles.get(j);
+								break;
+								}
+							}%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%= spectaclesFilteredByCategory.get(i).getTitle()%></a></h2>
+									<h2><a href="#"><%=reviews.get(i).getTitle()%></a></h2>
 									<p/>
-									<p><%="Categoría: " + spectaclesFilteredByCategory.get(i).getCategory() + " | Tipo: " + spectaclesFilteredByCategory.get(i).getType()%></p>
-									<p><%="Descripción: " + spectaclesFilteredByCategory.get(i).getDescription()%></p>
+									<p><%="Espectáculo: " + spectacle.getTitle() + " | Puntuación: " + reviews.get(i).getScore()+"/5"%></p>
+									<p><%="Autor: " + reviews.get(i).getEmail()%></p>
+									<p><%="Review: " + reviews.get(i).getReview()%></p>
+									<hr>
+								    <a href=<%="voteReview?reviewId="+reviews.get(i).getReviewId()+"&choice=1"%> class="btn" style="background-color: #091A2C; color: white; border: none">
+      								<i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+								    </a>
+                    				<span><%=reviews.get(i).getLike()%></span>
+					                &nbsp;
+    								<a href=<%="voteReview?reviewId="+reviews.get(i).getReviewId()+"&choice=2"%> class="btn" style="background-color: #091A2C; color: white; border: none">
+      								<i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+								    </a>
+                    				<span><%=reviews.get(i).getDislike()%></span>
 								</div>
 							</div>
 						</div>
-					<%}%>
+					<%}}%>
 				</div>
-				<%}}else{%>
-				<h1 style="color:white">Filtrando espectáculos por título: <%=search%></h1>
-				<br></br>
-				<%ArrayList<SpectacleDTO> spectaclesFilteredByTitle = spectacleManager.searchByTitle(search);
-				if(spectaclesFilteredByTitle.size()==0){%>
-					<h1 style="color:white">Error no se han encontrado espectáculos</h1>
-					<h1 style="color:white">que coincidan con esa categoría</h1>
-				<%}else{%>
-				<div class="row">
-					<%for(int i = 0; i < spectaclesFilteredByTitle.size(); i++){%>	
-						<div class="col-md-12">
-							<div class="ceb-item-style-2">
-								<div class="ceb-infor">
-									<h2><a href="#"><%= spectaclesFilteredByTitle.get(i).getTitle()%></a></h2>
-									<p/>
-									<p><%="Categoría: " + spectaclesFilteredByTitle.get(i).getCategory() + " | Tipo: " + spectaclesFilteredByTitle.get(i).getType()%></p>
-									<p><%="Descripción: " + spectaclesFilteredByTitle.get(i).getDescription()%></p>
-								</div>
-							</div>
-						</div>
-					<%}%>
-				</div>
-			<%}}%>
 			</div>
 			<div class="col-md-3 col-xs-12 col-sm-12">
 				<div class="sidebar">

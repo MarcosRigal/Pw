@@ -146,7 +146,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
-									<h2><a href="#"><%= spectacle.getTitle()%></a></h2>
+									<h2><a href=<%="listSpectacleReviews?spectacleId="+spectacle.getSpectacleId()%>><%= spectacle.getTitle()%></a></h2>
 									<p/>
 									<p><%="Fecha: " + formatter5.format(sesions.get(i).getDate())%></p>
 									<p><%="Plazas libres: " + sesions.get(i).getPlacesLeft()%></p>
