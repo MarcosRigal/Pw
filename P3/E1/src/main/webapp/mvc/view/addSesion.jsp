@@ -8,7 +8,7 @@
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
 <%@ page import ="java.text.SimpleDateFormat,es.uco.pw.data.dtos.UserDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.managers.ReviewManager,es.uco.pw.business.utilities.SystemFunctions,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
 <html>
-<%SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy");
+<%SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 request.setCharacterEncoding("UTF-8");
 SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 SesionManager sesionManager = SesionManager.getInstance();
@@ -196,7 +196,7 @@ UserManager userManager = UserManager.getInstance();
         <div class="row">
           <div class="col-md-12">
             <div class="hero-ct">
-              <h1>Perfil de: <%= user.getNick()%></h1>
+              <h1>Crear una nueva sesión</h1>
             </div>
           </div>
         </div>
@@ -209,53 +209,77 @@ UserManager userManager = UserManager.getInstance();
             <div class="user-information">
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Reviews</h1></li>
+                  <li><h1 style="color:white">Próximas sesiones</h1></li>
                 </ul>
-                <p>Has escrito: <%=userReviews.size() %></p>
               </div>
+              <%ArrayList<SesionDTO> sesions = sesionManager.getSesions();
+				SpectacleDTO spectacle = null;
+				ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
+				for (int i = 0; i < sesions.size() && i<5; i++) {
+					if(sesions.get(i).getPlacesLeft() > 0 && (sesions.get(i).getDate().compareTo(new java.util.Date()))>0){
+						for(int j = 0; j < spectacles.size(); j++){
+							if(spectacles.get(j).getSpectacleId()==sesions.get(i).getSpectacleId()){
+								spectacle = spectacles.get(j);
+								break;
+					}
+				}%>
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Registrado</h1></li>
+                  <li><h3><a href=<%="listSpectacleReviews?spectacleId="+spectacle.getSpectacleId()%>><%= spectacle.getTitle()%></a></h3></li>
                 </ul>
-                <p><%= formatter5.format(user.getRegisterDate()) %></p>
+					<p><%="Fecha: " + formatter5.format(sesions.get(i).getDate())%></p>
+					<p><%="Plazas libres: " + sesions.get(i).getPlacesLeft()%></p>
               </div>
-              <div class="user-fav">
-                <ul>
-                  <li><h1 style="color:white">Último inicio de sesión</h1></li>
-                </ul>
-                <p><%= formatter5.format(user.getLastLogin()) %></p>
-              </div>
-              <div class="user-img">
-                <a href="deleteUser" class="redbtn">Borrar cuenta</a>
-              </div>
+			<%}}%>
             </div>
           </div>
           <div class="col-md-9 col-sm-12 col-xs-12">
             <div class="form-style-1 user-pro">
-              <form method="post" action="modifyUser" class="user">
-                <h4> Modificar datos</h4>
+              <form method="post" action="addSesion" class="user">
+                <h4>Datos de la sesión</h4>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Nombre</label>
-                    <input type="text" name="name" placeholder="<%= user.getName()%>" required="required"/>
+                    <label>Hora (24h)</label>
+                    <input type="number" name="hour" min="0" max="24" placeholder="00" required="required"/>
                   </div>
                   <div class="col-md-6 form-it">
-                    <label>Apellidos</label>
-                    <input type="text" name="surname" placeholder="<%= user.getSurname()%>" required="required"/>
+                    <label>Minutos</label>
+                    <input type="number" name="minutes" min="0" max="60" placeholder="00"  required="required"/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Nick</label>
-                    <input type="text" name="nick" placeholder="<%= user.getNick()%>" required="required"/>
+                    <label>Día</label>
+                    <input type="number" name="day" min="1" max="31" placeholder="1" required="required"/>
                   </div>
-                  <div class="col-md-6 form-it">
-                    <label>Contraseña</label>
-                    <input type="password" name="password" required="required"/>
-                  </div>
+					<div class="col-md-6 form-it">
+						<label>Mes</label>
+						<select name="month">
+							  <option value="1">Enero</option>
+							  <option value="2">Febrero</option>
+							  <option value="3">Marzo</option>
+							  <option value="4">Abril</option>
+							  <option value="5">Mayo</option>
+							  <option value="6">Junio</option>
+							  <option value="7">Julio</option>
+							  <option value="8">Agosto</option>
+							  <option value="9">Septiembre</option>
+							  <option value="10">Octubre</option>
+							  <option value="11">Noviembre</option>
+							  <option value="12">Diciembre</option>
+						</select>
+					</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-12 form-it">
+					<div class="col-md-6 form-it">
+						<label>Año</label>
+						<select name="year">
+						<%for(int j=2021; j<3021; j++){%>
+							<option value=<%=j%>><%=j%></option>
+						<%}%>
+						</select>
+					</div>
+                  <div class="col-md-6 form-it">
                   <hr>
                     <input class="submit" type="submit" value="Guardar" />
                   </div>

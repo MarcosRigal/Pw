@@ -8,11 +8,26 @@
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
 <%@ page import ="java.text.SimpleDateFormat,es.uco.pw.data.dtos.UserDTO,es.uco.pw.business.managers.DataBaseManager,es.uco.pw.business.managers.ReviewManager,es.uco.pw.business.utilities.SystemFunctions,es.uco.pw.business.managers.UserManager,java.util.ArrayList" %>
 <html>
-<%SimpleDateFormat formatter6 = new SimpleDateFormat("dd-MM-yyyy");
+<%SimpleDateFormat formatter6 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 request.setCharacterEncoding("UTF-8");
 SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 SesionManager sesionManager = SesionManager.getInstance();
 SpectacleManager spectacleManager = SpectacleManager.getInstance();
+ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
+int simple=0;
+int multiple=0;
+int season=0;
+for(int i = 0; i<spectacles.size();i++){
+	if(spectacles.get(i).getClass().equals("Simple")){
+		simple++;
+	}
+	else if(spectacles.get(i).getClass().equals("Multiple")){
+		multiple++;
+	}
+	else{
+		season++;
+	}
+}
 ReviewManager reviewManager = ReviewManager.getInstance();
 UserManager userManager = UserManager.getInstance();
 %>
@@ -196,7 +211,7 @@ UserManager userManager = UserManager.getInstance();
         <div class="row">
           <div class="col-md-12">
             <div class="hero-ct">
-              <h1>Añadir espectáculo</h1>
+              <h1>Crear un nuevo espectáculo</h1>
             </div>
           </div>
         </div>
@@ -209,53 +224,78 @@ UserManager userManager = UserManager.getInstance();
             <div class="user-information">
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Reviews</h1></li>
+                  <li><h1 style="color:white">Total</h1></li>
                 </ul>
-                <p>Has escrito: <%=userReviews.size() %></p>
+                <p>Hay registrados: <%=spectacles.size()%></p>
               </div>
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Registrado</h1></li>
+                  <li><h1 style="color:white">Únicos</h1></li>
                 </ul>
-                <p><%= formatter5.format(user.getRegisterDate()) %></p>
+                <p>Hay registrados: <%=simple%></p>
               </div>
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Último inicio de sesión</h1></li>
+                  <li><h1 style="color:white">Múltiples</h1></li>
                 </ul>
-                <p><%= formatter5.format(user.getLastLogin()) %></p>
+                <p>Hay registrados: <%=multiple%></p>
+              </div>
+              <div class="user-fav">
+                <ul>
+                  <li><h1 style="color:white">Temporada</h1></li>
+                </ul>
+                <p>Hay registrados: <%=season%></p>
               </div>
               <div class="user-img">
-                <a href="deleteUser" class="redbtn">Borrar cuenta</a>
+                <a href="searchSpectacle" class="redbtn">Ver espectáculos</a>
               </div>
             </div>
           </div>
           <div class="col-md-9 col-sm-12 col-xs-12">
             <div class="form-style-1 user-pro">
-              <form method="post" action="modifyUser" class="user">
-                <h4> Datos</h4>
+              <form method="post" action="addSpectacle" class="user">
+                <h4>Datos del espectáculo</h4>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Nombre</label>
-                    <input type="text" name="name" placeholder="<%= user.getName()%>" required="required"/>
+                    <label>Título</label>
+                    <input type="text" name="title" required="required"/>
                   </div>
                   <div class="col-md-6 form-it">
-                    <label>Apellidos</label>
-                    <input type="text" name="surname" placeholder="<%= user.getSurname()%>" required="required"/>
+                    <label>Descripción</label>
+                    <input type="text" name="description" required="required"/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Nick</label>
-                    <input type="text" name="nick" placeholder="<%= user.getNick()%>" required="required"/>
+                    <label>Aforo</label>
+                    <input type="number" name="places" min="1" placeholder="1" required="required"/>
                   </div>
-                  <div class="col-md-6 form-it">
-                    <label>Contraseña</label>
-                    <input type="password" name="password" required="required"/>
-                  </div>
+					<div class="col-md-6 form-it">
+						<label>Categoría</label>
+						<select name="category">
+							  <option value="obra">Obra</option>
+							  <option value="concierto">Concierto</option>
+							  <option value="monólogo">Monólogo</option>
+						</select>
+					</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-2">
+					<div class="col-md-6 form-it">
+						<label>Tipo</label>
+						<select name="type">
+							  <option value="Single">Único</option>
+							  <option value="Multiple">Múltiple</option>
+							  <option value="Season">Temporada</option>
+						</select>
+					</div>
+                  	<div class="col-md-6 form-it">
+                    	<label>Nº de sesiones</label>
+                    	<input type="number" name="numberOfSesions" min="1" placeholder="1" required="required"/>
+                  	</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-it">
+                  <hr>
                     <input class="submit" type="submit" value="Guardar" />
                   </div>
                 </div>

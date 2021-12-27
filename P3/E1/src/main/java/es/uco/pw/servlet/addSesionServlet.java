@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import es.uco.pw.display.javabean.CustomerBean;
 
-@WebServlet(name="addSpectacle", urlPatterns="/addSpectacle")
-public class addSpectacleServlet extends HttpServlet{
+@WebServlet(name="addSesion", urlPatterns="/addSesion")
+public class addSesionServlet extends HttpServlet{
 
 	/** Serial ID */
 	private static final long serialVersionUID = -5782796844904182648L;
@@ -30,23 +30,7 @@ public class addSpectacleServlet extends HttpServlet{
 			dispatcher.include(request, response);
 		} else {
 				    
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/addSesion.jsp");
-			dispatcher.include(request, response);
-		}
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		HttpSession session = request.getSession(true);
-		CustomerBean customerBean = (CustomerBean)session.getAttribute("customerBean");
-		
-		if (customerBean == null || customerBean.getEmailUser().equals("")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/userNotFound.html");
-			dispatcher.include(request, response);
-		} else {
-				    
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/addSpectacle.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/userProfile.jsp");
 			dispatcher.include(request, response);
 		}
 	}
