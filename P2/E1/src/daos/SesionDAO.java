@@ -178,4 +178,34 @@ public class SesionDAO {
     }
     return -1;
   }
+
+    public void modifySesion(SesionDTO sesion) {
+    try {
+      DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+      Connection connection = dataBaseManager.getConnected();
+
+      String query = MessageFormat.format(
+        dataBaseManager.getUpdateSesionQuery(),
+        "'",
+        sesion.getPlacesLeft(),
+        "'",
+        "'",
+        sesion.getDate(),
+        "'",
+        "'",
+        sesion.getSesionId(),
+        "'"
+      );
+
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(query);
+      if (stmt != null) {
+        stmt.close();
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      e.printStackTrace();
+    }
+  }
+}
 }

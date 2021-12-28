@@ -86,15 +86,8 @@ ArrayList<SesionDTO> sesions = sesionManager.getSesions();
 						</li>
 						<li><a href="index.jsp">Inicio</a></li>
 						<li><a href="userProfile">Perfil</a></li>
-						<li><a href="searchSpectacle">Espectáculos</a></li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-							</ul>
-						</li>
+						<li><a style="color:#DCF836" href="searchSpectacle">Espectáculos</a></li>
+						<li><a href="listSesions">Sesiones</a></li>
 						<li><a href="userReviews">Mis críticas</a></li>
 					</ul>
 					<form method="get" autocomplete="off" action="logout">
@@ -135,7 +128,7 @@ ArrayList<SesionDTO> sesions = sesionManager.getSesions();
 							<span></span>
 						</div>
 				    </div>
-				    <a href="../../index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="#"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -146,12 +139,11 @@ ArrayList<SesionDTO> sesions = sesionManager.getSesions();
 						<li><a href="index.jsp">Inicio</a></li>
 						<li><a href="userProfile">Perfil</a></li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							<a class="btn btn-default dropdown-toggle lv1" style="color:#DCF836" data-toggle="dropdown">
 							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir espectáculo</a></li>
-								<li><a href="homev2.html">Cancelar espectáculo</a></li>
+								<li><a href="addSpectacle">Añadir espectáculo</a></li>
 								<li><a href="searchSpectacle">Ver espectáculos</a></li>
 							</ul>
 						</li>
@@ -160,11 +152,8 @@ ArrayList<SesionDTO> sesions = sesionManager.getSesions();
 							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir sesión</a></li>
-								<li><a href="homev2.html">Cancelar sesión</a></li>
-								<li><a href="homev3.html">Modificar sesión</a></li>
-								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-								<li><a href="homev3.html">Vender entradas</a></li>
+								<li><a href="addSesion">Añadir sesión</a></li>
+								<li><a href="listSesions">Ver sesiones</a></li>
 							</ul>
 						</li>
 						<li><a href="userReviews">Mis críticas</a></li>

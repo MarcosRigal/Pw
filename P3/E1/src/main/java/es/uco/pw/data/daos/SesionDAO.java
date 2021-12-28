@@ -1,11 +1,14 @@
 package es.uco.pw.data.daos;
 
 import com.mysql.jdbc.ResultSet;
+
 import es.uco.pw.data.dtos.SesionDTO;
+
 import java.sql.*;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import es.uco.pw.business.managers.DataBaseManager;
 import es.uco.pw.business.sesions.Sesion;
 
@@ -178,4 +181,43 @@ public class SesionDAO {
     }
     return -1;
   }
+  
+  public void modifySesion(SesionDTO sesion) {
+  try {
+    DataBaseManager dataBaseManager = DataBaseManager.getInstance();
+    Connection connection = dataBaseManager.getConnected();
+    
+	  System.out.println("Dao");
+      System.out.println(sesion.getSesionId());
+      System.out.println(sesion.getSpectacleId());
+      System.out.println(sesion.getPlacesLeft());
+      System.out.println(sesion.getDate());
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      System.out.println(dataBaseManager.getGetUpdateSesionsQuery());
+    String query = MessageFormat.format(
+      dataBaseManager.getGetUpdateSesionsQuery(),
+      "'",
+      sesion.getPlacesLeft(),
+      "'",
+      "'",
+      formatter.format(sesion.getDate()),
+      "'",
+      "'",
+      sesion.getSesionId(),
+      "'"
+    );
+
+    System.out.println(query);
+    
+    Statement stmt = connection.createStatement();
+    stmt.executeUpdate(query);
+    if (stmt != null) {
+      stmt.close();
+    }
+  } catch (Exception e) {
+    System.err.println(e);
+    e.printStackTrace();
+  }
+}
+  
 }

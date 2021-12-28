@@ -10,27 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
-
-
-
-
-
-
-import es.uco.pw.business.factories.SpectacleFactory;
-import es.uco.pw.business.managers.SpectacleManager;
-import es.uco.pw.business.spectacles.Spectacle;
-import es.uco.pw.business.spectacles.Spectacle.category;
 import es.uco.pw.display.javabean.CustomerBean;
-import es.uco.pw.business.utilities.SystemFunctions;
 
-@WebServlet(name="addSpectacle", urlPatterns="/addSpectacle")
-public class addSpectacleServlet extends HttpServlet{
+@WebServlet(name="listSesions", urlPatterns="/listSesions")
+public class listSesionsServlet extends HttpServlet{
 
 	/** Serial ID */
 	private static final long serialVersionUID = -5782796844904182648L;
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -42,28 +29,33 @@ public class addSpectacleServlet extends HttpServlet{
 			dispatcher.include(request, response);
 		} else {
 			
-			SpectacleManager spectacleManager = SpectacleManager.getInstance();
+		      String day = request.getParameter("day");
+		      String month = request.getParameter("month");
+		      String year = request.getParameter("year");
+		      String category = request.getParameter("category");
 			
-			String title = request.getParameter("title");
-			String description = request.getParameter("description");
-			String type = request.getParameter("type");
-			int places = Integer.parseInt(request.getParameter("places"));
-			category category = SystemFunctions.convertStringToCategory(request.getParameter("category"));
 			
-			Spectacle spectacle = SpectacleFactory.getSpectacle(type);
-			
-			spectacle.setTitle(title);
-			spectacle.setCategory(category);
-			spectacle.setDescription(description);
-			spectacle.setPlaces(places);
-			
-		    spectacleManager.registerSpectacle(spectacle);
-				
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/listSpectacles.jsp");
+			if ((day.equals("") || month.equals("") || year.equals(""))&&(category.equals("obra")||category.equals("concierto")||category.equals("monologo"))) {
+				customerBean.setFilter("category");
+			    customerBean.setSearch(category);
+			    session.setAttribute("customerBean", customerBean);
+			}else if ((category.equals(""))&&(!day.equals("") && !month.equals("") && !year.equals(""))) {
+			    String search = day + "-" + month + "-" + year;
+			    customerBean.setFilter("date");
+			    customerBean.setSearch(search);
+			    session.setAttribute("customerBean", customerBean);
+			}else if ((!day.equals("") && !month.equals("") && !year.equals(""))&&(category.equals("obra")||category.equals("concierto")||category.equals("monologo"))) {
+			    String search = category+","+day + "-" + month + "-" + year;
+			    customerBean.setFilter("dateAndCategory");
+			    customerBean.setSearch(search);
+			    session.setAttribute("customerBean", customerBean);			
+			}
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/listSesions.jsp");
 			dispatcher.include(request, response);
 		}
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -74,9 +66,9 @@ public class addSpectacleServlet extends HttpServlet{
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/userNotFound.html");
 			dispatcher.include(request, response);
 		} else {
-				    
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/addSpectacle.jsp");
+					
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/listSesions.jsp");
 			dispatcher.include(request, response);
-		}
+		}		
 	}
 }

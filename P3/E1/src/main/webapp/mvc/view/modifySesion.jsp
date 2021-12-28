@@ -13,21 +13,6 @@ request.setCharacterEncoding("UTF-8");
 SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 SesionManager sesionManager = SesionManager.getInstance();
 SpectacleManager spectacleManager = SpectacleManager.getInstance();
-ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
-int simple=0;
-int multiple=0;
-int season=0;
-for(int i = 0; i<spectacles.size();i++){
-	if(spectacles.get(i).getClass().equals("Simple")){
-		simple++;
-	}
-	else if(spectacles.get(i).getClass().equals("Multiple")){
-		multiple++;
-	}
-	else{
-		season++;
-	}
-}
 ReviewManager reviewManager = ReviewManager.getInstance();
 UserManager userManager = UserManager.getInstance();
 %>
@@ -66,9 +51,12 @@ UserManager userManager = UserManager.getInstance();
     String nextPage = "";
     String mensajeNextPage = "";
     if(customerBean != null){
-		UserDTO user = userManager.findUser(customerBean.getEmailUser());
-		ArrayList<ReviewDTO> userReviews = reviewManager.searchUsersReview(user.getEmail());
+		String search = customerBean.getSearch();
+		String filter = customerBean.getFilter();
+		SesionDTO sesion = sesionManager.findSesion(Integer.parseInt(search));
     %>
+    <jsp:setProperty property="search" value="" name="customerBean"/>
+	<jsp:setProperty property="filter" value="" name="customerBean"/>
 </div>
 <!--end of preloading-->
 <!-- BEGIN | Header -->
@@ -96,7 +84,7 @@ UserManager userManager = UserManager.getInstance();
 							<a href="#page-top"></a>
 						</li>
 						<li><a href="index.jsp">Inicio</a></li>
-						<li><a href="userProfile">Perfil</a></li>
+						<li><a style="color:#DCF836" href="userProfile">Perfil</a></li>
 						<li><a href="searchSpectacle">Espectáculos</a></li>
 						<li><a href="listSesions">Sesiones</a></li>
 						<li><a href="userReviews">Mis críticas</a></li>
@@ -150,7 +138,7 @@ UserManager userManager = UserManager.getInstance();
 						<li><a href="index.jsp">Inicio</a></li>
 						<li><a href="userProfile">Perfil</a></li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" style="color:#DCF836" data-toggle="dropdown">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
 							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
@@ -200,7 +188,7 @@ UserManager userManager = UserManager.getInstance();
         <div class="row">
           <div class="col-md-12">
             <div class="hero-ct">
-              <h1>Crear un nuevo espectáculo</h1>
+              <h1>Modificar una sesión</h1>
             </div>
           </div>
         </div>
@@ -213,74 +201,212 @@ UserManager userManager = UserManager.getInstance();
             <div class="user-information">
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Total</h1></li>
+                  <li><h1 style="color:white">Próximas sesiones</h1></li>
                 </ul>
-                <p>Hay registrados: <%=spectacles.size()%></p>
               </div>
+              <%ArrayList<SesionDTO> sesions = sesionManager.getSesions();
+				SpectacleDTO spectacle = null;
+				ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
+				for (int i = 0; i < sesions.size() && i<5; i++) {
+					if(sesions.get(i).getPlacesLeft() > 0 && (sesions.get(i).getDate().compareTo(new java.util.Date()))>0){
+						for(int j = 0; j < spectacles.size(); j++){
+							if(spectacles.get(j).getSpectacleId()==sesions.get(i).getSpectacleId()){
+								spectacle = spectacles.get(j);
+								break;
+					}
+				}%>
               <div class="user-fav">
                 <ul>
-                  <li><h1 style="color:white">Únicos</h1></li>
+                  <li><h3><a href=<%="listSpectacleReviews?spectacleId="+spectacle.getSpectacleId()%>><%= spectacle.getTitle()%></a></h3></li>
                 </ul>
-                <p>Hay registrados: <%=simple%></p>
+					<p><%="Fecha: " + formatter5.format(sesions.get(i).getDate())%></p>
+					<p><%="Plazas libres: " + sesions.get(i).getPlacesLeft()%></p>
               </div>
-              <div class="user-fav">
-                <ul>
-                  <li><h1 style="color:white">Múltiples</h1></li>
-                </ul>
-                <p>Hay registrados: <%=multiple%></p>
-              </div>
-              <div class="user-fav">
-                <ul>
-                  <li><h1 style="color:white">Temporada</h1></li>
-                </ul>
-                <p>Hay registrados: <%=season%></p>
-              </div>
-              <div class="user-img">
-                <a href="searchSpectacle" class="redbtn">Ver espectáculos</a>
-              </div>
+			<%}}
+			spectacle = spectacleManager.findSpectacle(sesion.getSpectacleId());
+			%>
             </div>
           </div>
           <div class="col-md-9 col-sm-12 col-xs-12">
             <div class="form-style-1 user-pro">
-              <form method="post" action="addSpectacle" class="user">
-                <h4>Datos del espectáculo</h4>
+              <form method="post" action="modifySesion" class="user">
+                <h4>Datos de la sesión</h4>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Título</label>
-                    <input type="text" name="title" required="required"/>
+						<label>Hora</label>
+						<select name="hour">
+							  <option value="00">00</option>
+							  <option value="01">01</option>
+							  <option value="02">02</option>
+							  <option value="03">03</option>
+							  <option value="04">04</option>
+							  <option value="05">05</option>
+							  <option value="06">06</option>
+							  <option value="07">07</option>
+							  <option value="08">08</option>
+							  <option value="09">09</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							  <option value="14">14</option>
+							  <option value="15">15</option>
+							  <option value="16">16</option>
+							  <option value="17">17</option>
+							  <option value="18">18</option>
+							  <option value="19">19</option>
+							  <option value="20">20</option>
+							  <option value="21">21</option>
+							  <option value="22">22</option>
+							  <option value="23">23</option>
+						</select>
                   </div>
                   <div class="col-md-6 form-it">
-                    <label>Descripción</label>
-                    <input type="text" name="description" required="required"/>
+						<label>Minutos</label>
+						<select name="minutes">
+							  <option value="00">00</option>
+							  <option value="01">01</option>
+							  <option value="02">02</option>
+							  <option value="03">03</option>
+							  <option value="04">04</option>
+							  <option value="05">05</option>
+							  <option value="06">06</option>
+							  <option value="07">07</option>
+							  <option value="08">08</option>
+							  <option value="09">09</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							  <option value="14">14</option>
+							  <option value="15">15</option>
+							  <option value="16">16</option>
+							  <option value="17">17</option>
+							  <option value="18">18</option>
+							  <option value="19">19</option>
+							  <option value="20">20</option>
+							  <option value="21">21</option>
+							  <option value="22">22</option>
+							  <option value="23">23</option>
+							  <option value="24">24</option>
+							  <option value="25">25</option>
+							  <option value="26">26</option>
+							  <option value="27">27</option>
+							  <option value="28">28</option>
+							  <option value="29">29</option>
+							  <option value="30">30</option>
+							  <option value="31">31</option>
+							  <option value="32">32</option>
+							  <option value="33">33</option>
+							  <option value="34">34</option>
+							  <option value="35">35</option>
+							  <option value="36">36</option>
+							  <option value="37">37</option>
+							  <option value="38">38</option>
+							  <option value="39">39</option>
+							  <option value="40">40</option>
+							  <option value="41">41</option>
+							  <option value="42">42</option>
+							  <option value="43">43</option>
+							  <option value="44">44</option>
+							  <option value="45">45</option>
+							  <option value="46">46</option>
+							  <option value="47">47</option>
+							  <option value="48">48</option>
+							  <option value="49">49</option>
+							  <option value="50">50</option>
+							  <option value="51">51</option>
+							  <option value="52">52</option>
+							  <option value="53">53</option>
+							  <option value="54">54</option>
+							  <option value="55">55</option>
+							  <option value="56">56</option>
+							  <option value="57">57</option>
+							  <option value="58">58</option>
+							  <option value="59">59</option>
+						</select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Aforo</label>
-                    <input type="number" name="places" min="1" placeholder="1" required="required"/>
+						<label>Día</label>
+						<select name="day">
+							  <option value="01">01</option>
+							  <option value="02">02</option>
+							  <option value="03">03</option>
+							  <option value="04">04</option>
+							  <option value="05">05</option>
+							  <option value="06">06</option>
+							  <option value="07">07</option>
+							  <option value="08">08</option>
+							  <option value="09">09</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							  <option value="14">14</option>
+							  <option value="15">15</option>
+							  <option value="16">16</option>
+							  <option value="17">17</option>
+							  <option value="18">18</option>
+							  <option value="19">19</option>
+							  <option value="20">20</option>
+							  <option value="21">21</option>
+							  <option value="22">22</option>
+							  <option value="23">23</option>
+							  <option value="24">24</option>
+							  <option value="25">25</option>
+							  <option value="26">26</option>
+							  <option value="27">27</option>
+							  <option value="28">28</option>
+							  <option value="29">29</option>
+							  <option value="30">30</option>
+							  <option value="31">31</option>
+						</select>
                   </div>
 					<div class="col-md-6 form-it">
-						<label>Categoría</label>
-						<select name="category">
-							  <option value="obra">Obra</option>
-							  <option value="concierto">Concierto</option>
-							  <option value="monologo">Monólogo</option>
+						<label>Mes</label>
+						<select name="month">
+							  <option value="01">Enero</option>
+							  <option value="02">Febrero</option>
+							  <option value="03">Marzo</option>
+							  <option value="04">Abril</option>
+							  <option value="05">Mayo</option>
+							  <option value="06">Junio</option>
+							  <option value="07">Julio</option>
+							  <option value="08">Agosto</option>
+							  <option value="09">Septiembre</option>
+							  <option value="10">Octubre</option>
+							  <option value="11">Noviembre</option>
+							  <option value="12">Diciembre</option>
 						</select>
 					</div>
                 </div>
                 <div class="row">
 					<div class="col-md-6 form-it">
-						<label>Tipo</label>
-						<select name="type">
-							  <option value="Single">Único</option>
-							  <option value="Multiple">Múltiple</option>
-							  <option value="Season">Temporada</option>
+						<label>Año</label>
+						<select name="year">
+						<%for(int i=2021; i<3021; i++){ %>
+							  <option value=<%=i%>><%=i%></option>
+						<%}%>
 						</select>
 					</div>
-            	    <div class="col-md-6 form-it">
-        	          <hr>
-    	              <input class="submit" type="submit" value="Guardar" />
-	                </div>
+					<div class="col-md-6 form-it">
+                    	<label>Nº de plazas libres</label>
+                    	<input type="number" name="numberOfPlacesLeft" min="0" max=<%=spectacle.getPlaces()%> placeholder=<%=sesion.getPlacesLeft()%> required="required"/>
+                  	</div>
+                </div>
+                <div class="row">
+				<div class="col-md-6 form-it">
+				<label>Espectáculo</label>
+				<select name="sesionId">
+				<option value=<%= sesion.getSesionId() %>><%= spectacle.getTitle() %></option>
+				</select>
+                </div>
+                  <div class="col-md-6 form-it">
+                  	<hr>
+                    <input class="submit" type="submit" value="Guardar" />
+                  </div>
                 </div>
               </form>
             </div>

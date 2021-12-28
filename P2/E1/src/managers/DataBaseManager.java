@@ -88,6 +88,8 @@ public class DataBaseManager {
 
   private String getSesionsQuery;
 
+  private String getUpdateSesionsQuery;
+
   protected Connection connection = null;
 
   /**
@@ -155,6 +157,7 @@ public class DataBaseManager {
       registerSesionQuery = prop.getProperty("registerSesion");
       lastSpectacleQuery = prop.getProperty("getLastSpectacle");
       getSesionsQuery = prop.getProperty("getSesions");
+      getUpdateSesionsQuery = prop.getProperty("updateSesions");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -837,5 +840,25 @@ public class DataBaseManager {
 
   public void setGetSesionsQuery(String getSesionsQuery) {
     this.getSesionsQuery = getSesionsQuery;
+  }
+
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
+  public String getGetUpdateSesionsQuery() {
+    return getUpdateSesionsQuery;
+  }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
+
+  public void setGetUpdateSesionsQuery(String getUpdateSesionsQuery) {
+    this.getUpdateSesionsQuery = getUpdateSesionsQuery;
   }
 }

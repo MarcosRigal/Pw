@@ -75,14 +75,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 						<li><a style="color:#DCF836" href="index.jsp">Inicio</a></li>
 						<li><a href="userProfile">Perfil</a></li>
 						<li><a href="searchSpectacle">Espectáculos</a></li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-							</ul>
-						</li>
+						<li><a href="listSesions">Sesiones</a></li>
 						<li><a href="userReviews">Mis críticas</a></li>
 					</ul>
 					<form method="get" autocomplete="off" action="logout">
@@ -129,7 +122,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-9 col-sm-12 col-xs-12">
-				<h1 style="color:white">Próximas sesiones</h1>
+				<h1 style="color:white">Próximas sesiones con entradas</h1>
 				<br></br>
 				<%ArrayList<SesionDTO> sesions = sesionManager.getSesions();
 				SpectacleDTO spectacle = null;
@@ -139,10 +132,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 						if(sesions.get(i).getPlacesLeft() > 0 && (sesions.get(i).getDate().compareTo(new java.util.Date()))>0){
 						for(int j = 0; j < spectacles.size(); j++){
 							if(spectacles.get(j).getSpectacleId()==sesions.get(i).getSpectacleId()){
-								spectacle = spectacles.get(j);
-								break;
-							}
-						}%>
+								spectacle = spectacles.get(j);%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
@@ -153,7 +143,7 @@ SpectacleManager spectacleManager = SpectacleManager.getInstance();%>
 								</div>
 							</div>
 						</div>
-					<%}}%>
+					<%break;}}}}%>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-12 col-sm-12">

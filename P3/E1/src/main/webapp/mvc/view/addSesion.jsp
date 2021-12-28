@@ -83,14 +83,7 @@ UserManager userManager = UserManager.getInstance();
 						<li><a href="index.jsp">Inicio</a></li>
 						<li><a style="color:#DCF836" href="userProfile">Perfil</a></li>
 						<li><a href="searchSpectacle">Espectáculos</a></li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-							</ul>
-						</li>
+						<li><a href="listSesions">Sesiones</a></li>
 						<li><a href="userReviews">Mis críticas</a></li>
 					</ul>
 					<form method="get" autocomplete="off" action="logout">
@@ -131,7 +124,7 @@ UserManager userManager = UserManager.getInstance();
 							<span></span>
 						</div>
 				    </div>
-				    <a href="../../index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="#"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -140,27 +133,23 @@ UserManager userManager = UserManager.getInstance();
 							<a href="#page-top"></a>
 						</li>
 						<li><a href="index.jsp">Inicio</a></li>
-						<li><a style="color:#DCF836" href="userProfile">Perfil</a></li>
+						<li><a href="userProfile">Perfil</a></li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
 							Espect&aacute;culos <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir espectáculo</a></li>
-								<li><a href="homev2.html">Cancelar espectáculo</a></li>
+								<li><a href="addSpectacle">Añadir espectáculo</a></li>
 								<li><a href="searchSpectacle">Ver espectáculos</a></li>
 							</ul>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
+							<a class="btn btn-default dropdown-toggle lv1" style="color:#DCF836" data-toggle="dropdown">
 							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir sesión</a></li>
-								<li><a href="homev2.html">Cancelar sesión</a></li>
-								<li><a href="homev3.html">Modificar sesión</a></li>
-								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-								<li><a href="homev3.html">Vender entradas</a></li>
+								<li><a href="addSesion">Añadir sesión</a></li>
+								<li><a href="listSesions">Ver sesiones</a></li>
 							</ul>
 						</li>
 						<li><a href="userReviews">Mis críticas</a></li>
@@ -239,31 +228,149 @@ UserManager userManager = UserManager.getInstance();
                 <h4>Datos de la sesión</h4>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Hora (24h)</label>
-                    <input type="number" name="hour" min="0" max="24" placeholder="00" required="required"/>
+						<label>Hora</label>
+						<select name="hour">
+							  <option value="00">00</option>
+							  <option value="01">01</option>
+							  <option value="02">02</option>
+							  <option value="03">03</option>
+							  <option value="04">04</option>
+							  <option value="05">05</option>
+							  <option value="06">06</option>
+							  <option value="07">07</option>
+							  <option value="08">08</option>
+							  <option value="09">09</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							  <option value="14">14</option>
+							  <option value="15">15</option>
+							  <option value="16">16</option>
+							  <option value="17">17</option>
+							  <option value="18">18</option>
+							  <option value="19">19</option>
+							  <option value="20">20</option>
+							  <option value="21">21</option>
+							  <option value="22">22</option>
+							  <option value="23">23</option>
+						</select>
                   </div>
                   <div class="col-md-6 form-it">
-                    <label>Minutos</label>
-                    <input type="number" name="minutes" min="0" max="60" placeholder="00"  required="required"/>
+						<label>Minutos</label>
+						<select name="minutes">
+							  <option value="00">00</option>
+							  <option value="01">01</option>
+							  <option value="02">02</option>
+							  <option value="03">03</option>
+							  <option value="04">04</option>
+							  <option value="05">05</option>
+							  <option value="06">06</option>
+							  <option value="07">07</option>
+							  <option value="08">08</option>
+							  <option value="09">09</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							  <option value="14">14</option>
+							  <option value="15">15</option>
+							  <option value="16">16</option>
+							  <option value="17">17</option>
+							  <option value="18">18</option>
+							  <option value="19">19</option>
+							  <option value="20">20</option>
+							  <option value="21">21</option>
+							  <option value="22">22</option>
+							  <option value="23">23</option>
+							  <option value="24">24</option>
+							  <option value="25">25</option>
+							  <option value="26">26</option>
+							  <option value="27">27</option>
+							  <option value="28">28</option>
+							  <option value="29">29</option>
+							  <option value="30">30</option>
+							  <option value="31">31</option>
+							  <option value="32">32</option>
+							  <option value="33">33</option>
+							  <option value="34">34</option>
+							  <option value="35">35</option>
+							  <option value="36">36</option>
+							  <option value="37">37</option>
+							  <option value="38">38</option>
+							  <option value="39">39</option>
+							  <option value="40">40</option>
+							  <option value="41">41</option>
+							  <option value="42">42</option>
+							  <option value="43">43</option>
+							  <option value="44">44</option>
+							  <option value="45">45</option>
+							  <option value="46">46</option>
+							  <option value="47">47</option>
+							  <option value="48">48</option>
+							  <option value="49">49</option>
+							  <option value="50">50</option>
+							  <option value="51">51</option>
+							  <option value="52">52</option>
+							  <option value="53">53</option>
+							  <option value="54">54</option>
+							  <option value="55">55</option>
+							  <option value="56">56</option>
+							  <option value="57">57</option>
+							  <option value="58">58</option>
+							  <option value="59">59</option>
+						</select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Día</label>
-                    <input type="number" name="day" min="1" max="31" placeholder="1" required="required"/>
+						<label>Día</label>
+						<select name="day">
+							  <option value="01">01</option>
+							  <option value="02">02</option>
+							  <option value="03">03</option>
+							  <option value="04">04</option>
+							  <option value="05">05</option>
+							  <option value="06">06</option>
+							  <option value="07">07</option>
+							  <option value="08">08</option>
+							  <option value="09">09</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							  <option value="14">14</option>
+							  <option value="15">15</option>
+							  <option value="16">16</option>
+							  <option value="17">17</option>
+							  <option value="18">18</option>
+							  <option value="19">19</option>
+							  <option value="20">20</option>
+							  <option value="21">21</option>
+							  <option value="22">22</option>
+							  <option value="23">23</option>
+							  <option value="24">24</option>
+							  <option value="25">25</option>
+							  <option value="26">26</option>
+							  <option value="27">27</option>
+							  <option value="28">28</option>
+							  <option value="29">29</option>
+							  <option value="30">30</option>
+							  <option value="31">31</option>
+						</select>
                   </div>
 					<div class="col-md-6 form-it">
 						<label>Mes</label>
 						<select name="month">
-							  <option value="1">Enero</option>
-							  <option value="2">Febrero</option>
-							  <option value="3">Marzo</option>
-							  <option value="4">Abril</option>
-							  <option value="5">Mayo</option>
-							  <option value="6">Junio</option>
-							  <option value="7">Julio</option>
-							  <option value="8">Agosto</option>
-							  <option value="9">Septiembre</option>
+							  <option value="01">Enero</option>
+							  <option value="02">Febrero</option>
+							  <option value="03">Marzo</option>
+							  <option value="04">Abril</option>
+							  <option value="05">Mayo</option>
+							  <option value="06">Junio</option>
+							  <option value="07">Julio</option>
+							  <option value="08">Agosto</option>
+							  <option value="09">Septiembre</option>
 							  <option value="10">Octubre</option>
 							  <option value="11">Noviembre</option>
 							  <option value="12">Diciembre</option>
@@ -274,13 +381,27 @@ UserManager userManager = UserManager.getInstance();
 					<div class="col-md-6 form-it">
 						<label>Año</label>
 						<select name="year">
-						<%for(int j=2021; j<3021; j++){%>
-							<option value=<%=j%>><%=j%></option>
+						<%for(int i=2021; i<3021; i++){ %>
+							  <option value=<%=i%>><%=i%></option>
 						<%}%>
 						</select>
 					</div>
+					<div class="col-md-6 form-it">
+                    	<label>Nº de sesiones (solo espectáculos de temporada)</label>
+                    	<input type="number" name="numberOfSesions" min="1" placeholder="1"/>
+                  	</div>
+                </div>
+                <div class="row">
+				<div class="col-md-6 form-it">
+				<label>Espectáculo</label>
+				<select name="spectacleId">
+				<%for(int i = 0; i<spectacles.size(); i++){%>
+				<option value=<%= spectacles.get(i).getSpectacleId() %>><%= spectacles.get(i).getTitle() %></option>
+				<%} %>
+				</select>
+                </div>
                   <div class="col-md-6 form-it">
-                  <hr>
+                  	<hr>
                     <input class="submit" type="submit" value="Guardar" />
                   </div>
                 </div>

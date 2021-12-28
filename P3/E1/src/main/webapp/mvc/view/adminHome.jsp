@@ -59,7 +59,7 @@ UserManager userManager = UserManager.getInstance();%>
 							<span></span>
 						</div>
 				    </div>
-				    <a href="../../index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+				    <a href="#"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -75,7 +75,6 @@ UserManager userManager = UserManager.getInstance();%>
 							</a>
 							<ul class="dropdown-menu level1">
 								<li><a href="addSpectacle">Añadir espectáculo</a></li>
-								<li><a href="homev2.html">Cancelar espectáculo</a></li>
 								<li><a href="searchSpectacle">Ver espectáculos</a></li>
 							</ul>
 						</li>
@@ -84,11 +83,8 @@ UserManager userManager = UserManager.getInstance();%>
 							Sesiones <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="index-2.html">Añadir sesión</a></li>
-								<li><a href="homev2.html">Cancelar sesión</a></li>
-								<li><a href="homev3.html">Modificar sesión</a></li>
-								<li><a href="homev3.html">Ver entradas disponibles</a></li>
-								<li><a href="homev3.html">Vender entradas</a></li>
+								<li><a href="addSesion">Añadir sesión</a></li>
+								<li><a href="listSesions">Ver sesiones</a></li>
 							</ul>
 						</li>
 						<li><a href="userReviews">Mis críticas</a></li>

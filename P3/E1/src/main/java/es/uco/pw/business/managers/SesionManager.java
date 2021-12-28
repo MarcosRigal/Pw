@@ -1,10 +1,11 @@
 package es.uco.pw.business.managers;
 
+import es.uco.pw.business.sesions.Sesion;
 import es.uco.pw.data.daos.SesionDAO;
 import es.uco.pw.data.dtos.SesionDTO;
+
 import java.util.ArrayList;
 import java.util.Date;
-import es.uco.pw.business.sesions.Sesion;
 
 /**
  * Clase que implementa el patrón de diseño
@@ -199,5 +200,16 @@ public class SesionManager {
       }
     }
     return spectacleSesions;
+  }
+
+  public boolean modifySesion(SesionDTO sesion) {
+	  System.out.println("Manager");
+      System.out.println(sesion.getSesionId());
+      System.out.println(sesion.getSpectacleId());
+      System.out.println(sesion.getPlacesLeft());
+      System.out.println(sesion.getDate());
+    SesionDAO sesionDAO = new SesionDAO();
+    sesionDAO.modifySesion(sesion);
+    return true;
   }
 }

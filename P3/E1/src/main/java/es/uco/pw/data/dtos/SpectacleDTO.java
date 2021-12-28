@@ -16,6 +16,7 @@ public class SpectacleDTO {
   private int spectacleId;
   private String title;
   private String description;
+  private String type;
   private Spectacle.category category;
   private int places;
 
@@ -39,6 +40,7 @@ public class SpectacleDTO {
   ) {
     this.spectacleId = spectacleId2;
     this.title = title2;
+    this.type = type;
     this.description = description2;
     this.category = SystemFunctions.convertStringToCategory(category2);
     this.places = places2;
@@ -101,7 +103,7 @@ public class SpectacleDTO {
    */
 
   public String getType() {
-    return "Multiple";
+    return type;
   }
 
   /**
@@ -174,4 +176,8 @@ public class SpectacleDTO {
       this.places;
     return spectacleInfo;
   }
+
+public void setType(String type) {
+	this.type = type;
+}
 }

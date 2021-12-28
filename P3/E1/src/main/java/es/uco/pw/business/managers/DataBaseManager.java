@@ -87,6 +87,8 @@ public class DataBaseManager {
   private String lastSpectacleQuery;
 
   private String getSesionsQuery;
+  
+  private String getUpdateSesionsQuery;
 
   protected Connection connection = null;
 
@@ -144,6 +146,7 @@ public class DataBaseManager {
       registerSesionQuery = prop.getProperty("registerSesion");
       lastSpectacleQuery = prop.getProperty("getLastSpectacle");
       getSesionsQuery = prop.getProperty("getSesions");
+      getUpdateSesionsQuery = prop.getProperty("updateSesions");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -853,5 +856,13 @@ public InputStream getProperties() {
 
 public void setProperties(InputStream properties) {
 	this.properties = properties;
+}
+
+public String getGetUpdateSesionsQuery() {
+	return getUpdateSesionsQuery;
+}
+
+public void setGetUpdateSesionsQuery(String getUpdateSesionsQuery) {
+	this.getUpdateSesionsQuery = getUpdateSesionsQuery;
 }
 }
