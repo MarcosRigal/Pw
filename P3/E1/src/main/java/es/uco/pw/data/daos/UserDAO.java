@@ -1,16 +1,13 @@
 package es.uco.pw.data.daos;
 
 import com.mysql.jdbc.ResultSet;
-
+import es.uco.pw.business.managers.DataBaseManager;
 import es.uco.pw.data.dtos.UserDTO;
-
 import java.sql.*;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import es.uco.pw.business.managers.DataBaseManager;
 
 /**
  * Clase DAO para extraer usuarios de la BDD
@@ -35,7 +32,7 @@ public class UserDAO {
       Connection connection = dataBaseManager.getConnected();
 
       String query = dataBaseManager.getGetUserQuery();
-      
+
       Statement stmt = connection.createStatement();
       ResultSet rs = (ResultSet) stmt.executeQuery(query);
 

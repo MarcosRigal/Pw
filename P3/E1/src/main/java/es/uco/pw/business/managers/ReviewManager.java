@@ -1,11 +1,9 @@
 package es.uco.pw.business.managers;
 
+import es.uco.pw.business.reviews.Review;
 import es.uco.pw.data.daos.ReviewDAO;
 import es.uco.pw.data.dtos.ReviewDTO;
-
 import java.util.ArrayList;
-
-import es.uco.pw.business.reviews.Review;
 
 /**
  * Clase que implementa el patrón de diseño
@@ -63,13 +61,12 @@ public class ReviewManager {
    */
 
   public Boolean deleteReview(int deleteReviewId, String email, String type) {
-
-    if(existsReview(deleteReviewId)){
-    	ReviewDTO review = findReview(deleteReviewId);
-    	if((review.getEmail().equals(email)) || (type.equals("Admin"))){
-    	    ReviewDAO reviewDAO = new ReviewDAO();
-    	    return reviewDAO.deleteReview(deleteReviewId);
-    	}
+    if (existsReview(deleteReviewId)) {
+      ReviewDTO review = findReview(deleteReviewId);
+      if ((review.getEmail().equals(email)) || (type.equals("Admin"))) {
+        ReviewDAO reviewDAO = new ReviewDAO();
+        return reviewDAO.deleteReview(deleteReviewId);
+      }
     }
     return false;
   }
@@ -83,19 +80,19 @@ public class ReviewManager {
 
   public boolean voteReview(int choice, int voteReviewId, String email) {
     ReviewDAO reviewDAO = new ReviewDAO();
-    if(existsReview(voteReviewId)){
-        if(reviewDAO.canUserVote(email, voteReviewId)){
-        	ReviewDTO review =  findReview(voteReviewId);
-        	if (choice == 1) {
-                reviewDAO.like(email, review);
-                return true;
-        	}
-              if (choice == 2) {
-                reviewDAO.dislike(email, review);
-                return true;
-              }
+    if (existsReview(voteReviewId)) {
+      if (reviewDAO.canUserVote(email, voteReviewId)) {
+        ReviewDTO review = findReview(voteReviewId);
+        if (choice == 1) {
+          reviewDAO.like(email, review);
+          return true;
         }
-        return false;
+        if (choice == 2) {
+          reviewDAO.dislike(email, review);
+          return true;
+        }
+      }
+      return false;
     }
     return false;
   }
@@ -138,10 +135,13 @@ public class ReviewManager {
    */
 
   public boolean registerReview(Review review) {
-	SpectacleManager spectacleManager = SpectacleManager.getInstance();
-	if ((spectacleManager.existsSpectacle(review.getSpectacleId())==false) || (review.getScore() < 0 || review.getScore() > 5)) {
-		return false;
-	}
+    SpectacleManager spectacleManager = SpectacleManager.getInstance();
+    if (
+      (spectacleManager.existsSpectacle(review.getSpectacleId()) == false) ||
+      (review.getScore() < 0 || review.getScore() > 5)
+    ) {
+      return false;
+    }
     ReviewDAO reviewDAO = new ReviewDAO();
     return reviewDAO.registerReview(review);
   }
@@ -173,7 +173,7 @@ public class ReviewManager {
     ReviewDAO reviews = new ReviewDAO();
     return reviews.getReviewsBySpectacleTitle(title);
   }
-  
+
   /**
    * Comprueba que exista una review
    * @param int Identificador de la review
@@ -181,7 +181,7 @@ public class ReviewManager {
    */
 
   public boolean existsReview(int reviewId) {
-	ArrayList<ReviewDTO> allReviews = getReviews();
+    ArrayList<ReviewDTO> allReviews = getReviews();
     for (int i = 0; i < allReviews.size(); i++) {
       if (allReviews.get(i).getReviewId() == reviewId) {
         return true;
@@ -198,7 +198,7 @@ public class ReviewManager {
    */
 
   public ReviewDTO findReview(int reviewId) {
-	ArrayList<ReviewDTO> allReviews = getReviews();
+    ArrayList<ReviewDTO> allReviews = getReviews();
     for (int i = 0; i < allReviews.size(); i++) {
       if (allReviews.get(i).getReviewId() == reviewId) {
         return allReviews.get(i);

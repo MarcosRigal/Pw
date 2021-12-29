@@ -1,15 +1,12 @@
 package es.uco.pw.data.daos;
 
 import com.mysql.jdbc.ResultSet;
-
+import es.uco.pw.business.managers.DataBaseManager;
+import es.uco.pw.business.reviews.Review;
 import es.uco.pw.data.dtos.ReviewDTO;
-
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-
-import es.uco.pw.business.managers.DataBaseManager;
-import es.uco.pw.business.reviews.Review;
 
 /**
  * Clase DAO para extraer las reviews de la BDD

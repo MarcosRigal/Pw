@@ -14,7 +14,7 @@ public class CustomerBean implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
 
   private String emailUser = "";
-  private String typeUser = "";  
+  private String typeUser = "";
   private String nickUser = "";
   private String filter = "";
   private String search = "";
@@ -59,27 +59,27 @@ public class CustomerBean implements java.io.Serializable {
     this.typeUser = typeUser;
   }
 
-public String getNickUser() {
-	return nickUser;
-}
+  public String getNickUser() {
+    return nickUser;
+  }
 
-public void setNickUser(String nickUser) {
-	this.nickUser = nickUser;
-}
+  public void setNickUser(String nickUser) {
+    this.nickUser = nickUser;
+  }
 
-public String getFilter() {
-	return filter;
-}
+  public String getFilter() {
+    return filter;
+  }
 
-public void setFilter(String filter) {
-	this.filter = filter;
-}
+  public void setFilter(String filter) {
+    this.filter = filter;
+  }
 
-public String getSearch() {
-	return search;
-}
+  public String getSearch() {
+    return search;
+  }
 
-public void setSearch(String search) {
-	this.search = search;
-}
+  public void setSearch(String search) {
+    this.search = search;
+  }
 }

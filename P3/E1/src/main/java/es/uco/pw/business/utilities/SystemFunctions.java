@@ -1,19 +1,7 @@
 package es.uco.pw.business.utilities;
 
-import es.uco.pw.data.daos.SesionDAO;
-import es.uco.pw.data.dtos.ReviewDTO;
-import es.uco.pw.data.dtos.SesionDTO;
-import es.uco.pw.data.dtos.SpectacleDTO;
-import es.uco.pw.data.dtos.UserDTO;
 import es.uco.pw.business.factories.SpectacleFactory;
 import es.uco.pw.business.factories.UserFactory;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Scanner;
-
 import es.uco.pw.business.managers.ReviewManager;
 import es.uco.pw.business.managers.SesionManager;
 import es.uco.pw.business.managers.SpectacleManager;
@@ -23,6 +11,16 @@ import es.uco.pw.business.sesions.Sesion;
 import es.uco.pw.business.spectacles.Spectacle;
 import es.uco.pw.business.spectacles.Spectacle.category;
 import es.uco.pw.business.users.User;
+import es.uco.pw.data.daos.SesionDAO;
+import es.uco.pw.data.dtos.ReviewDTO;
+import es.uco.pw.data.dtos.SesionDTO;
+import es.uco.pw.data.dtos.SpectacleDTO;
+import es.uco.pw.data.dtos.UserDTO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Scanner;
 
 public final class SystemFunctions {
 
@@ -821,9 +819,7 @@ public final class SystemFunctions {
    * @return category Categoría elegida por el usuario
    */
 
-  public static Spectacle.category convertStringToCategory(
-    String categoria
-  ) {
+  public static Spectacle.category convertStringToCategory(String categoria) {
     if (categoria.equalsIgnoreCase("obra")) {
       return category.obra;
     }

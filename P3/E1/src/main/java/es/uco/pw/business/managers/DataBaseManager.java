@@ -87,7 +87,7 @@ public class DataBaseManager {
   private String lastSpectacleQuery;
 
   private String getSesionsQuery;
-  
+
   private String getUpdateSesionsQuery;
 
   protected Connection connection = null;
@@ -98,15 +98,15 @@ public class DataBaseManager {
    */
 
   private DataBaseManager(
-		    String url,
-		    String user,
-		    String password,
-		    InputStream properties
-		  ) {
-		    this.url = url;
-		    this.user = user;
-		    this.password = password;
-		    this.setProperties(properties);
+    String url,
+    String user,
+    String password,
+    InputStream properties
+  ) {
+    this.url = url;
+    this.user = user;
+    this.password = password;
+    this.setProperties(properties);
     Properties prop = new Properties();
     try {
       prop.load(properties);
@@ -162,16 +162,16 @@ public class DataBaseManager {
    */
 
   public static DataBaseManager getInstance(
-		    String url,
-		    String user,
-		    String password,
-		    InputStream properties
-		  ) {
-		    if (instance == null) {
-		      instance = new DataBaseManager(url, user, password, properties);
-		    }
-		    return instance;
-		  }
+    String url,
+    String user,
+    String password,
+    InputStream properties
+  ) {
+    if (instance == null) {
+      instance = new DataBaseManager(url, user, password, properties);
+    }
+    return instance;
+  }
 
   /**
    * Método público encargado de devolver
@@ -850,19 +850,19 @@ public class DataBaseManager {
     this.getSesionsQuery = getSesionsQuery;
   }
 
-public InputStream getProperties() {
-	return properties;
-}
+  public InputStream getProperties() {
+    return properties;
+  }
 
-public void setProperties(InputStream properties) {
-	this.properties = properties;
-}
+  public void setProperties(InputStream properties) {
+    this.properties = properties;
+  }
 
-public String getGetUpdateSesionsQuery() {
-	return getUpdateSesionsQuery;
-}
+  public String getGetUpdateSesionsQuery() {
+    return getUpdateSesionsQuery;
+  }
 
-public void setGetUpdateSesionsQuery(String getUpdateSesionsQuery) {
-	this.getUpdateSesionsQuery = getUpdateSesionsQuery;
-}
+  public void setGetUpdateSesionsQuery(String getUpdateSesionsQuery) {
+    this.getUpdateSesionsQuery = getUpdateSesionsQuery;
+  }
 }

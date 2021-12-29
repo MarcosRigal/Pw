@@ -3,9 +3,7 @@ package es.uco.pw.servlet;
 import es.uco.pw.business.managers.UserManager;
 import es.uco.pw.data.dtos.UserDTO;
 import es.uco.pw.display.javabean.CustomerBean;
-
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,13 +49,14 @@ public class modifyUserServlet extends HttpServlet {
       user.setNick(nickUser);
       user.setPassword(passwordUser);
       userManager.modifyUser(user);
-      
+
       customerBean.setNickUser(user.getNick());
 
       session.setAttribute("customerBean", customerBean);
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/mvc/view/userProfile.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher(
+        "/mvc/view/userProfile.jsp"
+      );
       dispatcher.include(request, response);
-      
     }
   }
 }

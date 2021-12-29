@@ -1,12 +1,10 @@
 package es.uco.pw.business.managers;
 
-import es.uco.pw.data.daos.SpectacleDAO;
-import es.uco.pw.data.dtos.SpectacleDTO;
-
-import java.util.ArrayList;
-
 import es.uco.pw.business.spectacles.Spectacle;
 import es.uco.pw.business.spectacles.Spectacle.category;
+import es.uco.pw.data.daos.SpectacleDAO;
+import es.uco.pw.data.dtos.SpectacleDTO;
+import java.util.ArrayList;
 
 /**
  * Clase que implementa el patrón de diseño
@@ -153,7 +151,7 @@ public class SpectacleManager {
     return null;
   }
 
-    /**
+  /**
    * Comprueba si existe un espectáculo dado su identificador
    * @param int Identificador del espectáculo que se desea buscar
    * @return none

@@ -1,11 +1,11 @@
 package es.uco.pw.business.managers;
 
+import es.uco.pw.business.users.User;
 import es.uco.pw.data.daos.UserDAO;
 import es.uco.pw.data.dtos.UserDTO;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import es.uco.pw.business.users.User;
 
 /**
  * Clase que implementa el patrón de diseño
