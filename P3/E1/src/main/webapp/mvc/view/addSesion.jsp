@@ -67,7 +67,11 @@
 	<!-- BEGIN | Header -->
 	<%
 		if (customerBean.getTypeUser().equals("Spectator")) {
+				nextPage = "/mvc/view/userHome.jsp";
 	%>
+	<jsp:forward page="<%=nextPage%>">
+		<jsp:param value="<%=mensajeNextPage%>" name="message" />
+	</jsp:forward>
 	<!-- BEGIN | Header -->
 	<header class="ht-header">
 		<div class="container">

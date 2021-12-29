@@ -34,7 +34,11 @@ public class deleteSesionServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-    } else {
+	} else if (customerBean.getTypeUser().equals("Spectator")) {
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/mvc/view/userHome.jsp");
+		dispatcher.include(request, response);
+	} else {
       SesionManager sesionManager = SesionManager.getInstance();
       sesionManager.deleteSesion(
         Integer.parseInt(request.getParameter("sesionId"))

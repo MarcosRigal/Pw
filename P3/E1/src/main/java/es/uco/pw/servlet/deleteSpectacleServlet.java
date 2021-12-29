@@ -34,7 +34,11 @@ public class deleteSpectacleServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-    } else {
+	} else if (customerBean.getTypeUser().equals("Spectator")) {
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/mvc/view/userHome.jsp");
+		dispatcher.include(request, response);
+	} else {
       SpectacleManager spectacleManager = SpectacleManager.getInstance();
       spectacleManager.deleteSpectacle(
         Integer.parseInt(request.getParameter("spectacleId"))

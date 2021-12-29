@@ -38,7 +38,11 @@ public class addSpectacleServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-    } else {
+	} else if (customerBean.getTypeUser().equals("Spectator")) {
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/mvc/view/userHome.jsp");
+		dispatcher.include(request, response);
+	} else {
       SpectacleManager spectacleManager = SpectacleManager.getInstance();
 
       String title = request.getParameter("title");
@@ -82,7 +86,11 @@ public class addSpectacleServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-    } else {
+	} else if (customerBean.getTypeUser().equals("Spectator")) {
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/mvc/view/userHome.jsp");
+		dispatcher.include(request, response);
+	} else {
       RequestDispatcher dispatcher = request.getRequestDispatcher(
         "/mvc/view/addSpectacle.jsp"
       );
