@@ -215,133 +215,213 @@
 					if (filter.equals("category")) {
 				%>
 				<div class="col-md-9 col-sm-12 col-xs-12">
-					<h1 style="color: white">Filtrando por sesiones por categoría: <%=search%></h1>
+					<h1 style="color: white">
+						Filtrando por sesiones por categoría:
+						<%=search%></h1>
 					<h1 style="color: white">Sesiones con entradas disponibles</h1>
 					<br></br>
 					<%
 						ArrayList<SesionDTO> sesions = sesionManager.getSesions();
-						ArrayList<SpectacleDTO> spectacles = spectacleManager.searchByCategory(SystemFunctions.convertStringToCategory(search));
-						SpectacleDTO spectacle = null;
+								ArrayList<SpectacleDTO> spectacles = spectacleManager
+										.searchByCategory(SystemFunctions
+												.convertStringToCategory(search));
+								SpectacleDTO spectacle = null;
 					%>
 					<div class="row">
 						<%
 							for (int i = 0; i < sesions.size(); i++) {
 										if (sesions.get(i).getPlacesLeft() > 0) {
 											for (int j = 0; j < spectacles.size(); j++) {
-												if (spectacles.get(j).getSpectacleId() == sesions.get(i).getSpectacleId()) {
+												if (spectacles.get(j).getSpectacleId() == sesions
+														.get(i).getSpectacleId()) {
 													spectacle = spectacles.get(j);
 						%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
 									<h2>
-										<a href=<%="listSpectacleReviews?spectacleId=" + spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
+										<a
+											href=<%="listSpectacleReviews?spectacleId="
+											+ spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
 									</h2>
 									<p />
-									<p><%="Fecha: "	+ formatter5.format(sesions.get(i).getDate())%></p>
+									<p><%="Fecha: "
+											+ formatter5.format(sesions.get(i)
+													.getDate())%></p>
 									<p><%="Categoría : "
-									+ spectacle.getCategory()%></p>
-									<p><%="Plazas libres: "	+ sesions.get(i).getPlacesLeft()%></p>
-									<%if(customerBean.getTypeUser().equals("Admin")){ %>
+											+ spectacle.getCategory()%></p>
+									<p><%="Plazas libres: "
+											+ sesions.get(i).getPlacesLeft()%></p>
+									<%
+										if (customerBean.getTypeUser().equals(
+																		"Admin")) {
+									%>
 									<hr>
-									<a class="redbtn" href=<%="modifySesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none; background-color: orange" type="submit">Modificar</a>
-									&nbsp;
-                    				<a class="redbtn" href=<%="deleteSesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none" type="submit">Borrar</a>
-                    				<br></br>
-                    				<%}%>
+									<a class="redbtn"
+										href=<%="modifySesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none; background-color: orange" type="submit">Modificar</a>
+									&nbsp; <a class="redbtn"
+										href=<%="deleteSesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none" type="submit">Borrar</a> <br></br>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
-						<%break;}}}}%>
+						<%
+							break;
+												}
+											}
+										}
+									}
+						%>
 					</div>
 				</div>
 				<%
 					} else if (filter.equals("date")) {
 				%>
 				<div class="col-md-9 col-sm-12 col-xs-12">
-					<h1 style="color: white">Filtrando por sesiones por fecha: <%=search%></h1>
+					<h1 style="color: white">
+						Filtrando por sesiones por fecha:
+						<%=search%></h1>
 					<h1 style="color: white">Sesiones con entradas disponibles</h1>
 					<br></br>
 					<%
 						ArrayList<SesionDTO> sesions = sesionManager.getSesions();
-						ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
-						SpectacleDTO spectacle = null;
+								ArrayList<SpectacleDTO> spectacles = spectacleManager
+										.getSpectacles();
+								SpectacleDTO spectacle = null;
 					%>
 					<div class="row">
 						<%
 							for (int i = 0; i < sesions.size(); i++) {
-										if ((sesions.get(i).getPlacesLeft() > 0)&&(formatter6.format(sesions.get(i).getDate()).equals(search))) {
+										if ((sesions.get(i).getPlacesLeft() > 0)
+												&& (formatter6.format(sesions.get(i).getDate())
+														.equals(search))) {
 											for (int j = 0; j < spectacles.size(); j++) {
-												if (spectacles.get(j).getSpectacleId() == sesions.get(i).getSpectacleId()) {
+												if (spectacles.get(j).getSpectacleId() == sesions
+														.get(i).getSpectacleId()) {
 													spectacle = spectacles.get(j);
 						%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
 									<h2>
-										<a href=<%="listSpectacleReviews?spectacleId=" + spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
+										<a
+											href=<%="listSpectacleReviews?spectacleId="
+											+ spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
 									</h2>
 									<p />
-									<p><%="Fecha: "	+ formatter5.format(sesions.get(i).getDate())%></p>
+									<p><%="Fecha: "
+											+ formatter5.format(sesions.get(i)
+													.getDate())%></p>
 									<p><%="Categoría : "
-									+ spectacle.getCategory()%></p>
-									<p><%="Plazas libres: "	+ sesions.get(i).getPlacesLeft()%></p>
-									<%if(customerBean.getTypeUser().equals("Admin")){ %>
+											+ spectacle.getCategory()%></p>
+									<p><%="Plazas libres: "
+											+ sesions.get(i).getPlacesLeft()%></p>
+									<%
+										if (customerBean.getTypeUser().equals(
+																		"Admin")) {
+									%>
 									<hr>
-									<a class="redbtn" href=<%="modifySesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none; background-color: orange" type="submit">Modificar</a>
-									&nbsp;
-                    				<a class="redbtn" href=<%="deleteSesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none" type="submit">Borrar</a>
-                    				<br></br>
-                    				<%}%>
+									<a class="redbtn"
+										href=<%="modifySesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none; background-color: orange" type="submit">Modificar</a>
+									&nbsp; <a class="redbtn"
+										href=<%="deleteSesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none" type="submit">Borrar</a> <br></br>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
-						<%break;}}}}%>
+						<%
+							break;
+												}
+											}
+										}
+									}
+						%>
 					</div>
 				</div>
 				<%
 					} else if (filter.equals("dateAndCategory")) {
-					ArrayList<SesionDTO> sesions = sesionManager.getSesions();
-					String[] parts = search.split(",");
-					String category = parts[0]; // 123
-					String date = parts[1]; // 654321
-					ArrayList<SpectacleDTO> spectacles = spectacleManager.searchByCategory(SystemFunctions.convertStringToCategory(category));
-					SpectacleDTO spectacle = null;
+							ArrayList<SesionDTO> sesions = sesionManager.getSesions();
+							String[] parts = search.split(",");
+							String category = parts[0]; // 123
+							String date = parts[1]; // 654321
+							ArrayList<SpectacleDTO> spectacles = spectacleManager
+									.searchByCategory(SystemFunctions
+											.convertStringToCategory(category));
+							SpectacleDTO spectacle = null;
 				%>
 				<div class="col-md-9 col-sm-12 col-xs-12">
-					<h1 style="color: white">Filtrando por sesiones por categoría: <%=category%></h1>
-					<h1 style="color: white">Sesiones con entradas disponibles para: <%=date%></h1>
+					<h1 style="color: white">
+						Filtrando por sesiones por categoría:
+						<%=category%></h1>
+					<h1 style="color: white">
+						Sesiones con entradas disponibles para:
+						<%=date%></h1>
 					<br></br>
 					<div class="row">
 						<%
 							for (int i = 0; i < sesions.size(); i++) {
-										if ((sesions.get(i).getPlacesLeft() > 0)&&(formatter6.format(sesions.get(i).getDate()).equals(date))) {
+										if ((sesions.get(i).getPlacesLeft() > 0)
+												&& (formatter6.format(sesions.get(i).getDate())
+														.equals(date))) {
 											for (int j = 0; j < spectacles.size(); j++) {
-												if (spectacles.get(j).getSpectacleId() == sesions.get(i).getSpectacleId()) {
+												if (spectacles.get(j).getSpectacleId() == sesions
+														.get(i).getSpectacleId()) {
 													spectacle = spectacles.get(j);
 						%>
 						<div class="col-md-12">
 							<div class="ceb-item-style-2">
 								<div class="ceb-infor">
 									<h2>
-										<a href=<%="listSpectacleReviews?spectacleId=" + spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
+										<a
+											href=<%="listSpectacleReviews?spectacleId="
+											+ spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
 									</h2>
 									<p />
-									<p><%="Fecha: "	+ formatter5.format(sesions.get(i).getDate())%></p>
+									<p><%="Fecha: "
+											+ formatter5.format(sesions.get(i)
+													.getDate())%></p>
 									<p><%="Categoría : "
-									+ spectacle.getCategory()%></p>
-									<p><%="Plazas libres: "	+ sesions.get(i).getPlacesLeft()%></p>
-									<%if(customerBean.getTypeUser().equals("Admin")){ %>
+											+ spectacle.getCategory()%></p>
+									<p><%="Plazas libres: "
+											+ sesions.get(i).getPlacesLeft()%></p>
+									<%
+										if (customerBean.getTypeUser().equals(
+																		"Admin")) {
+									%>
 									<hr>
-									<a class="redbtn" href=<%="modifySesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none; background-color: orange" type="submit">Modificar</a>
-									&nbsp;
-                    				<a class="redbtn" href=<%="deleteSesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none" type="submit">Borrar</a>
-                    				<br></br>
-                    				<%}%>
+									<a class="redbtn"
+										href=<%="modifySesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none; background-color: orange" type="submit">Modificar</a>
+									&nbsp; <a class="redbtn"
+										href=<%="deleteSesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none" type="submit">Borrar</a> <br></br>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
-						<%break;}}}}%>
+						<%
+							break;
+												}
+											}
+										}
+									}
+						%>
 					</div>
 				</div>
 				<%
@@ -352,8 +432,9 @@
 					<br></br>
 					<%
 						ArrayList<SesionDTO> sesions = sesionManager.getSesions();
-						ArrayList<SpectacleDTO> spectacles = spectacleManager.getSpectacles();
-						SpectacleDTO spectacle = null;
+								ArrayList<SpectacleDTO> spectacles = spectacleManager
+										.getSpectacles();
+								SpectacleDTO spectacle = null;
 					%>
 					<div class="row">
 						<%
@@ -371,27 +452,42 @@
 									<h2>
 										<a
 											href=<%="listSpectacleReviews?spectacleId="
-									+ spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
+											+ spectacle.getSpectacleId()%>><%=spectacle.getTitle()%></a>
 									</h2>
 									<p />
 									<p><%="Fecha: "
-									+ formatter5.format(sesions.get(i)
-											.getDate())%></p>
+											+ formatter5.format(sesions.get(i)
+													.getDate())%></p>
 									<p><%="Categoría : "
-									+ spectacle.getCategory()%></p>
+											+ spectacle.getCategory()%></p>
 									<p><%="Plazas libres: "
-									+ sesions.get(i).getPlacesLeft()%></p>
-									<%if(customerBean.getTypeUser().equals("Admin")){ %>
+											+ sesions.get(i).getPlacesLeft()%></p>
+									<%
+										if (customerBean.getTypeUser().equals(
+																		"Admin")) {
+									%>
 									<hr>
-									<a class="redbtn" href=<%="modifySesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none; background-color: orange" type="submit">Modificar</a>
-									&nbsp;
-                    				<a class="redbtn" href=<%="deleteSesion?sesionId="+sesions.get(i).getSesionId()%> style="border: none" type="submit">Borrar</a>
-                    				<br></br>
-                    				<%}%>
+									<a class="redbtn"
+										href=<%="modifySesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none; background-color: orange" type="submit">Modificar</a>
+									&nbsp; <a class="redbtn"
+										href=<%="deleteSesion?sesionId="
+												+ sesions.get(i).getSesionId()%>
+										style="border: none" type="submit">Borrar</a> <br></br>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
-						<%break;}}}}%>
+						<%
+							break;
+												}
+											}
+										}
+									}
+						%>
 					</div>
 				</div>
 				<%
