@@ -12,11 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase modifyUserServlet para modificar un usuario del sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "modifyUser", urlPatterns = "/modifyUser")
 public class modifyUserServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Modifica un usuario proveniente de un formulario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,

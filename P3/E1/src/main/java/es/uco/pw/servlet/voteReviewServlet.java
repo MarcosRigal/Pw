@@ -12,11 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase voteReviewServlet para vorar una review del sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "voteReview", urlPatterns = "/voteReview")
 public class voteReviewServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Valora una review de otro usuario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doGet(
     HttpServletRequest request,

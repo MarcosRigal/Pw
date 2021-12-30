@@ -187,12 +187,11 @@
 			</form>
 		</div>
 	</header>
-	<!-- END | Header -->
 	<%
 		}
 	%>
 	<!-- END | Header -->
-
+	<!-- List section-->
 	<div class="hero user-hero">
 		<div class="container">
 			<div class="row">
@@ -272,7 +271,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- end of celebrity list section-->
+	<!-- end of list section-->
 	<!-- footer section-->
 	<footer class="ht-footer">
 		<br></br>

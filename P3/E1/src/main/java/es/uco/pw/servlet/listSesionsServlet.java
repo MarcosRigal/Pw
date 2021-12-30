@@ -10,11 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase listSesionsServlet para listar las sesiones del sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "listSesions", urlPatterns = "/listSesions")
 public class listSesionsServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Filtra las sesiones en base a los parámetros del formulario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,
@@ -78,6 +93,13 @@ public class listSesionsServlet extends HttpServlet {
       dispatcher.include(request, response);
     }
   }
+
+  /**
+   * Redirige al usuario a la vista con todas las sesiones
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doGet(
     HttpServletRequest request,

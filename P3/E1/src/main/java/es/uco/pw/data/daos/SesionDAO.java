@@ -117,7 +117,7 @@ public class SesionDAO {
   }
 
   /**
-   * Registra una sesión en el sistem
+   * Registra una sesión en el sistema
    * @param Sesion sesión que se va a añadir
    * @return none
    */
@@ -179,18 +179,18 @@ public class SesionDAO {
     return -1;
   }
 
+  /**
+   * Modifica una sesión de un espectáculo
+   * @param Sesion sesión que se va a modificar
+   * @return none
+   */
+
   public void modifySesion(SesionDTO sesion) {
     try {
       DataBaseManager dataBaseManager = DataBaseManager.getInstance();
       Connection connection = dataBaseManager.getConnected();
 
-      System.out.println("Dao");
-      System.out.println(sesion.getSesionId());
-      System.out.println(sesion.getSpectacleId());
-      System.out.println(sesion.getPlacesLeft());
-      System.out.println(sesion.getDate());
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-      System.out.println(dataBaseManager.getGetUpdateSesionsQuery());
       String query = MessageFormat.format(
         dataBaseManager.getGetUpdateSesionsQuery(),
         "'",
@@ -204,7 +204,6 @@ public class SesionDAO {
         "'"
       );
 
-      System.out.println(query);
 
       Statement stmt = connection.createStatement();
       stmt.executeUpdate(query);

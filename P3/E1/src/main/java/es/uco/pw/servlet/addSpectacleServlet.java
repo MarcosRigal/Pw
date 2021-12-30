@@ -15,11 +15,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase addSpectacleServlet para añadir un espectáculo al sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "addSpectacle", urlPatterns = "/addSpectacle")
 public class addSpectacleServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Añade un spectáculo proveniente de un formulario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,
@@ -38,11 +53,12 @@ public class addSpectacleServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-	} else if (customerBean.getTypeUser().equals("Spectator")) {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/mvc/view/userHome.jsp");
-		dispatcher.include(request, response);
-	} else {
+    } else if (customerBean.getTypeUser().equals("Spectator")) {
+      RequestDispatcher dispatcher = request.getRequestDispatcher(
+        "/mvc/view/userHome.jsp"
+      );
+      dispatcher.include(request, response);
+    } else {
       SpectacleManager spectacleManager = SpectacleManager.getInstance();
 
       String title = request.getParameter("title");
@@ -69,6 +85,13 @@ public class addSpectacleServlet extends HttpServlet {
     }
   }
 
+  /**
+   * Redirige al usuario a la vista para añadir una espectáculo
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
+
   protected void doGet(
     HttpServletRequest request,
     HttpServletResponse response
@@ -86,11 +109,12 @@ public class addSpectacleServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-	} else if (customerBean.getTypeUser().equals("Spectator")) {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/mvc/view/userHome.jsp");
-		dispatcher.include(request, response);
-	} else {
+    } else if (customerBean.getTypeUser().equals("Spectator")) {
+      RequestDispatcher dispatcher = request.getRequestDispatcher(
+        "/mvc/view/userHome.jsp"
+      );
+      dispatcher.include(request, response);
+    } else {
       RequestDispatcher dispatcher = request.getRequestDispatcher(
         "/mvc/view/addSpectacle.jsp"
       );

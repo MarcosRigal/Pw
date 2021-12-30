@@ -12,11 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase registerReviewServlet para añadir una review al sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "registerReview", urlPatterns = "/registerReview")
 public class registerReviewServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Añade una review proveniente de un formulario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,

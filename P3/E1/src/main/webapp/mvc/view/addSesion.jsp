@@ -192,7 +192,6 @@
 			</form>
 		</div>
 	</header>
-	<!-- END | Header -->
 	<%
 		}
 	%>
@@ -447,7 +446,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- end of celebrity list section-->
+	<!-- end of list section-->
 	<!-- footer section-->
 	<footer class="ht-footer">
 		<br></br>

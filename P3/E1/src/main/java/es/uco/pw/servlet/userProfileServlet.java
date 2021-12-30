@@ -10,11 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase userProfileServlet para gestionar todo lo relacionado con el perfil de un usuario
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "userProfile", urlPatterns = "/userProfile")
 public class userProfileServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Modifica los datos del usuario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,
@@ -48,6 +63,13 @@ public class userProfileServlet extends HttpServlet {
       dispatcher.include(request, response);
     }
   }
+
+  /**
+   * Redirige al usuario a la vista de su perfil
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doGet(
     HttpServletRequest request,

@@ -850,17 +850,41 @@ public class DataBaseManager {
     this.getSesionsQuery = getSesionsQuery;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public InputStream getProperties() {
     return properties;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setProperties(InputStream properties) {
     this.properties = properties;
   }
 
+  /**
+   * Método público para obtener una query
+   * @param none
+   * @return String Query buscada
+   */
+
   public String getGetUpdateSesionsQuery() {
     return getUpdateSesionsQuery;
   }
+
+  /**
+   * Método público para modificar una query
+   * @param String Query a modificar
+   * @return none
+   */
 
   public void setGetUpdateSesionsQuery(String getUpdateSesionsQuery) {
     this.getUpdateSesionsQuery = getUpdateSesionsQuery;

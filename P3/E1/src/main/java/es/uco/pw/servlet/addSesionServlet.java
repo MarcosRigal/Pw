@@ -20,11 +20,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase addSesionServlet para añadir una sesión al sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "addSesion", urlPatterns = "/addSesion")
 public class addSesionServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Añade una sesión proveniente de un formulario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,
@@ -43,11 +58,12 @@ public class addSesionServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-	} else if (customerBean.getTypeUser().equals("Spectator")) {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/mvc/view/userHome.jsp");
-		dispatcher.include(request, response);
-	} else {
+    } else if (customerBean.getTypeUser().equals("Spectator")) {
+      RequestDispatcher dispatcher = request.getRequestDispatcher(
+        "/mvc/view/userHome.jsp"
+      );
+      dispatcher.include(request, response);
+    } else {
       Sesion sesion = new Sesion();
       SpectacleManager spectacleManager = SpectacleManager.getInstance();
       SesionManager sesionManager = SesionManager.getInstance();
@@ -64,9 +80,6 @@ public class addSesionServlet extends HttpServlet {
 
       SpectacleDTO spectacle = spectacleManager.findSpectacle(spectacleId);
 
-      System.out.println(spectacle.getTitle());
-      System.out.println(spectacle.getType());
-
       ArrayList<SesionDTO> spectacleSesions = sesionManager.searchSpectacleSesions(
         spectacleId
       );
@@ -77,7 +90,6 @@ public class addSesionServlet extends HttpServlet {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-      System.out.println(spectacleSesions.size());
       int numberOfSesionsAfter = spectacleSesions.size() + 1;
       if (
         (date.compareTo(new java.util.Date()) > 0) &&
@@ -87,13 +99,9 @@ public class addSesionServlet extends HttpServlet {
           (spectacle.getType().equals("Season"))
         )
       ) {
-        System.out.println(spectacle.getType());
         sesion.setSpectacleId(spectacleId);
         sesion.setPlacesLeft(spectacle.getPlaces());
         sesion.setDate(date);
-        System.out.println(sesion.getSpectacleId());
-        System.out.println(sesion.getPlacesLeft());
-        System.out.println(sesion.getDate());
         if (
           (spectacle.getType().equals("Single")) ||
           (spectacle.getType().equals("Multiple"))
@@ -136,6 +144,13 @@ public class addSesionServlet extends HttpServlet {
     }
   }
 
+  /**
+   * Redirige al usuario a la vista para añadir una sesión
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
+
   protected void doGet(
     HttpServletRequest request,
     HttpServletResponse response
@@ -153,11 +168,12 @@ public class addSesionServlet extends HttpServlet {
         "/mvc/view/userNotFound.html"
       );
       dispatcher.include(request, response);
-	} else if (customerBean.getTypeUser().equals("Spectator")) {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/mvc/view/userHome.jsp");
-		dispatcher.include(request, response);
-	} else {
+    } else if (customerBean.getTypeUser().equals("Spectator")) {
+      RequestDispatcher dispatcher = request.getRequestDispatcher(
+        "/mvc/view/userHome.jsp"
+      );
+      dispatcher.include(request, response);
+    } else {
       RequestDispatcher dispatcher = request.getRequestDispatcher(
         "/mvc/view/addSesion.jsp"
       );

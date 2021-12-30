@@ -10,11 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase searchSpectacleServlet para buscar un espectáculo en el sistema
+ * @author Antonio Moruno Gracia
+ * @author David Pérez Dueñas
+ * @author Marcos Rivera Gavilán
+ * @version 1.0
+ */
+
 @WebServlet(name = "searchSpectacle", urlPatterns = "/searchSpectacle")
 public class searchSpectacleServlet extends HttpServlet {
 
   /** Serial ID */
   private static final long serialVersionUID = -5782796844904182648L;
+
+  /**
+   * Filtra la búsqueda de resultados según el formulario
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doPost(
     HttpServletRequest request,
@@ -48,6 +63,13 @@ public class searchSpectacleServlet extends HttpServlet {
       dispatcher.include(request, response);
     }
   }
+
+  /**
+   * Lleva al usuario al listado con todos los espectáculos
+   * @param HttpServletRequest request
+   * @param HttpServletResponse response
+   * @return none
+   */
 
   protected void doGet(
     HttpServletRequest request,

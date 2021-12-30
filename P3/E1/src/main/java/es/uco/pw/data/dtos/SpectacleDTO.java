@@ -177,6 +177,12 @@ public class SpectacleDTO {
     return spectacleInfo;
   }
 
+  /**
+   * Cambia el tipo del espectáculo
+   * @param category Tipo del espectáculo
+   * @return none
+   */
+
   public void setType(String type) {
     this.type = type;
   }

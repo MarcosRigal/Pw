@@ -67,7 +67,6 @@
 		<jsp:setProperty property="filter" value="" name="customerBean" />
 	</div>
 	<!--end of preloading-->
-	<!-- BEGIN | Header -->
 	<%
 		if (customerBean.getTypeUser().equals("Spectator")) {
 	%>
@@ -193,7 +192,6 @@
 			</form>
 		</div>
 	</header>
-	<!-- END | Header -->
 	<%
 		}
 	%>
@@ -216,7 +214,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- celebrity list section-->
+	<!-- List section-->
 	<div class="page-single">
 		<div class="container">
 			<div class="row ipad-width2">
@@ -312,7 +310,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- end of celebrity list section-->
+	<!-- end of list section-->
 	<!-- footer section-->
 	<footer class="ht-footer">
 		<br></br>

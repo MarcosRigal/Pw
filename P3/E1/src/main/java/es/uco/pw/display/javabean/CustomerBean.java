@@ -59,25 +59,61 @@ public class CustomerBean implements java.io.Serializable {
     this.typeUser = typeUser;
   }
 
+  /**
+   * Devuelve el nick del usuario
+   * @param none
+   * @return String Nick del usuario
+   */
+
   public String getNickUser() {
     return nickUser;
   }
+
+  /**
+   * Establece el nick del usuario
+   * @param String Nick del usuario
+   * @return none
+   */
 
   public void setNickUser(String nickUser) {
     this.nickUser = nickUser;
   }
 
+  /**
+   * Devuelve el filtro establecido por el usuario
+   * @param none
+   * @return String Filtro del usuario
+   */
+
   public String getFilter() {
     return filter;
   }
+
+  /**
+   * Establece el filtro del usuario
+   * @param String Filtro del usuario
+   * @return none
+   */
 
   public void setFilter(String filter) {
     this.filter = filter;
   }
 
+  /**
+   * Devuelve la búsqueda del usuario
+   * @param none
+   * @return String Busqueda del usuario
+   */
+
   public String getSearch() {
     return search;
   }
+
+  /**
+   * Establece la búsqueda del usuario
+   * @param String Búsqueda del usuario
+   * @return none
+   */
 
   public void setSearch(String search) {
     this.search = search;

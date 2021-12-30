@@ -201,12 +201,13 @@ public class SesionManager {
     return spectacleSesions;
   }
 
+  /**
+   * Modifica una sesion de un espectáculo
+   * @param SesionDTO sesión que se desea modificar
+   * @return Boolean True si se ha podido modificar false si no
+   */
+
   public boolean modifySesion(SesionDTO sesion) {
-    System.out.println("Manager");
-    System.out.println(sesion.getSesionId());
-    System.out.println(sesion.getSpectacleId());
-    System.out.println(sesion.getPlacesLeft());
-    System.out.println(sesion.getDate());
     SesionDAO sesionDAO = new SesionDAO();
     sesionDAO.modifySesion(sesion);
     return true;
